@@ -20,7 +20,7 @@ public class AuthenticationHandler {
      * Returns true if the user is logged in.
      * @return true If the user is logged in.
      */
-    public boolean isLoggedIn() {
+    public boolean isUserLoggedIn() {
         return userService.isUserLoggedIn();
     }
 }
