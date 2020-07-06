@@ -16,4 +16,37 @@ public class Room {
   private String imagePath;
   private RoomType roomType;
   private RoomCondition roomCondition;
+
+  public Room (String id, String title, String link, String description, int deliveryLocation, int phoneNumber, String category, String imagePath, RoomType roomType, RoomCondition roomCondition) {
+    this.id = id;
+    this.title = title;
+    this.link = link;
+    this.description = description;
+    this.deliveryLocation = deliveryLocation;
+    this.phoneNumber = phoneNumber;
+    this.category = category;
+    this.imagePath = imagePath;
+    this.roomType = roomType;
+    this.roomCondition = roomCondition;
+  }
+
+  public String getId() {return id;}
+
+  public String getTitle() {return title;}
+
+  public String getLink() {return link;}
+
+  public String getDescription() {return description;}
+
+  public int getDeliveryLocation() {return deliveryLocation;}
+
+  public int getPhoneNumber() {return phoneNumber;}
+
+  public String getCategory() {return category;}
+
+  public String getImagePath() {return imagePath;}
+
+  public RoomType getRoomType() {return roomType;}
+
+  public RoomCondition getRoomCondition() {return roomCondition;}
 }
