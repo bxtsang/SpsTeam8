@@ -1,8 +1,6 @@
 package data;
 
 import java.io.File;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.gson.Gson;
 
@@ -10,7 +8,6 @@ import com.google.gson.Gson;
  * This class defines room objects
  */
 public class Room {
-  private static DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
   private static Gson gson = new Gson();
 
   private String id;
