@@ -1,11 +1,16 @@
 package data;
 
 import java.io.File;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 
 /**
  * This class defines room objects
  */
 public class Room {
+  private static DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
   private String id;
   private String title;
   private String link;
@@ -28,6 +33,27 @@ public class Room {
     this.imagePath = builder.imagePath;
     this.roomType = builder.roomType;
     this.roomCondition = builder.roomCondition;
+  }
+
+  public void store() {
+    datastore.put(this.toEntity());
+  }
+
+  public Entity toEntity() {
+    Entity roomEntity = new Entity("Room");
+
+    roomEntity.setProperty("id", id);
+    roomEntity.setProperty("title", title);
+    roomEntity.setProperty("link", link);
+    roomEntity.setProperty("description", description);
+    roomEntity.setProperty("deliveryLocation", deliveryLocation);
+    roomEntity.setProperty("phoneNumber", phoneNumber);
+    roomEntity.setProperty("category", category);
+    roomEntity.setProperty("imagePath", imagePath);
+    roomEntity.setProperty("roomType", roomType);
+    roomEntity.setProperty("roomCondition", roomCondition);
+
+    return roomEntity;
   }
 
   public String getId() {return id;}
