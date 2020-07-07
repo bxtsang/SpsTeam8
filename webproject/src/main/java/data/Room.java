@@ -17,17 +17,17 @@ public class Room {
   private RoomType roomType;
   private RoomCondition roomCondition;
 
-  public Room (String id, String title, String link, String description, int deliveryLocation, int phoneNumber, String category, String imagePath, RoomType roomType, RoomCondition roomCondition) {
-    this.id = id;
-    this.title = title;
-    this.link = link;
-    this.description = description;
-    this.deliveryLocation = deliveryLocation;
-    this.phoneNumber = phoneNumber;
-    this.category = category;
-    this.imagePath = imagePath;
-    this.roomType = roomType;
-    this.roomCondition = roomCondition;
+  private Room (Builder builder) {
+    this.id = builder.id;
+    this.title = builder.title;
+    this.link = builder.link;
+    this.description = builder.description;
+    this.deliveryLocation = builder.deliveryLocation;
+    this.phoneNumber = builder.phoneNumber;
+    this.category = builder.category;
+    this.imagePath = builder.imagePath;
+    this.roomType = builder.roomType;
+    this.roomCondition = builder.roomCondition;
   }
 
   public String getId() {return id;}
@@ -49,4 +49,70 @@ public class Room {
   public RoomType getRoomType() {return roomType;}
 
   public RoomCondition getRoomCondition() {return roomCondition;}
+
+  public static class Builder {
+    private String id;
+    private String title;
+    private String link;
+    private String description;
+    private int deliveryLocation; //modify to use different representation of location if needed
+    private int phoneNumber; //modify to use different representation of contact details if needed
+    private String category;
+    private String imagePath;
+    private RoomType roomType;
+    private RoomCondition roomCondition;
+
+    public Builder(String id) {
+      this.id = id;
+    }
+
+    public Builder setTitle(String title) {
+      this.title = title;
+      return this;
+    }
+
+    public Builder setLink(String link) {
+      this.link = link;
+      return this;
+    }
+
+    public Builder setDescription(String description) {
+      this.description = description;
+      return this;
+    }
+
+    public Builder setDeliveryLocation(int deliveryLocation) {
+      this.deliveryLocation = deliveryLocation;
+      return this;
+    }
+
+    public Builder setPhoneNumber(int phoneNumber) {
+      this.phoneNumber = phoneNumber;
+      return this;
+    }
+
+    public Builder setCategory(String category) {
+      this.category = category;
+      return this;
+    }
+
+    public Builder setImagePath(String imagePath) {
+      this.imagePath = imagePath;
+      return this;
+    }
+
+    public Builder setRoomType(RoomType roomType) {
+      this.roomType = roomType;
+      return this;
+    }
+
+    public Builder setRoomCondition(RoomCondition roomCondition) {
+      this.roomCondition = roomCondition;
+      return this;
+    }
+
+    public Room build() {
+      return new Room(this);
+    }
+  }
 }
