@@ -37,10 +37,6 @@ public class Room {
     this.roomCondition = builder.roomCondition;
   }
 
-  public void store() {
-    datastore.put(this.toEntity());
-  }
-
   public Entity toEntity() {
     Entity roomEntity = new Entity("Room");
 
