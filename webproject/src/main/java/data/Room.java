@@ -4,12 +4,14 @@ import java.io.File;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.gson.Gson;
 
 /**
  * This class defines room objects
  */
 public class Room {
   private static DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+  private static Gson gson = new Gson();
 
   private String id;
   private String title;
@@ -50,8 +52,8 @@ public class Room {
     roomEntity.setProperty("phoneNumber", phoneNumber);
     roomEntity.setProperty("category", category);
     roomEntity.setProperty("imagePath", imagePath);
-    roomEntity.setProperty("roomType", roomType);
-    roomEntity.setProperty("roomCondition", roomCondition);
+    roomEntity.setProperty("roomType", roomType.toString());
+    roomEntity.setProperty("roomCondition", gson.toJson(roomCondition));
 
     return roomEntity;
   }
