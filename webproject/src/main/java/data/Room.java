@@ -77,7 +77,7 @@ public class Room {
   public RoomCondition getRoomCondition() {return roomCondition;}
 
   public static class Builder {
-    private String id;
+    private final String id;
     private String title;
     private String link;
     private String description;
