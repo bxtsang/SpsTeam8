@@ -11,4 +11,12 @@ public class RoomCondition {
     this.minPrice = minPrice;
     this.minUsers = minUsers;
   }
+
+  public double getMinPrice() {
+    return minPrice;
+  }
+
+  public int getMinUsers() {
+    return minUsers;
+  }
 }
