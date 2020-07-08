@@ -1,8 +1,6 @@
-package data;
+package com.google.sps.data;
 
-import java.io.File;
 import com.google.appengine.api.datastore.Entity;
-import com.google.gson.Gson;
 
 /**
  * This class defines room objects
@@ -14,7 +12,7 @@ public class Room {
   private String description;
   private int deliveryLocation; //modify to use different representation of location if needed
   private int phoneNumber; //modify to use different representation of contact details if needed
-  private String category;
+  private Category category;
   private double minPrice;
 
   private Room (Builder builder) {
@@ -55,7 +53,7 @@ public class Room {
 
   public int getPhoneNumber() {return phoneNumber;}
 
-  public String getCategory() {return category;}
+  public Category getCategory() {return category;}
 
   public double getMinPrice() {return minPrice;}
 
@@ -66,7 +64,7 @@ public class Room {
     private String description;
     private int deliveryLocation; //modify to use different representation of location if needed
     private int phoneNumber; //modify to use different representation of contact details if needed
-    private String category;
+    private Category category;
     private double minPrice;
 
     public Builder(String id) {
@@ -98,7 +96,7 @@ public class Room {
       return this;
     }
 
-    public Builder setCategory(String category) {
+    public Builder setCategory(Category category) {
       this.category = category;
       return this;
     }
