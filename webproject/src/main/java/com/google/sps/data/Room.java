@@ -8,8 +8,6 @@ import com.google.gson.Gson;
  * This class defines room objects
  */
 public class Room {
-  private static Gson gson = new Gson();
-
   private String id;
   private String title;
   private String link;
@@ -17,9 +15,7 @@ public class Room {
   private int deliveryLocation; //modify to use different representation of location if needed
   private int phoneNumber; //modify to use different representation of contact details if needed
   private String category;
-  private String imagePath;
-  private RoomType roomType;
-  private RoomCondition roomCondition;
+  private double minPrice;
 
   private Room (Builder builder) {
     this.id = builder.id;
@@ -29,9 +25,7 @@ public class Room {
     this.deliveryLocation = builder.deliveryLocation;
     this.phoneNumber = builder.phoneNumber;
     this.category = builder.category;
-    this.imagePath = builder.imagePath;
-    this.roomType = builder.roomType;
-    this.roomCondition = builder.roomCondition;
+    this.minPrice = builder.minPrice;
   }
 
   public Entity toEntity() {
@@ -44,9 +38,7 @@ public class Room {
     roomEntity.setProperty("deliveryLocation", deliveryLocation);
     roomEntity.setProperty("phoneNumber", phoneNumber);
     roomEntity.setProperty("category", category);
-    roomEntity.setProperty("imagePath", imagePath);
-    roomEntity.setProperty("roomType", roomType.toString());
-    roomEntity.setProperty("roomCondition", gson.toJson(roomCondition));
+    roomEntity.setProperty("minPrice", minPrice);
 
     return roomEntity;
   }
@@ -65,11 +57,7 @@ public class Room {
 
   public String getCategory() {return category;}
 
-  public String getImagePath() {return imagePath;}
-
-  public RoomType getRoomType() {return roomType;}
-
-  public RoomCondition getRoomCondition() {return roomCondition;}
+  public double getMinPrice() {return minPrice;}
 
   public static class Builder {
     private final String id;
@@ -79,9 +67,7 @@ public class Room {
     private int deliveryLocation; //modify to use different representation of location if needed
     private int phoneNumber; //modify to use different representation of contact details if needed
     private String category;
-    private String imagePath;
-    private RoomType roomType;
-    private RoomCondition roomCondition;
+    private double minPrice;
 
     public Builder(String id) {
       this.id = id;
@@ -117,18 +103,8 @@ public class Room {
       return this;
     }
 
-    public Builder setImagePath(String imagePath) {
-      this.imagePath = imagePath;
-      return this;
-    }
-
-    public Builder setRoomType(RoomType roomType) {
-      this.roomType = roomType;
-      return this;
-    }
-
-    public Builder setRoomCondition(RoomCondition roomCondition) {
-      this.roomCondition = roomCondition;
+    public Builder setMinPrice(double minPrice) {
+      this.minPrice = minPrice;
       return this;
     }
 
