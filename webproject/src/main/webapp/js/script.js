@@ -29,8 +29,6 @@ function sendMessage() {
     }, function(error) {
         if (error) {
             console.log("Write failed");
-        } else {
-            console.log("Write succeeded");
         }
     });
  
