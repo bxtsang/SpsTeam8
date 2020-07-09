@@ -12,7 +12,7 @@ $(document).ready(function () {
     name = "user " + Math.floor(Math.random() * Math.floor(5));
 
     database.ref('/messages/').on('child_added', function(snapshot) {    
-        var html = "<li id='message-" + snapshot.key + "'>";
+        var html = "<li class='message' id='message-" + snapshot.key + "'>";
         html += snapshot.val().sender + ": " + snapshot.val().message;
         html += "</li>";
  
