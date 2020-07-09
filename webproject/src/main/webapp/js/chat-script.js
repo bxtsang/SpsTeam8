@@ -11,7 +11,9 @@ $(document).ready(function () {
     //Different window = different user for now
     //Will be replaced with Google ID.
     name = "user " + Math.floor(Math.random() * Math.floor(5));
-    chatID = "chat " + Math.floor(Math.random() * Math.floor(50));
+    var param = window.location.search.substring(1);
+    var array = param.split('=');
+    chatID = array[1];
 
     database.ref('messages/' + chatID + '/').on('child_added', function(snapshot) {    
         var snap = snapshot.val();
@@ -28,7 +30,7 @@ function sendMessage() {
     var message = document.getElementById("message").value;
     var date = new Date();
     var time = date.getHours() + ":" + date.getMinutes();
- 
+
     database.ref('messages/' + chatID + '/').push().set({
         user: name,
         message: message,
