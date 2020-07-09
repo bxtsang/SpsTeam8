@@ -12,8 +12,10 @@ $(document).ready(function () {
     name = "user " + Math.floor(Math.random() * Math.floor(5));
 
     database.ref('/messages/').on('child_added', function(snapshot) {    
+        var snap = snapshot.val();
         var html = "<li class='message' id='message-" + snapshot.key + "'>";
-        html += snapshot.val().sender + ": " + snapshot.val().message;
+        html += snap.time + " ";
+        html += snap.sender + ": " + snap.message;
         html += "</li>";
  
         document.getElementById("messages").innerHTML += html;
@@ -22,10 +24,13 @@ $(document).ready(function () {
 
 function sendMessage() {
     var message = document.getElementById("message").value;
+    var date = new Date();
+    var time = date.getHours() + ":" + date.getMinutes();
  
     database.ref('messages/').push().set({
         sender: name,
-        message: message
+        message: message,
+        time: time
     }, function(error) {
         if (error) {
             console.log("Write failed");
