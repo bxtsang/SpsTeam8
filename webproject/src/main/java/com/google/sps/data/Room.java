@@ -6,7 +6,6 @@ import com.google.appengine.api.datastore.Entity;
  * This class defines room objects
  */
 public class Room {
-    private String id;
     private String title;
     private String link;
     private String description;
@@ -16,7 +15,6 @@ public class Room {
     private double minPrice;
 
     private Room (Builder builder) {
-        this.id = builder.id;
         this.title = builder.title;
         this.link = builder.link;
         this.description = builder.description;
@@ -29,7 +27,6 @@ public class Room {
     public Entity toEntity() {
         Entity roomEntity = new Entity("Room");
 
-        roomEntity.setProperty("id", id);
         roomEntity.setProperty("title", title);
         roomEntity.setProperty("link", link);
         roomEntity.setProperty("description", description);
@@ -40,8 +37,6 @@ public class Room {
 
         return roomEntity;
     }
-
-    public String getId() {return id;}
 
     public String getTitle() {return title;}
 
@@ -58,7 +53,6 @@ public class Room {
     public double getMinPrice() {return minPrice;}
 
     public static class Builder {
-        private final String id;
         private String title;
         private String link;
         private String description;
@@ -66,10 +60,6 @@ public class Room {
         private int phoneNumber; //modify to use different representation of contact details if needed
         private Category category;
         private double minPrice;
-
-        public Builder(String id) {
-            this.id = id;
-        }
 
         public Builder setTitle(String title) {
             this.title = title;
@@ -104,6 +94,10 @@ public class Room {
         public Builder setMinPrice(double minPrice) {
             this.minPrice = minPrice;
             return this;
+        }
+
+        public Builder newBuilder() {
+            return new Builder();
         }
 
         public Room build() {
