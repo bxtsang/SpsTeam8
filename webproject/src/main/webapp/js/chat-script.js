@@ -15,7 +15,7 @@ $(document).ready(function () {
         var snap = snapshot.val();
         var html = "<li class='message' id='message-" + snapshot.key + "'>";
         html += snap.time + " ";
-        html += snap.sender + ": " + snap.message;
+        html += snap.user + ": " + snap.message;
         html += "</li>";
  
         document.getElementById("messages").innerHTML += html;
@@ -28,7 +28,7 @@ function sendMessage() {
     var time = date.getHours() + ":" + date.getMinutes();
  
     database.ref('messages/').push().set({
-        sender: name,
+        user: name,
         message: message,
         time: time
     }, function(error) {
