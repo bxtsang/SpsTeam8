@@ -1,17 +1,31 @@
-var database = firebase.database();
+var database;
+var name;
 
 $(document).ready(function () {
-    writeUserData('1', 'Ava Lovelace', 'ava@lovelace.com');
-    writeUserData('2', 'Brett Yang', 'brett@yang.com');
-    readUserData('1');
+    //TO-DO: Use Google to get user info
+    //var profile = auth2.currentUser.get().getBasicProfile();
+    //var name = profile.getGivenName();
+    database = firebase.database(); 
+    //Using random numbers to create different names for different users.
+    //Different window = different user for now
+    //Will be replaced with Google ID.
+    name = "user " + Math.floor(Math.random() * Math.floor(5));
+
+    database.ref('/messages/').on('child_added', function(snapshot) {    
+        var html = "<li id='message-" + snapshot.key + "'>";
+        html += snapshot.val().sender + ": " + snapshot.val().message;
+        html += "</li>";
+ 
+        document.getElementById("messages").innerHTML += html;
+    });
 });
 
-function writeUserData(userId, name, email) {
-    //TO-DO: Retrieve userID using 
-    //googleUser.getAuthResponse().id_token;
-    firebase.database().ref('users/' + userId).set({
-        username: name,
-        email: email
+function sendMessage() {
+    var message = document.getElementById("message").value;
+ 
+    database.ref('messages/').push().set({
+        sender: name,
+        message: message
     }, function(error) {
         if (error) {
             console.log("Write failed");
@@ -19,10 +33,6 @@ function writeUserData(userId, name, email) {
             console.log("Write succeeded");
         }
     });
-}
-
-function readUserData(userId) {
-    firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
-        console.log(snapshot.val().username);
-    });
+ 
+    return false;
 }
