@@ -1,15 +1,17 @@
 package com.google.sps.servlets;
 
 import com.google.sps.authentication.AuthenticationHandler;
+import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
-import java.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletException;
 
 /**
  * A servlet which manages entry into the home page of the website.
  */
-@WebServlet("/")
+@WebServlet("/home")
 public class HomeServlet extends HttpServlet {
     private final AuthenticationHandler authenticationHandler;
 
@@ -27,9 +29,10 @@ public class HomeServlet extends HttpServlet {
      * @throws IOException If an input or output error is detected when the servlet handles the GET request.
      */
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
         if (authenticationHandler.isUserLoggedIn()) {
-            // Stay on index.html
+            // Stay on home page
         } else {
             // Redirect to landing page to login
         }
