@@ -1,6 +1,6 @@
-package servlets;
+package com.google.sps.servlets;
 
-import authentication.AuthenticationHandler;
+import com.google.sps.authentication.AuthenticationHandler;
 import javax.servlet.annotation.WebServlet;
 import java.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

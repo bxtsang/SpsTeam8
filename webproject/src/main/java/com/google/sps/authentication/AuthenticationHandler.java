@@ -1,4 +1,4 @@
-package authentication;
+package com.google.sps.authentication;
 
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
