@@ -36,7 +36,12 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
 
-  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+  <body
+    data-spy="scroll"
+    data-target=".site-navbar-target"
+    data-offset="300"
+    onload="getListings();"
+  >
     <div class="site-wrap" id="home-section">
       <div class="site-mobile-menu site-navbar-target">
         <div class="site-mobile-menu-header">
@@ -128,69 +133,7 @@
             </div>
           </div>
           <div class="row justify-content-center">
-            <div class="col-12" id="listings-card-container">
-              <div class="shadow-sm p-3 mb-5 bg-white rounded listing-card">
-                <div class="row form-group">
-                  <div class="col-md-6 mb-3 mb-md-0">
-                    <span class="card-heading shop-name">McDonald's</span>
-                    <br />
-                    <span class="card-field">Postal Code: </span>
-                    <span class="card-value postal-code-value">
-                      123456
-                    </span>
-                    <br />
-                    <span class="card-description"
-                      >Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industry's
-                      standard dummy text ever since the 1500s, when an unknown
-                      printer took a galley of type and scrambled it to make a
-                      type specimen book.</span
-                    >
-                  </div>
-                  <div class="col-md-6 text-right">
-                    <span class="card-field">Category: </span>
-                    <span class="card-value category-value">Food</span>
-                    <br />
-                    <span class="card-field">Delivery fee: </span>
-                    <span class="card-value">$20</span>
-                    <br />
-                    <span class="card-field">$ left to minimum order: </span>
-                    <span class="card-value">$100</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="shadow-sm p-3 mb-5 bg-white rounded listing-card">
-                <div class="row form-group">
-                  <div class="col-md-6 mb-3 mb-md-0">
-                    <span class="card-heading shop-name">Lalalalala</span>
-                    <br />
-                    <span class="card-field">Postal Code: </span>
-                    <span class="card-value postal-code-value">
-                      123456
-                    </span>
-                    <br />
-                    <span class="card-description"
-                      >Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industry's
-                      standard dummy text ever since the 1500s, when an unknown
-                      printer took a galley of type and scrambled it to make a
-                      type specimen book.</span
-                    >
-                  </div>
-                  <div class="col-md-6 text-right">
-                    <span class="card-field">Category: </span>
-                    <span class="card-value category-value">Food</span>
-                    <br />
-                    <span class="card-field">Delivery fee: </span>
-                    <span class="card-value">$20</span>
-                    <br />
-                    <span class="card-field">$ left to minimum order: </span>
-                    <span class="card-value">$100</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div class="col-12" id="listings-card-container"></div>
           </div>
         </div>
       </div>

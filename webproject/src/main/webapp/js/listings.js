@@ -1,3 +1,59 @@
+function getListings() {
+  let listingsStub = [
+    {
+      shopName: "McDonald's",
+      postalCode: "123456",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+      category: "Food",
+      deliveryFee: "20",
+      moneyLeftToMinimumOrder: "100",
+    },
+    {
+      shopName: "Lalalala",
+      postalCode: "455444",
+      description:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+      category: "Clothes",
+      deliveryFee: "20",
+      moneyLeftToMinimumOrder: "100",
+    },
+  ];
+
+  let cardsContainer = document.getElementById("listings-card-container");
+  let childHtmlString = "";
+
+  for (let listing of listingsStub) {
+    childHtmlString += `<div class="shadow-sm p-3 mb-5 bg-white rounded listing-card">
+      <div class="row form-group">
+        <div class="col-md-6 mb-3 mb-md-0">
+          <span class="card-heading shop-name">${listing.shopName}</span>
+          <br />
+          <span class="card-field">Postal Code: </span>
+          <span class="card-value postal-code-value">
+            ${listing.postalCode}
+          </span>
+          <br />
+          <span class="card-description"
+            >${listing.description}</span
+          >
+        </div>
+        <div class="col-md-6 text-right">
+          <span class="card-field">Category: </span>
+          <span class="card-value category-value">${listing.category}</span>
+          <br />
+          <span class="card-field">Delivery fee: </span>
+          <span class="card-value">$${listing.deliveryFee}</span>
+          <br />
+          <span class="card-field">$ left to minimum order: </span>
+          <span class="card-value">$${listing.moneyLeftToMinimumOrder}</span>
+        </div>
+      </div>
+    </div>`;
+  }
+  cardsContainer.innerHTML = childHtmlString;
+}
+
 function getSearchResults() {
   // Declare variables
 
