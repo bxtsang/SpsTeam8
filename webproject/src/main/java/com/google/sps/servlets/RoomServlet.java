@@ -12,6 +12,7 @@ import java.io.OutputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
+@WebServlet("/room")
 public class RoomServlet extends HttpServlet {
     private static Gson gson = new Gson();
 
