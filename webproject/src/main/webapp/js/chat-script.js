@@ -1,6 +1,6 @@
 var database;
 var name;
-var chatID;
+var roomID;
 
 $(document).ready(function () {
     //TO-DO: Use Google to get user info
@@ -13,9 +13,9 @@ $(document).ready(function () {
     name = "user " + Math.floor(Math.random() * Math.floor(5));
     var param = window.location.search.substring(1);
     var array = param.split('=');
-    chatID = array[1];
+    roomID = array[1];
 
-    database.ref('messages/' + chatID + '/').on('child_added', function(snapshot) {    
+    database.ref('messages/' + roomID + '/').on('child_added', function(snapshot) {    
         var snap = snapshot.val();
         var html = "<li class='message' id='message-" + snapshot.key + "'>";
         html += snap.time + " ";
@@ -31,7 +31,7 @@ function sendMessage() {
     var date = new Date();
     var time = date.getHours() + ":" + date.getMinutes();
 
-    database.ref('messages/' + chatID + '/').push().set({
+    database.ref('messages/' + roomID + '/').push().set({
         user: name,
         message: message,
         time: time
