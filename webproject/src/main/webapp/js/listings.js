@@ -34,9 +34,9 @@ function getListings() {
             ${listing.postalCode}
           </span>
           <br />
-          <span class="card-description"
-            >${listing.description}</span
-          >
+          <span class="card-description">
+            ${listing.description}
+          </span>
         </div>
         <div class="col-md-6 text-right">
           <span class="card-field">Category: </span>
