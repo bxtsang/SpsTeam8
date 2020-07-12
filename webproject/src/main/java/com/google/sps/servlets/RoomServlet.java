@@ -1,6 +1,7 @@
 package com.google.sps.servlets;
 
 import com.google.gson.Gson;
+import com.google.sps.data.Category;
 import com.google.sps.data.Room;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,15 @@ public class RoomServlet extends HttpServlet {
 
     @Override
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Room newRoom = gson.fromJson(request.getReader(), Room.class);
+        Room newRoom = Room.newBuilder()
+                .setTitle(request.getParameter("title"))
+                .setLink(request.getParameter("link"))
+                .setDescription(request.getParameter("description"))
+                .setDeliveryLocation(Integer.parseInt(request.getParameter("deliveryLocation")))
+                .setPhoneNumber(Integer.parseInt(request.getParameter("phoneNumber")))
+                .setCategory(Category.valueOf(request.getParameter("category")))
+                .setMinPrice(Double.parseDouble(request.getParameter("minPrice")))
+                .build();
         // to add some validation for new room
 
         URL url = new URL("https://summer20-sps-47.firebaseio.com/rooms.json");
