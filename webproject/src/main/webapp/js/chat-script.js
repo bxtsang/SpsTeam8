@@ -8,8 +8,12 @@ $(document).ready(function () {
     firebase.database().ref('messages/' + roomID + '/').on('child_added', function(snapshot) {    
         var snap = snapshot.val();
         var html = "<li class='message' id='message-" + snapshot.key + "'>";
-        html += snap.time + " ";
-        html += snap.user + ": " + snap.message;
+        html += snap.time + " " + snap.user + ": ";
+        if (snap.type == "text") {
+            html += snap.message;
+        } else {
+            html += "<a href=\"" + snap.message + "\"><img src=\"" + snap.message + "\" /></a>";
+        }
         html += "</li>";
  
         document.getElementById("messages").innerHTML += html;
@@ -22,6 +26,7 @@ function sendMessage() {
     var time = date.getHours() + ":" + date.getMinutes();
 
     firebase.database().ref('messages/' + roomID + '/').push().set({
+        type: "text",
         user: name,
         message: message,
         time: time
