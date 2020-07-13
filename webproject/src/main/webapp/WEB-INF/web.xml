@@ -13,7 +13,7 @@
   <!-- Landing Servlet -->
   <servlet>
     <servlet-name>Landing Page</servlet-name>
-    <jsp-file>/landing.html</jsp-file>
+    <jsp-file>/WEB-INF/landing.html</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>Landing Page</servlet-name>
