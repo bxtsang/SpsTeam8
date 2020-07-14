@@ -127,7 +127,7 @@ h5,
 
 .form-control {
   height: 43px;
-  border-radius: 30px;
+  border-radius: 15px;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -388,10 +388,11 @@ h5,
   margin-bottom: 0;
 }
 .site-navbar .site-navigation .site-menu .active {
-  color: #00d2b5;
+  color: #15a089;
   display: inline-block;
   padding: 5px 20px;
   font-weight: 500;
+  font-weight: bold;
 }
 .site-navbar .site-navigation .site-menu a {
   text-decoration: none !important;
@@ -2510,4 +2511,70 @@ h5,
 .card-value {
   color: #000;
   margin-left: 1rem;
+}
+
+.active-tab {
+  font-weight: bold !important;
+}
+
+.room-toggle-options {
+  font-weight: 500;
+}
+
+.room-toggle-options a {
+  color: #333333;
+}
+
+.table {
+  color: black;
+}
+
+.my-order-grand-total-header {
+  color: black;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.my-order-grand-total-value {
+  color: #15a089;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.my-order-delivery-fee-header {
+  color: black;
+}
+
+.my-order-delivery-fee-value {
+  color: black;
+}
+
+.btn-add {
+  background: #15a089;
+  color: white;
+  border-radius: 15px;
+}
+
+.room-details-shopName {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.room-details-header {
+  font-weight: bold;
+}
+
+.room-details-value {
+  font-weight: 500;
+}
+
+#room-details-container {
+  background: #15a089;
+  color: white;
+  border-radius: 10px;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
