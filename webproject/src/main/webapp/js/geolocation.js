@@ -7,33 +7,33 @@
 
     /** Adds GMaps script tag to the page. */
     function loadGoogleMapsScript(){
-    const script = document.createElement("script")
-    script.type = "text/javascript";
+        const script = document.createElement("script")
+        script.type = "text/javascript";
 
-    let scriptAttributeAsyc = document.createAttribute("async");       // Create a "class" attribute
-    let scriptAttributeDefer = document.createAttribute("defer");
-    script.setAttributeNode(scriptAttributeAsyc);
-    script.setAttributeNode(scriptAttributeDefer);
+        let scriptAttributeAsyc = document.createAttribute("async");       // Create a "class" attribute
+        let scriptAttributeDefer = document.createAttribute("defer");
+        script.setAttributeNode(scriptAttributeAsyc);
+        script.setAttributeNode(scriptAttributeDefer);
 
-    if (script.readyState){  //IE
-        script.onreadystatechange = function(){
-        if (script.readyState == "loaded" ||
-                script.readyState == "complete"){
-            script.onreadystatechange = null;
+        if (script.readyState){  //IE
+            script.onreadystatechange = function(){
+            if (script.readyState == "loaded" ||
+                    script.readyState == "complete"){
+                script.onreadystatechange = null;
+            }
+            };
+        } else {  //Others
+            script.onload = function(){
+            };
         }
-        };
-    } else {  //Others
-        script.onload = function(){
-        };
-    }
 
-    script.src = config.GMAPS_URL + config.GMAPS_API_KEY + '&callback=initMap';
-    document.getElementsByTagName("head")[0].appendChild(script);
+        script.src = config.GMAPS_URL + config.GMAPS_API_KEY + '&callback=initMap';
+        document.getElementsByTagName("head")[0].appendChild(script);
     }
 
     function initMap() {
         const singapore = { name: 'Singapore', lat: 1.3521, lng: 103.8198 }
-        map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById('map-container'), {
             center: {lat: singapore.lat, lng: singapore.lng},
             zoom: 12
         });
