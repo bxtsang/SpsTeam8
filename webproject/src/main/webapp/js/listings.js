@@ -1,56 +1,42 @@
-function getListings() {
-  let listingsStub = [
-    {
-      title: "McDonald's",
-      postalCode: "123456",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-      category: "Food",
-      deliveryFee: "20",
-      moneyLeftToMinimumOrder: "100",
-    },
-    {
-      title: "Lalalala",
-      postalCode: "455444",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-      category: "Clothes",
-      deliveryFee: "20",
-      moneyLeftToMinimumOrder: "100",
-    },
-  ];
-
+async function getListings() {
   let cardsContainer = document.getElementById("listings-card-container");
   let childHtmlString = "";
 
-  for (let listing of listingsStub) {
+  var response = await fetch("https://summer20-sps-47.firebaseio.com/rooms.json");
+  var data = await response.json();
+  var entries = Object.entries(data);
+
+  entries.forEach(room => {
+    var roomData = room[1];
+
     childHtmlString += `<div class="shadow-sm p-3 mb-5 bg-white rounded listing-card">
       <div class="row form-group">
         <div class="col-md-6 mb-3 mb-md-0">
-          <span class="card-heading title">${listing.title}</span>
+          <span class="card-heading title">${roomData.title}</span>
           <br />
           <span class="card-field">Postal Code: </span>
           <span class="card-value postal-code-value">
-            ${listing.postalCode}
+            ${roomData.deliveryLocation}
           </span>
           <br />
           <span class="card-description">
-            ${listing.description}
+            ${roomData.description}
           </span>
         </div>
         <div class="col-md-6 text-right">
           <span class="card-field">Category: </span>
-          <span class="card-value category-value">${listing.category}</span>
+          <span class="card-value category-value">${roomData.category}</span>
           <br />
           <span class="card-field">Delivery fee: </span>
-          <span class="card-value">$${listing.deliveryFee}</span>
+          <span class="card-value">$${roomData.deliveryFee}</span>
           <br />
           <span class="card-field">$ left to minimum order: </span>
-          <span class="card-value">$${listing.moneyLeftToMinimumOrder}</span>
+          <span class="card-value">$${roomData.moneyLeftToMinimumOrder}</span>
         </div>
       </div>
     </div>`;
-  }
+  });
+
   cardsContainer.innerHTML = childHtmlString;
 }
 
