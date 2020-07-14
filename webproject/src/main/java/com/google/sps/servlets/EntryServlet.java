@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * A servlet which manages entry into website.
+ * A servlet which manages entry into the website.
  */
 public class EntryServlet extends HttpServlet {
     private final AuthenticationHandler authenticationHandler;
@@ -31,13 +31,7 @@ public class EntryServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         if (authenticationHandler.isUserLoggedIn()) {
-            // Redirect to listings page after it is finalised
-            // response.sendRedirect("/listings");
-
-            // Temporary code to enable logging out before listings page is finalised
-            response.setContentType("text/html");
-            String logoutUrl = authenticationHandler.getLogoutUrl("/");
-            response.getWriter().println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
+            response.sendRedirect("/listings");
         } else {
             response.sendRedirect("/landing");
         }

@@ -20,6 +20,16 @@
     <url-pattern>/landing</url-pattern>
   </servlet-mapping>
 
+  <!-- Listings Servlet -->
+  <servlet>
+    <servlet-name>Listings</servlet-name>
+    <jsp-file>/listings.html</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Listings</servlet-name>
+    <url-pattern>/listings</url-pattern>
+  </servlet-mapping>
+
   <!-- Login Servlet -->
   <servlet>
     <servlet-name>Login</servlet-name>
