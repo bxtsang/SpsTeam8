@@ -23,7 +23,7 @@
   <!-- Listings Servlet -->
   <servlet>
     <servlet-name>Listings</servlet-name>
-    <servlet-class>/listings.html</servlet-class>
+    <jsp-file>/listings.html</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>Listings</servlet-name>
