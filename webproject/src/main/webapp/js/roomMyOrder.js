@@ -86,6 +86,7 @@ function getMyOrder() {
           <th scope="col">Quantity</th>
           <th scope="col">$ / Quantity</th>
           <th scope="col">Total</th>
+          <th scope="col"></th>
         </tr>
       </thead>
     <tbody>`;
@@ -95,11 +96,18 @@ function getMyOrder() {
     productTotal = myOrderItems[i].quantity * myOrderItems[i].perUnitPrice;
     myOrderString += `
       <tr>
-        <th scope="row">${i + 1}</th>
-        <td>${myOrderItems[i].productName}</td>
-        <td>${myOrderItems[i].quantity}</td>
-        <td>${myOrderItems[i].perUnitPrice}</td>
-        <td>${productTotal}</td>
+        <form action="/myOrder" method="delete">
+          <th scope="row">${i + 1}</th>
+          <td>${myOrderItems[i].productName}</td>
+          <td>${myOrderItems[i].quantity}</td>
+          <td>${myOrderItems[i].perUnitPrice}</td>
+          <td>${productTotal}</td>
+          <td>
+            <button type="submit" class="btn my-order-delete-btn">
+              <i class="fa fa-times" aria-hidden="true"></i>
+            </button>
+          </td>
+        </form>
       </tr>`;
     total += productTotal;
   }
@@ -140,6 +148,7 @@ function getNewProductForm() {
       </td>
       <td><input type="submit" class="btn btn-add" value="Add" />
       </td>
+      <td></td>
     </tr>
   </form>`;
 }

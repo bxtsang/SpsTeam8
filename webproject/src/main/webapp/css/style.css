@@ -2578,3 +2578,8 @@ h5,
   align-items: center;
   justify-content: center;
 }
+
+.my-order-delete-btn {
+  background: white;
+  color: #f23a2e;
+}
