@@ -94,6 +94,8 @@ function getMyOrder() {
   let total = 0;
   for (let i = 0; i < myOrderItems.length; i++) {
     productTotal = myOrderItems[i].quantity * myOrderItems[i].perUnitPrice;
+    total += productTotal;
+    console.log(total);
     myOrderString += `
       <tr>
         <form action="/myOrder" method="delete">
@@ -109,14 +111,15 @@ function getMyOrder() {
           </td>
         </form>
       </tr>`;
-    total += productTotal;
   }
 
   myDeliveryFee = (
     myRoomDetails.deliveryFee / myRoomDetails.noOfPeopleInRoom
   ).toFixed(2);
   myOrderString += getNewProductForm();
-  total += myDeliveryFee;
+  console.log("delivery fee: ", myDeliveryFee);
+  total += parseFloat(myDeliveryFee);
+  console.log(total);
 
   myOrderString += `</tbody></table>`;
   myOrderString += `
