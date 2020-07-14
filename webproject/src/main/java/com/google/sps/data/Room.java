@@ -1,6 +1,8 @@
 package com.google.sps.data;
 
 import com.google.appengine.api.datastore.Entity;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class defines room objects
@@ -13,6 +15,7 @@ public class Room {
     private int phoneNumber; //modify to use different representation of contact details if needed
     private Category category;
     private double minPrice;
+    private List<String> users;
 
     private Room (Builder builder) {
         this.title = builder.title;
@@ -22,6 +25,7 @@ public class Room {
         this.phoneNumber = builder.phoneNumber;
         this.category = builder.category;
         this.minPrice = builder.minPrice;
+        this.users = new ArrayList<>();
     }
 
     public Entity toEntity() {
@@ -51,6 +55,12 @@ public class Room {
     public Category getCategory() {return category;}
 
     public double getMinPrice() {return minPrice;}
+
+    public List<String> getUsers() {return users;}
+
+    public void addUser(String userId) {
+        this.users.add(userId);
+    }
 
     public static Builder newBuilder() {
         return new Builder();
