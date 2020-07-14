@@ -28,21 +28,7 @@ public class Room {
         this.minPrice = builder.minPrice;
         this.users = new ArrayList<>();
     }
-
-    public Entity toEntity() {
-        Entity roomEntity = new Entity("Room");
-
-        roomEntity.setProperty("title", title);
-        roomEntity.setProperty("link", link);
-        roomEntity.setProperty("description", description);
-        roomEntity.setProperty("deliveryLocation", deliveryLocation);
-        roomEntity.setProperty("phoneNumber", phoneNumber);
-        roomEntity.setProperty("category", category);
-        roomEntity.setProperty("minPrice", minPrice);
-
-        return roomEntity;
-    }
-
+    
     public String getTitle() {return title;}
 
     public String getLink() {return link;}
