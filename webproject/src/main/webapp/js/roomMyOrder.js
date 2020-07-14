@@ -6,8 +6,10 @@ function getRoomDetails() {
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
     category: "Food",
-    deliveryFee: "20",
-    moneyLeftToMinimumOrder: "100",
+    deliveryFee: 20,
+    minimumOrderPrice: 100,
+    noOfPeopleInRoom: 3,
+    total: 70,
   };
 
   let roomDetailsContainer = document.getElementById("room-details-container");
@@ -33,7 +35,9 @@ function getRoomDetails() {
 
       <span class="room-details-header">$ left to minimum order: </span>
       <br />
-      <span class="room-details-value">$${roomDetails.moneyLeftToMinimumOrder}</span>
+      <span class="room-details-value">$${
+        roomDetails.minimumOrderPrice - roomDetails.total
+      }</span>
 
     </div>
   `;
@@ -47,41 +51,6 @@ function getMyOrder() {
       productName: "Chicken burger",
       quantity: 2,
       perUnitPrice: 10,
-    },
-    {
-      productName: "Fish burger",
-      quantity: 1,
-      perUnitPrice: 15,
-    },
-    {
-      productName: "Fish burger",
-      quantity: 1,
-      perUnitPrice: 15,
-    },
-    {
-      productName: "Fish burger",
-      quantity: 1,
-      perUnitPrice: 15,
-    },
-    {
-      productName: "Fish burger",
-      quantity: 1,
-      perUnitPrice: 15,
-    },
-    {
-      productName: "Fish burger",
-      quantity: 1,
-      perUnitPrice: 15,
-    },
-    {
-      productName: "Fish burger",
-      quantity: 1,
-      perUnitPrice: 15,
-    },
-    {
-      productName: "Fish burger",
-      quantity: 1,
-      perUnitPrice: 15,
     },
     {
       productName: "Fish burger",
@@ -135,16 +104,18 @@ function getMyOrder() {
     total += productTotal;
   }
 
+  myDeliveryFee = (
+    myRoomDetails.deliveryFee / myRoomDetails.noOfPeopleInRoom
+  ).toFixed(2);
   myOrderString += getNewProductForm();
+  total += myDeliveryFee;
 
   myOrderString += `</tbody></table>`;
   myOrderString += `
   <div class="col-12 text-center">
     <hr />  
     <span class = "my-order-delivery-fee-header">Delivery fee: </span>
-    <span class = "my-order-delivery-fee-value">$${(
-      myRoomDetails.deliveryFee / myRoomDetails.noOfPeopleInRoom
-    ).toFixed(2)}</span>
+    <span class = "my-order-delivery-fee-value">$${myDeliveryFee}</span>
     <br />
     <hr />
     <span class = "my-order-grand-total-header">Grand Total: </span>
