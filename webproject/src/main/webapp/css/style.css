@@ -391,6 +391,7 @@ h5,
   color: #00d2b5;
   display: inline-block;
   padding: 5px 20px;
+  font-weight: 500;
 }
 .site-navbar .site-navigation .site-menu a {
   text-decoration: none !important;
@@ -2490,4 +2491,23 @@ h5,
 }
 .social-icons .social-icon:hover {
   background-color: #15a089;
+}
+
+.searchfield {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.shop-name {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.card-field {
+  font-weight: 600;
+}
+
+.card-value {
+  color: #000;
+  margin-left: 1rem;
 }
