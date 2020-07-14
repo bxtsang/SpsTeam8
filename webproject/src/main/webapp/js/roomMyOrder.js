@@ -1,20 +1,19 @@
 function getRoomDetails() {
-  let roomDetails = {
-    shopName: "McDonald's",
-    postalCode: "123456",
-    deliveryAddress: "1 Sorby Adams Drive",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-    category: "Food",
-    deliveryFee: 20,
-    minimumOrderPrice: 100,
-    noOfPeopleInRoom: 3,
-    total: 70,
-  };
+    let roomDetails = {
+        shopName: "McDonald's",
+        postalCode: "123456",
+        deliveryAddress: "1 Sorby Adams Drive",
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+        category: "Food",
+        deliveryFee: 20,
+        minimumOrderPrice: 100,
+        noOfPeopleInRoom: 3,
+        total: 70,
+    };
 
-  let roomDetailsContainer = document.getElementById("room-details-container");
+    let roomDetailsContainer = document.getElementById("room-details-container");
 
-  let roomDetailsString = `
+    let roomDetailsString = `
     <div>
       <span class="room-details-shopName">${roomDetails.shopName}</span>
       <br />
@@ -42,42 +41,40 @@ function getRoomDetails() {
     </div>
   `;
 
-  roomDetailsContainer.innerHTML = roomDetailsString;
+    roomDetailsContainer.innerHTML = roomDetailsString;
 }
 
 function getMyOrder() {
-  let myOrderItems = [
-    {
-      productName: "Chicken burger",
-      quantity: 2,
-      perUnitPrice: 10,
-    },
-    {
-      productName: "Fish burger",
-      quantity: 1,
-      perUnitPrice: 15,
-    },
-  ];
+    let myOrderItems = [{
+            productName: "Chicken burger",
+            quantity: 2,
+            perUnitPrice: 10,
+        },
+        {
+            productName: "Fish burger",
+            quantity: 1,
+            perUnitPrice: 15,
+        },
+    ];
 
-  let myRoomDetails = {
-    shopName: "McDonald's",
-    postalCode: "123456",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-    category: "Food",
-    deliveryFee: "20",
-    minimumOrder: "100",
-    noOfPeopleInRoom: 3,
-  };
+    let myRoomDetails = {
+        shopName: "McDonald's",
+        postalCode: "123456",
+        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+        category: "Food",
+        deliveryFee: "20",
+        minimumOrder: "100",
+        noOfPeopleInRoom: 3,
+    };
 
-  let myOrderContainer = document.getElementById("my-order-container");
+    let myOrderContainer = document.getElementById("my-order-container");
 
-  if (myOrderItems.length <= 0) {
-    myOrderContainer.innerHTML = "Add an item now!";
-    return;
-  }
+    if (myOrderItems.length <= 0) {
+        myOrderContainer.innerHTML = "Add an item now!";
+        return;
+    }
 
-  let myOrderString = `
+    let myOrderString = `
     <table class="table">
       <thead class="thead-light">
         <tr>
@@ -91,12 +88,12 @@ function getMyOrder() {
       </thead>
     <tbody>`;
 
-  let total = 0;
-  for (let i = 0; i < myOrderItems.length; i++) {
-    productTotal = myOrderItems[i].quantity * myOrderItems[i].perUnitPrice;
-    total += productTotal;
-    console.log(total);
-    myOrderString += `
+    let total = 0;
+    for (let i = 0; i < myOrderItems.length; i++) {
+        productTotal = myOrderItems[i].quantity * myOrderItems[i].perUnitPrice;
+        total += productTotal;
+        console.log(total);
+        myOrderString += `
       <tr>
         <form action="/myOrder" method="delete">
           <th scope="row">${i + 1}</th>
@@ -111,18 +108,18 @@ function getMyOrder() {
           </td>
         </form>
       </tr>`;
-  }
+    }
 
-  myDeliveryFee = (
-    myRoomDetails.deliveryFee / myRoomDetails.noOfPeopleInRoom
-  ).toFixed(2);
-  myOrderString += getNewProductForm();
-  console.log("delivery fee: ", myDeliveryFee);
-  total += parseFloat(myDeliveryFee);
-  console.log(total);
+    myDeliveryFee = (
+        myRoomDetails.deliveryFee / myRoomDetails.noOfPeopleInRoom
+    ).toFixed(2);
+    myOrderString += getNewProductForm();
+    console.log("delivery fee: ", myDeliveryFee);
+    total += parseFloat(myDeliveryFee);
+    console.log(total);
 
-  myOrderString += `</tbody></table>`;
-  myOrderString += `
+    myOrderString += `</tbody></table>`;
+    myOrderString += `
   <div class="col-12 text-center">
     <hr />  
     <span class = "my-order-delivery-fee-header">Delivery fee: </span>
@@ -132,11 +129,11 @@ function getMyOrder() {
     <span class = "my-order-grand-total-header">Grand Total: </span>
     <span class = "my-order-grand-total-value">$${total}</span>
   </div>`;
-  myOrderContainer.innerHTML = myOrderString;
+    myOrderContainer.innerHTML = myOrderString;
 }
 
 function getNewProductForm() {
-  return `<form action="/myOrder" method="post">
+    return `<form action="/myOrder" method="post">
     <tr>
       <th scope="row">
       </th>
