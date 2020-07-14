@@ -1,7 +1,7 @@
 function getListings() {
   let listingsStub = [
     {
-      shopName: "McDonald's",
+      title: "McDonald's",
       postalCode: "123456",
       description:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
@@ -10,7 +10,7 @@ function getListings() {
       moneyLeftToMinimumOrder: "100",
     },
     {
-      shopName: "Lalalala",
+      title: "Lalalala",
       postalCode: "455444",
       description:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
@@ -27,7 +27,7 @@ function getListings() {
     childHtmlString += `<div class="shadow-sm p-3 mb-5 bg-white rounded listing-card">
       <div class="row form-group">
         <div class="col-md-6 mb-3 mb-md-0">
-          <span class="card-heading shop-name">${listing.shopName}</span>
+          <span class="card-heading title">${listing.title}</span>
           <br />
           <span class="card-field">Postal Code: </span>
           <span class="card-value postal-code-value">
@@ -64,8 +64,8 @@ function getSearchResults() {
 
   // Loop through all table rows, and hide those who don't match the search query
   for (let i = 0; i < cards.length; i++) {
-    shopName = cards[i]
-      .getElementsByClassName("shop-name")[0]
+    title = cards[i]
+      .getElementsByClassName("title")[0]
       .innerHTML.toUpperCase();
     category = cards[i]
       .getElementsByClassName("category-value")[0]
@@ -78,7 +78,7 @@ function getSearchResults() {
       .innerHTML.toUpperCase();
 
     isFilterInCard =
-      shopName.indexOf(filter) > -1 ||
+      title.indexOf(filter) > -1 ||
       category.indexOf(filter) > -1 ||
       cardDescription.indexOf(filter) > -1 ||
       postalCode.indexOf(filter) > -1;
