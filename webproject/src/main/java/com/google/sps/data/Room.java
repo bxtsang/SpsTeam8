@@ -52,6 +52,10 @@ public class Room {
 
     public double getMinPrice() {return minPrice;}
 
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
     public static class Builder {
         private String title;
         private String link;
@@ -94,10 +98,6 @@ public class Room {
         public Builder setMinPrice(double minPrice) {
             this.minPrice = minPrice;
             return this;
-        }
-
-        public Builder newBuilder() {
-            return new Builder();
         }
 
         public Room build() {
