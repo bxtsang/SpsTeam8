@@ -2511,3 +2511,7 @@ h5,
   color: #000;
   margin-left: 1rem;
 }
+
+.logout-button:hover {
+    cursor: pointer;
+}
