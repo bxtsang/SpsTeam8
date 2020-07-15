@@ -50,7 +50,8 @@ public class FormHandlerServlet extends HttpServlet {
 
     //String roomID = request.getRequestURL().toString().split("?")[1];
     String roomID = "room1";
-    FirebaseDatabase.getInstance().getReference("messages").child(roomID).push().setValueAsync(new Message("me", imageUrl));
+    FirebaseDatabase.getInstance().getReference("rooms").child(roomID).child("messages").push().setValueAsync(new Message("me", imageUrl));
+    response.sendRedirect(request.getHeader("referer"));
   }
 
   /** Returns a URL that points to the uploaded file, or null if the user didn't upload a file. */
