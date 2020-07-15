@@ -1,5 +1,6 @@
 package com.google.sps.servlets;
 
+import com.google.sps.data.Message;
 import java.io.FileInputStream;
 import com.google.firebase.*;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -22,13 +23,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/my-form-handler")
 public class FormHandlerServlet extends HttpServlet {
   @Override
   public void init() {
       try {
       // Fetch the service account key JSON file contents
-        FileInputStream serviceAccount = new FileInputStream("key.json");
+        FileInputStream serviceAccount = new FileInputStream("/home/mtang/cloudshell_open/SpsTeam8-0/webproject/src/main/java/com/google/sps/servlets/key.json");
 
         // Initialize the app with a service account, granting admin privileges
         FirebaseOptions options = new FirebaseOptions.Builder()
@@ -48,9 +48,9 @@ public class FormHandlerServlet extends HttpServlet {
     // Get the URL of the image that the user uploaded to Blobstore.
     String imageUrl = getUploadedFileUrl(request, "image");
 
-    String roomID = request.getRequestURL().toString().split("?")[1];
-    System.out.println(roomID);
-    FirebaseDatabase.getInstance().getReference("messages").child(roomID).push().setAsyncValue();
+    //String roomID = request.getRequestURL().toString().split("?")[1];
+    String roomID = "room1";
+    FirebaseDatabase.getInstance().getReference("messages").child(roomID).push().setValueAsync(new Message("me", imageUrl));
   }
 
   /** Returns a URL that points to the uploaded file, or null if the user didn't upload a file. */

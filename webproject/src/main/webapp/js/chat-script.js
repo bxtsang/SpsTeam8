@@ -1,9 +1,12 @@
+var roomID;
+
 $(document).ready(function () {
     database = firebase.database(); 
     name = "user " + Math.floor(Math.random() * Math.floor(5));
     var param = window.location.search.substring(1);
-    var array = param.split('=');
-    roomID = array[1];
+    var array = param.split('?');
+    //roomID = array[1];
+    roomID = "room1";
 
     firebase.database().ref('messages/' + roomID + '/').on('child_added', function(snapshot) {    
         var snap = snapshot.val();
@@ -23,7 +26,7 @@ $(document).ready(function () {
 function sendMessage() {
     var message = document.getElementById("message").value;
     var date = new Date();
-    var time = date.getHours() + ":" + date.getMinutes();
+    var time = hours_with_leading_zeroes(date) + ":" + minutes_with_leading_zeroes(date);
 
     firebase.database().ref('messages/' + roomID + '/').push().set({
         type: "text",
@@ -37,4 +40,24 @@ function sendMessage() {
     });
  
     return false;
+}
+
+function fetchBlobstoreUrl() {
+  fetch('/blobstore')
+      .then((response) => {
+        return response.text();
+      })
+      .then((imageUploadUrl) => {
+        const messageForm = document.querySelector('#image-form');
+        messageForm.action = imageUploadUrl;
+        messageForm.classList.remove('hidden');
+      });
+}
+
+function minutes_with_leading_zeroes(date) { 
+  return (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+}
+
+function hours_with_leading_zeroes(date) { 
+  return (date.getHours() < 10 ? '0' : '') + date.getHours();
 }

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/style.css" />
 
 </head>
-<body>
+<body onload="fetchBlobstoreUrl()">
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
 
@@ -29,8 +29,9 @@
             <input id="message" placeholder="Send a message">
             <input type="submit">
         </form>
-        <form method="POST" enctype="multipart/form-data" action="/blobstore">
+        <form method="POST" class="hidden" enctype="multipart/form-data" id="image-form">
             <input type="file" name="image">
+            <input type="submit">
         </form>
     </div>
     

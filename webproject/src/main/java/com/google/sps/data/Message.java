@@ -11,7 +11,7 @@ public class Message {
     private String type;
 
     public Message(String user, String imageUrl) {
-        String currTime = new SimpleDateFormat("HH-mm").format(new Date());
+        String currTime = new SimpleDateFormat("HH:mm").format(new Date());
         this.user = "me";
         this.time = currTime;
         this.message = imageUrl;

@@ -4,14 +4,17 @@
     width: 80%;
     border-radius: 25px;
     border: 2px solid rgb(170, 170, 170);
-    margin: auto;
     overflow: auto;
 }
 
-.footer {
+#message-box {
   position: fixed;
   left: 0;
   bottom: 10%;
   width: 100%;
   text-align: center;
+}
+
+#chat {
+    width: 80%;
 }

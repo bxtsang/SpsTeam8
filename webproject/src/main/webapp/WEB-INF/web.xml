@@ -23,11 +23,30 @@
   <!-- Listings Servlet -->
   <servlet>
     <servlet-name>Listings</servlet-name>
-    <servlet-class>/listings.html</servlet-class>
+    <jsp-file>/listings.html</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>Listings</servlet-name>
     <url-pattern>/listings</url-pattern>
+  </servlet-mapping>
+
+  <!-- Blobstore Servlets -->
+  <servlet>
+    <servlet-name>Blobstore</servlet-name>
+    <servlet-class>com.google.sps.servlets.BlobstoreServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Blobstore</servlet-name>
+    <url-pattern>/blobstore</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>FormHandler</servlet-name>
+    <servlet-class>com.google.sps.servlets.FormHandlerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FormHandler</servlet-name>
+    <url-pattern>/my-form-handler</url-pattern>
   </servlet-mapping>
 
   <!-- Login Servlet -->
