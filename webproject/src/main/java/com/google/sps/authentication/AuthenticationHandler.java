@@ -23,5 +23,22 @@ public class AuthenticationHandler {
     public boolean isUserLoggedIn() {
         return userService.isUserLoggedIn();
     }
-}
 
+    /**
+     * Returns a login URL based on the specified redirect URL.
+     * @param urlToRedirectToAfterUserLogsIn The URL to redirect to after logging in.
+     * @return A login URL based on the specified redirect URL.
+     */
+    public String getLoginUrl(String urlToRedirectToAfterUserLogsIn) {
+        return userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+    }
+
+        /**
+     * Returns a logout URL based on the specified redirect URL.
+     * @param urlToRedirectToAfterUserLogsOut The URL to redirect to after logging out.
+     * @return A logout URL based on the specified redirect URL.
+     */
+    public String getLogoutUrl(String urlToRedirectToAfterUserLogsOut) {
+        return userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+    }
+}
