@@ -42,3 +42,4 @@ public class AuthenticationHandler {
         return userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
     }
 }
+
