@@ -1,20 +1,36 @@
 package com.google.sps.data;
 
 import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.util.Date;
 
 public class Message {
-    public String type;
-    public String user;
-    public String message;
-    public String time;
+    private String user;
+    private String time;
+    private String message;
+    private String type;
 
-    public Message(String user, String url) {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        String str = sdf.format(new Date());
+    public Message(String user, String imageUrl) {
+        String currTime = new SimpleDateFormat("HH-mm").format(new Date());
+        this.user = "me";
+        this.time = currTime;
+        this.message = imageUrl;
         this.type = "image";
-        this.user = user;
-        this.message = url;
-        this.time = str;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getType() {
+        return type;
     }
 }
