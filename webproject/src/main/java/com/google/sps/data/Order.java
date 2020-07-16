@@ -25,7 +25,7 @@ public class Order {
 
     public double getOrderPrice() {return orderPrice;}
 
-    public Builder newBuilder() {return new Builder();}
+    public static Builder newBuilder() {return new Builder();}
 
     private static class Builder {
         private String user;
