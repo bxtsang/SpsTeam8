@@ -49,10 +49,14 @@ public class Room {
     public double getMinPrice() {return minPrice;}
 
     public double getDeliveryFee() {return deliveryFee;}
+
     public List<String> getUsers() {return users;}
 
     public String getCreator() {return creator;}
-    
+
+    public List<Order> getOrders() {return orders;}
+
+    public double getOrdersValue() {return ordersValue;}
 
     public void addUser(String userId) {
         this.users.add(userId);
