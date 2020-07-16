@@ -10,9 +10,7 @@ function getRoomDetails() {
         noOfPeopleInRoom: 3,
         total: 70,
     };
-
     let roomDetailsContainer = document.getElementById("room-details-container");
-
     let roomDetailsString = `
     <div>
     <span class="room-details-shopName">${roomDetails.shopName}</span>
@@ -35,7 +33,7 @@ function getRoomDetails() {
     <span class="room-details-header">$ left to minimum order: </span>
     <br />
     <span class="room-details-value">$${
-        roomDetails.minimumOrderPrice - roomDetails.total
+      roomDetails.minimumOrderPrice - roomDetails.total
     }</span>
     </div>
     
@@ -45,7 +43,6 @@ function getRoomDetails() {
     </form>
     </div>
     `;
-
     roomDetailsContainer.innerHTML = roomDetailsString;
 }
 
@@ -61,7 +58,6 @@ function getMyOrder() {
             perUnitPrice: 15,
         },
     ];
-
     let myRoomDetails = {
         shopName: "McDonald's",
         postalCode: "123456",
@@ -71,33 +67,28 @@ function getMyOrder() {
         minimumOrder: "100",
         noOfPeopleInRoom: 3,
     };
-
     let myOrderContainer = document.getElementById("my-order-container");
-
     if (myOrderItems.length <= 0) {
         myOrderContainer.innerHTML = "Add an item now!";
         return;
     }
-
     let myOrderString = `
-<table class="table">
-<thead class="thead-light">
-<tr>
-<th scope="col">#</th>
-<th scope="col">Product</th>
-<th scope="col">Quantity</th>
-<th scope="col">$ / Quantity</th>
-<th scope="col">Total</th>
-<th scope="col"></th>
-</tr>
-</thead>
-<tbody>`;
-
+        <table class="table">
+        <thead class="thead-light">
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Product</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">$ / Quantity</th>
+        <th scope="col">Total</th>
+        <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>`;
     let total = 0;
     for (let i = 0; i < myOrderItems.length; i++) {
         productTotal = myOrderItems[i].quantity * myOrderItems[i].perUnitPrice;
         total += productTotal;
-        console.log(total);
         myOrderString += `
     <tr>
     <form action="/myOrder" method="delete">
@@ -114,15 +105,11 @@ function getMyOrder() {
     </form>
     </tr>`;
     }
-
     myDeliveryFee = (
         myRoomDetails.deliveryFee / myRoomDetails.noOfPeopleInRoom
     ).toFixed(2);
     myOrderString += getNewProductForm();
-    console.log("delivery fee: ", myDeliveryFee);
     total += parseFloat(myDeliveryFee);
-    console.log(total);
-
     myOrderString += `</tbody></table>`;
     myOrderString += `
     <div class="col-12 text-center">
