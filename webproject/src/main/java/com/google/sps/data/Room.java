@@ -19,6 +19,7 @@ public class Room {
     private List<String> users;
     private String creator;
     private List<Order> orders;
+    private double ordersValue;
 
     private Room (Builder builder) {
         this.title = builder.title;
@@ -51,6 +52,7 @@ public class Room {
     public List<String> getUsers() {return users;}
 
     public String getCreator() {return creator;}
+    
 
     public void addUser(String userId) {
         this.users.add(userId);
@@ -58,6 +60,7 @@ public class Room {
 
     public void addOrder(Order order) {
         this.orders.add(order);
+        this.ordersValue += order.getOrderPrice();
     }
 
     public static Builder newBuilder() {
