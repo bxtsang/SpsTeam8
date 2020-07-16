@@ -39,4 +39,14 @@
     <servlet-name>Login</servlet-name>
     <url-pattern>/login</url-pattern>
   </servlet-mapping>
+
+  <!-- Room Servlet -->
+  <servlet>
+    <servlet-name>Room</servlet-name>
+    <servlet-class>com.google.sps.servlets.RoomServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Room</servlet-name>
+    <url-pattern>/room</url-pattern>
+  </servlet-mapping>
 </web-app>
