@@ -1,7 +1,7 @@
 package com.google.sps.data;
 
 public class Order {
-    private String user; // change to User class once it is set up
+    private String user;
     private String product;
     private int quantity;
     private double unitPrice;
@@ -15,8 +15,18 @@ public class Order {
         this.orderPrice = quantity * unitPrice;
     }
 
+    public String getUser() {return user;}
+
+    public String getProduct() {return product;}
+
+    public int getQuantity() {return quantity;}
+
+    public double getUnitPrice() {return unitPrice;}
+
+    public double getOrderPrice() {return orderPrice;}
+
     private static class Builder {
-        private String user; // change to User class once set up
+        private String user;
         private String product;
         private int quantity;
         private double unitPrice;
