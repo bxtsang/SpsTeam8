@@ -27,7 +27,7 @@ public class Order {
 
     public static Builder newBuilder() {return new Builder();}
 
-    private static class Builder {
+    public static class Builder {
         private String user;
         private String product;
         private int quantity;
