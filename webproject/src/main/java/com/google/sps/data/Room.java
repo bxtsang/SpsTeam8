@@ -1,6 +1,8 @@
 package com.google.sps.data;
 
 import com.google.appengine.api.datastore.Entity;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class defines room objects
@@ -14,6 +16,8 @@ public class Room {
     private Category category;
     private double minPrice;
     private double deliveryFee;
+    private List<String> users;
+    private String creator;
 
     private Room (Builder builder) {
         this.title = builder.title;
@@ -24,22 +28,9 @@ public class Room {
         this.category = builder.category;
         this.minPrice = builder.minPrice;
         this.deliveryFee = builder.deliveryFee;
+        this.users = new ArrayList<>();
     }
-
-    public Entity toEntity() {
-        Entity roomEntity = new Entity("Room");
-
-        roomEntity.setProperty("title", title);
-        roomEntity.setProperty("link", link);
-        roomEntity.setProperty("description", description);
-        roomEntity.setProperty("deliveryLocation", deliveryLocation);
-        roomEntity.setProperty("phoneNumber", phoneNumber);
-        roomEntity.setProperty("category", category);
-        roomEntity.setProperty("minPrice", minPrice);
-
-        return roomEntity;
-    }
-
+    
     public String getTitle() {return title;}
 
     public String getLink() {return link;}
@@ -55,6 +46,13 @@ public class Room {
     public double getMinPrice() {return minPrice;}
 
     public double getDeliveryFee() {return deliveryFee;}
+    public List<String> getUsers() {return users;}
+
+    public String getCreator() {return creator;}
+
+    public void addUser(String userId) {
+        this.users.add(userId);
+    }
 
     public static Builder newBuilder() {
         return new Builder();
@@ -69,6 +67,7 @@ public class Room {
         private Category category;
         private double minPrice;
         private double deliveryFee;
+        private String creator;
 
         public Builder setTitle(String title) {
             this.title = title;
@@ -107,6 +106,11 @@ public class Room {
 
         public Builder setDeliveryFee(double deliveryFee) {
             this.deliveryFee = deliveryFee;
+            return this;
+        }
+
+        public Builder setCreator(String creatorId) {
+            this.creator = creatorId;
             return this;
         }
 
