@@ -2,6 +2,7 @@ package com.google.sps.servlets;
 
 import com.google.gson.Gson;
 import com.google.sps.data.Order;
+import com.google.sps.data.Room;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,19 +29,21 @@ public class OrderServlet extends HttpServlet {
                 .build();
 
         String roomId = request.getParameter("roomId");
-        String urlString = "https://summer20-sps-47.firebaseio.com/rooms/" + roomId + "/orders.json";
+        Room room = getRoom(roomId);
+        room.addOrder(newOrder);
+        String urlString = "https://summer20-sps-47.firebaseio.com/rooms/" + roomId + ".json";
 
         URL url = new URL(urlString);
         HttpURLConnection con = (HttpURLConnection)url.openConnection();
-        con.setRequestMethod("POST");
+        con.setRequestMethod("PUT");
         con.setRequestProperty("Content-Type", "application/json; utf-8");
         con.setRequestProperty("Accept", "application/json");
-        con.setDoOutput(true);
+        con.setDoOutput(false);
 
-        String orderJson = gson.toJson(newOrder);
+        String roomJson = gson.toJson(room);
 
         try(OutputStream os = con.getOutputStream()) {
-            byte[] input = orderJson.getBytes("utf-8");
+            byte[] input = roomJson.getBytes("utf-8");
             os.write(input, 0, input.length);
         }
 
@@ -59,5 +62,29 @@ public class OrderServlet extends HttpServlet {
 
         response.setContentType("text/json; charset=UTF-8");
         response.getWriter().print(jsonResponse);
+    }
+
+    private Room getRoom(String roomId) throws IOException{
+        String urlString = "https://summer20-sps-47.firebaseio.com/rooms/" + roomId + ".json";
+
+        URL url = new URL(urlString);
+        HttpURLConnection con = (HttpURLConnection)url.openConnection();
+        con.setRequestMethod("GET");
+        con.setRequestProperty("Accept", "application/json");
+
+        String jsonResponse = "";
+
+        try(BufferedReader br = new BufferedReader(
+                new InputStreamReader(con.getInputStream(), "utf-8"))) {
+            StringBuilder firebaseResponse = new StringBuilder();
+            String responseLine = null;
+            while ((responseLine = br.readLine()) != null) {
+                firebaseResponse.append(responseLine.trim());
+            }
+
+            jsonResponse = firebaseResponse.toString();
+        }
+
+        return gson.fromJson(jsonResponse, Room.class);
     }
 }
