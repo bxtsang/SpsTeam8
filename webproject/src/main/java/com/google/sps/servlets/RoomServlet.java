@@ -62,4 +62,3 @@ public class RoomServlet extends HttpServlet {
         response.getWriter().print(jsonResponse);
     }
 }
-

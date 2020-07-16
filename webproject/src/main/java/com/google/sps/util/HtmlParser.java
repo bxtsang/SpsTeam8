@@ -29,4 +29,3 @@ public class HtmlParser {
         return stringBuilder.toString();
     }
 }
-

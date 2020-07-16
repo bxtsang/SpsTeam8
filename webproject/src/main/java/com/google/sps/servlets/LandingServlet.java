@@ -23,4 +23,3 @@ public class LandingServlet extends HttpServlet {
         response.getWriter().println(HtmlParser.parseHtmlFromFile("landing.html"));
     }
 }
-

@@ -23,4 +23,3 @@ public class ListingsServlet extends HttpServlet {
         response.getWriter().println(HtmlParser.parseHtmlFromFile("listings.html"));
     }
 }
-

@@ -30,4 +30,3 @@ public class LogoutServlet extends HttpServlet {
         response.getWriter().print(authenticationHandler.getLogoutUrl("/"));
     }
 }
-

@@ -30,4 +30,3 @@ public class LoginServlet extends HttpServlet {
         response.getWriter().print(authenticationHandler.getLoginUrl("/"));
     }
 }
-

@@ -7,4 +7,3 @@ public enum Category {
     WESTERN,
     HALAL
 }
-

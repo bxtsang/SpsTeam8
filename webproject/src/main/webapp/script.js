@@ -15,4 +15,3 @@ function logout() {
         window.location.href = response;
     });
 }
-
