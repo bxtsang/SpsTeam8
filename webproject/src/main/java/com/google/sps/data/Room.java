@@ -15,6 +15,7 @@ public class Room {
     private int phoneNumber; //modify to use different representation of contact details if needed
     private Category category;
     private double minPrice;
+    private double deliveryFee;
     private List<String> users;
     private String creator;
 
@@ -26,6 +27,7 @@ public class Room {
         this.phoneNumber = builder.phoneNumber;
         this.category = builder.category;
         this.minPrice = builder.minPrice;
+        this.deliveryFee = builder.deliveryFee;
         this.users = new ArrayList<>();
     }
     
@@ -43,6 +45,7 @@ public class Room {
 
     public double getMinPrice() {return minPrice;}
 
+    public double getDeliveryFee() {return deliveryFee;}
     public List<String> getUsers() {return users;}
 
     public String getCreator() {return creator;}
@@ -63,6 +66,7 @@ public class Room {
         private int phoneNumber; //modify to use different representation of contact details if needed
         private Category category;
         private double minPrice;
+        private double deliveryFee;
         private String creator;
 
         public Builder setTitle(String title) {
@@ -97,6 +101,11 @@ public class Room {
 
         public Builder setMinPrice(double minPrice) {
             this.minPrice = minPrice;
+            return this;
+        }
+
+        public Builder setDeliveryFee(double deliveryFee) {
+            this.deliveryFee = deliveryFee;
             return this;
         }
 
