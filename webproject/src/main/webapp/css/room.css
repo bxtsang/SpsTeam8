@@ -1,0 +1,7 @@
+#wrap {
+    display: flex;
+}
+
+#room-menu> li {
+  display: inline-block;
+}
