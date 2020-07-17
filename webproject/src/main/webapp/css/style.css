@@ -2651,6 +2651,11 @@ h5,
     font-size: 1.5rem;
 }
 
+.title {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
 .card-field {
     font-weight: 600;
 }
@@ -2743,4 +2748,8 @@ h5,
     padding-left: 0;
     width: 100%;
     font-weight: bold;
+}
+
+.logout-button:hover {
+    cursor: pointer;
 }

@@ -3,7 +3,6 @@ package com.google.sps.servlets;
 import com.google.sps.authentication.AuthenticationHandler;
 import java.io.IOException;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +25,7 @@ public class EntryServlet extends HttpServlet {
      * @param request An HttpServletRequest object that contains the request the client has made of the servlet.
      * @param response An HttpServletResponse object that contains the response the servlet sends to the client.
      * @throws IOException If an input or output error is detected when the servlet handles the GET request.
+     * @throws ServletException When this servlet is unable to handle the GET request.
      */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)

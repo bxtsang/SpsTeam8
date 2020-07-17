@@ -28,6 +28,7 @@ public class RoomServlet extends HttpServlet {
                 .setPhoneNumber(Integer.parseInt(request.getParameter("phoneNumber")))
                 .setCategory(Category.valueOf(request.getParameter("category").toUpperCase()))
                 .setMinPrice(Double.parseDouble(request.getParameter("minPrice")))
+                .setDeliveryFee(Double.parseDouble(request.getParameter("deliveryFee")))
                 .build();
         // to add some validation for new room
 
