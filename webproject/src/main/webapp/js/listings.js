@@ -90,3 +90,22 @@ function getSearchResults() {
     }
   }
 }
+
+function getRooms() {
+  document.getElementById("listings-card-container").innerHTML = '';
+  firebase.database().ref("rooms/").once('value', function(snapshot) {
+    snapshot.forEach(function(child) { 
+      var snap = child.val();
+      document.getElementById("listings-card-container").innerHTML += `
+    <a href="./room.html?${child.key}">
+      <div class="shadow-sm p-3 mb-5 bg-white rounded listing-card">
+        <div class="row form-group">
+          <div class="col-md-6 mb-3 mb-md-0">
+            <span class="card-heading shop-name">${snap.title}</span>
+          </div>
+        </div>
+      </div>
+    </a>`;
+    });
+  });
+}
