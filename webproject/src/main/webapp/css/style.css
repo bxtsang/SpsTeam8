@@ -388,10 +388,10 @@ h5,
   margin-bottom: 0;
 }
 .site-navbar .site-navigation .site-menu .active {
-  color: #00d2b5;
+  color: #15a089;
   display: inline-block;
   padding: 5px 20px;
-  font-weight: 500;
+  font-weight: bold;
 }
 .site-navbar .site-navigation .site-menu a {
   text-decoration: none !important;
@@ -2510,6 +2510,25 @@ h5,
 .card-value {
   color: #000;
   margin-left: 1rem;
+}
+
+.active-tab {
+  font-weight: bold !important;
+}
+
+.listings-toggle-options {
+  font-weight: 500;
+}
+
+.listings-toggle-options a {
+  color: #333333;
+}
+
+#map-container {
+  border: thin solid black;
+  height: 500px;
+  width: 100%;
+  margin-top: 1.5rem;
 }
 
 .logout-button:hover {
