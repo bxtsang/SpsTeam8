@@ -49,11 +49,7 @@ public class FormHandlerServlet extends HttpServlet {
     String imageUrl = getUploadedFileUrl(request, "image");
 
     String referrer = request.getHeader("referer");
-    String[] array = referrer.split("\\?");
-    for (String s: array) {
-        System.out.println(s);
-    } 
-    String roomID = array[1];
+    String roomID = referrer.split("\\?")[1];
     FirebaseDatabase.getInstance().getReference("messages").child(roomID).push().setValueAsync(new Message("me", imageUrl));
     response.sendRedirect(referrer);
   }
