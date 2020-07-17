@@ -27,7 +27,7 @@ function loadGoogleMapsScript() {
 
 function initMap() {
     const singapore = { name: 'Singapore', lat: 1.3521, lng: 103.8198 }
-    map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map-container'), {
         center: { lat: singapore.lat, lng: singapore.lng },
         zoom: 12
     });
