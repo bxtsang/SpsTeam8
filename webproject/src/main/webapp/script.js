@@ -1,9 +1,17 @@
 /**
- * Generates a URL for the login button.
+ * Goes to the Google login page.
  */
-function generateUrlForLoginButton() {
+function redirectToGoogleLogin() {
     fetch('/login').then(response => response.text()).then(response => {
-        const loginButton = document.getElementById('login-button');
-        loginButton.href = response;
+        window.location.href = response;
+    });
+}
+
+/**
+ * Logs out of the current Google account.
+ */
+function logout() {
+    fetch('/logout').then(response => response.text()).then(response => {
+        window.location.href = response;
     });
 }
