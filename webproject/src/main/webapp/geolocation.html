@@ -2,11 +2,21 @@
 <html lang="en">
 
 <head>
-    <title>Meap &mdash; Listings</title>
+    <title>Meap &mdash; Maps</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+
+    <script type='text/javascript' src="js/config.js"></script>
+    <script src="js/geolocation.js">
+
+
+    </script>
+    <script>
+        loadGoogleMapsScript();
+
+    </script>
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700" rel="stylesheet" />
     <link rel="stylesheet" href="fonts/icomoon/style.css" />
@@ -26,11 +36,9 @@
     <link rel="stylesheet" href="css/aos.css" />
 
     <link rel="stylesheet" href="css/style.css" />
-
-    <script src="script.js"></script>
 </head>
 
-<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" onload="getListings();">
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" onload="initMap();">
     <div class="site-wrap" id="home-section">
         <div class="site-mobile-menu site-navbar-target">
             <div class="site-mobile-menu-header">
@@ -45,7 +53,9 @@
             <div class="row">
                 <div class="col-12 text-center mb-4 mt-5">
                     <h1 class="mb-0 site-logo">
-                        <a href="index.html" class="text-black h2 mb-0">Meap</a>
+                        <a href="index.html" class="text-black h2 mb-0">
+                Meap
+              </a>
                     </h1>
                 </div>
             </div>
@@ -55,7 +65,9 @@
                 <div class="row align-items-center">
                     <div class="col-6 col-md-6 col-xl-2 d-block d-lg-none">
                         <h1 class="mb-0 site-logo">
-                            <a href="index.html" class="text-black h2 mb-0">Meap</a>
+                            <a href="index.html" class="text-black h2 mb-0">
+                  Meap
+                </a>
                         </h1>
                     </div>
 
@@ -69,10 +81,10 @@
                                     <a href="#about-section" class="nav-link">Post a listing</a>
                                 </li>
                                 <li>
-                                    <a href="#contact-section" class="nav-link">My Rooms</a>
+                                    <a href="#" class="nav-link">My Rooms</a>
                                 </li>
                                 <li>
-                                    <a href="logout()" class="nav-link">Logout</a>
+                                    <a href="index.html" class="nav-link">Logout</a>
                                 </li>
                             </ul>
                         </nav>
@@ -89,20 +101,12 @@
 
         <div class="site-section" id="view-listings">
             <div class="container">
-                <div class="row justify-content-center searchfield">
-                    <div class="col-12 text-center">
-                        <form class="form-inline d-flex justify-content-center md-form form-sm mt-0">
-                            <i class="fas fa-search" aria-hidden="true"></i>
-                            <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search" aria-label="Search" id="searchBox" onkeyup="getSearchResults()" />
-                        </form>
-                    </div>
+                <div class="row justify-content-center">
+                    <div class="col-6 text-right listings-toggle-options"><a href="listings.html">All Listings</a></div>
+                    <div class="col-6 text-left listings-toggle-options active-tab"><a href="geolocation.html">View Map of listings</a></div>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col-6 text-right listings-toggle-options active-tab"><a href="listings.html">All Listings</a></div>
-                    <div class="col-6 text-left listings-toggle-options"><a href="geolocation.html">View Map of listings</a></div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-12" id="listings-card-container"></div>
+                    <div id="map-container"></div>
                 </div>
             </div>
         </div>

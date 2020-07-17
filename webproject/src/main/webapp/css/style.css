@@ -2750,6 +2750,25 @@ h5,
     font-weight: bold;
 }
 
+.active-tab {
+  font-weight: bold !important;
+}
+
+.listings-toggle-options {
+  font-weight: 500;
+}
+
+.listings-toggle-options a {
+  color: #333333;
+}
+
+#map-container {
+  border: thin solid black;
+  height: 500px;
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
 .logout-button:hover {
     cursor: pointer;
 }
