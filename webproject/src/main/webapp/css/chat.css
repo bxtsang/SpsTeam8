@@ -1,20 +1,7 @@
 #messages {
     height: 80vh;
     list-style: none;
-    width: 80%;
     border-radius: 25px;
     border: 2px solid rgb(170, 170, 170);
     overflow: auto;
-}
-
-#message-box {
-  position: fixed;
-  left: 0;
-  bottom: 10%;
-  width: 100%;
-  text-align: center;
-}
-
-#chat {
-    width: 80%;
 }
