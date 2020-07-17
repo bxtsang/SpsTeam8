@@ -48,10 +48,14 @@ public class FormHandlerServlet extends HttpServlet {
     // Get the URL of the image that the user uploaded to Blobstore.
     String imageUrl = getUploadedFileUrl(request, "image");
 
-    //String roomID = request.getRequestURL().toString().split("?")[1];
-    String roomID = "room1";
-    FirebaseDatabase.getInstance().getReference("rooms").child(roomID).child("messages").push().setValueAsync(new Message("me", imageUrl));
-    response.sendRedirect(request.getHeader("referer"));
+    String referrer = request.getHeader("referer");
+    String[] array = referrer.split("\\?");
+    for (String s: array) {
+        System.out.println(s);
+    } 
+    String roomID = array[1];
+    FirebaseDatabase.getInstance().getReference("messages").child(roomID).push().setValueAsync(new Message("me", imageUrl));
+    response.sendRedirect(referrer);
   }
 
   /** Returns a URL that points to the uploaded file, or null if the user didn't upload a file. */
