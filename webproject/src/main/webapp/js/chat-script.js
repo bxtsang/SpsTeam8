@@ -3,12 +3,9 @@ var roomID;
 $(document).ready(function () {
     database = firebase.database(); 
     name = "user " + Math.floor(Math.random() * Math.floor(5));
-    var param = window.location.search.substring(1);
-    var array = param.split('?');
-    //roomID = array[1];
-    roomID = "room1";
+    roomID = window.location.search.substring(1);
 
-    firebase.database().ref('rooms/' + roomID + '/messages/').on('child_added', function(snapshot) {    
+    firebase.database().ref('messages/' + roomID).on('child_added', function(snapshot) {    
         var snap = snapshot.val();
         var html = "<li class='message' id='message-" + snapshot.key + "'>";
         html += snap.time + " " + snap.user + ": ";
@@ -28,7 +25,7 @@ function sendMessage() {
     var date = new Date();
     var time = hours_with_leading_zeroes(date) + ":" + minutes_with_leading_zeroes(date);
 
-    firebase.database().ref('rooms/' + roomID + '/messages/').push().set({
+    firebase.database().ref('messages/' + roomID ).push().set({
         type: "text",
         user: name,
         message: message,
