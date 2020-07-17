@@ -12,7 +12,7 @@ async function getListings() {
     childHtmlString += `<div class="shadow-sm p-3 mb-5 bg-white rounded listing-card">
       <div class="row form-group">
         <div class="col-md-6 mb-3 mb-md-0">
-          <span class="card-heading title">${roomData.title}</span>
+          <span class="card-heading title"><a href="./room.html?${room[0]}">${roomData.title}</a></span>
           <br />
           <span class="card-field">Postal Code: </span>
           <span class="card-value postal-code-value">
