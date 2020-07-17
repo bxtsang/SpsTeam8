@@ -33,7 +33,7 @@ public class AuthenticationHandler {
         return userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
     }
 
-        /**
+    /**
      * Returns a logout URL based on the specified redirect URL.
      * @param urlToRedirectToAfterUserLogsOut The URL to redirect to after logging out.
      * @return A logout URL based on the specified redirect URL.
