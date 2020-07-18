@@ -20,6 +20,25 @@
     <url-pattern>/listings</url-pattern>
   </servlet-mapping>
 
+  <!-- Blobstore Servlets -->
+  <servlet>
+    <servlet-name>Blobstore</servlet-name>
+    <servlet-class>com.google.sps.servlets.BlobstoreServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Blobstore</servlet-name>
+    <url-pattern>/blobstore</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>FormHandler</servlet-name>
+    <servlet-class>com.google.sps.servlets.FormHandlerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FormHandler</servlet-name>
+    <url-pattern>/my-form-handler</url-pattern>
+  </servlet-mapping>
+
   <!-- Login Servlet -->
   <servlet>
     <servlet-name>LoginServlet</servlet-name>

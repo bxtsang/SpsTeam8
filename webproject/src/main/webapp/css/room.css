@@ -1,0 +1,19 @@
+#wrap {
+    display: flex;
+}
+
+#content-container {
+    padding-top:20vh;
+    display:flex;
+    align-content: stretch;
+    flex-direction: row;
+    height: 100vh;
+}
+
+#chat {
+    width: 50vw;
+}
+
+#room-menu> li {
+  display: inline-block;
+}
