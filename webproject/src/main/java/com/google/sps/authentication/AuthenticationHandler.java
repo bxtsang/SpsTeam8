@@ -1,5 +1,6 @@
 package com.google.sps.authentication;
 
+import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
@@ -40,5 +41,13 @@ public class AuthenticationHandler {
      */
     public String getLogoutUrl(String urlToRedirectToAfterUserLogsOut) {
         return userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+    }
+
+    /**
+     * Returns the current user, or null if the user is not logged in.
+     * @return The current user.
+     */
+    public User getCurrentUser() {
+        return userService.getCurrentUser();
     }
 }
