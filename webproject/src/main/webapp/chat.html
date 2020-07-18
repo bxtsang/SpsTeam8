@@ -21,8 +21,8 @@
     <ul id="messages"></ul>
 
     <div class="footer">
-        <form onsubmit="return sendMessage();">
-            <input id="message" placeholder="Send a message">
+        <form method="POST" class="hidden" action="/text-message">
+            <input name="textmessage" placeholder="Send a message">
             <input type="submit">
         </form>
         <form method="POST" class="hidden" enctype="multipart/form-data" id="image-form">

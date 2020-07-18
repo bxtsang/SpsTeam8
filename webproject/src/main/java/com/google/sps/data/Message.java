@@ -10,12 +10,12 @@ public class Message {
     private String message;
     private String type;
 
-    public Message(String user, String imageUrl) {
+    public Message(String user, String imageUrl, String type) {
         String currTime = new SimpleDateFormat("HH:mm").format(new Date());
         this.user = "me";
         this.time = currTime;
         this.message = imageUrl;
-        this.type = "image";
+        this.type = type;
     }
 
     public String getUser() {
