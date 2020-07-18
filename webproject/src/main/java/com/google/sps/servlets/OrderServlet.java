@@ -1,6 +1,8 @@
 package com.google.sps.servlets;
 
+import com.google.appengine.api.users.User;
 import com.google.gson.Gson;
+import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.data.Order;
 import com.google.sps.data.Room;
 
@@ -21,8 +23,10 @@ public class OrderServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        User user = AuthenticationHandler.getCurrentUser();
+
         Order newOrder = Order.newBuilder()
-                .setUser(""/*add get username here*/)
+                .setUserEmail(user.getEmail())
                 .setProduct(request.getParameter("product"))
                 .setQuantity(Integer.parseInt(request.getParameter("quantity")))
                 .setUnitPrice(Double.parseDouble(request.getParameter("unitPrice")))

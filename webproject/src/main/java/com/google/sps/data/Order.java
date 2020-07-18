@@ -1,21 +1,21 @@
 package com.google.sps.data;
 
 public class Order {
-    private String user;
+    private String userEmail;
     private String product;
     private int quantity;
     private double unitPrice;
     private double orderPrice;
 
     private Order(Builder builder) {
-        this.user = builder.user;
+        this.userEmail = builder.userEmail;
         this.product = builder.product;
         this.quantity = builder.quantity;
         this.unitPrice = builder.unitPrice;
         this.orderPrice = quantity * unitPrice;
     }
 
-    public String getUser() {return user;}
+    public String getUser() {return userEmail;}
 
     public String getProduct() {return product;}
 
@@ -28,13 +28,13 @@ public class Order {
     public static Builder newBuilder() {return new Builder();}
 
     public static class Builder {
-        private String user;
+        private String userEmail;
         private String product;
         private int quantity;
         private double unitPrice;
 
-        public Builder setUser(String user) {
-            this.user = user;
+        public Builder setUserEmail(String userEmail) {
+            this.userEmail = userEmail;
             return this;
         }
 
