@@ -39,34 +39,7 @@ public class RoomServlet extends HttpServlet {
 
         newRoom.addUser(userEmail);
 
-        URL url = new URL("https://summer20-sps-47.firebaseio.com/rooms.json");
-        HttpURLConnection con = (HttpURLConnection)url.openConnection();
-        con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "application/json; utf-8");
-        con.setRequestProperty("Accept", "application/json");
-        con.setDoOutput(true);
-
-        String roomJson = gson.toJson(newRoom);
-
-        try(OutputStream os = con.getOutputStream()) {
-            byte[] input = roomJson.getBytes("utf-8");
-            os.write(input, 0, input.length);
-        }
-
-        String jsonResponse = "";
-
-        try(BufferedReader br = new BufferedReader(
-                new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            StringBuilder firebaseResponse = new StringBuilder();
-            String responseLine = null;
-            while ((responseLine = br.readLine()) != null) {
-                firebaseResponse.append(responseLine.trim());
-            }
-
-            jsonResponse = firebaseResponse.toString();
-        }
-
-        response.setContentType("text/json; charset=UTF-8");
-        response.getWriter().print(jsonResponse);
+        newRoom.save();
+        response.setStatus(200);
     }
 }
