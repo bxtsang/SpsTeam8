@@ -30,14 +30,50 @@ async function getListings() {
           <span class="card-field">Delivery fee: </span>
           <span class="card-value">$${roomData.deliveryFee}</span>
           <br />
-          <span class="card-field">$ left to minimum order: </span>
-          <span class="card-value">$${roomData.moneyLeftToMinimumOrder}</span>
-        </div>
+          <span class="card-field">$ current orders value: </span>
+          <span class="card-value">$${roomData.ordersValue}</span>
+          <br />`;
+
+    let joinAction = await fetch("/join?roomId=" + room[0] + ".json");
+    document.querySelector("#action").innerText = joinAction;
+
+    if (joinAction == "Join") {
+      childHtmlString += `<button onclick="joinRoom(${room[0]})>Join</button>
       </div>
-    </div>`;
+    </div>
+  </div>`;
+    } else {
+      childHtmlString += `<button onclick="toChat(${room[0]})>Chat</button>
+      </div>
+    </div>
+  </div>`;
+    }
   });
 
   cardsContainer.innerHTML = childHtmlString;
+}
+
+async function joinRoom(roomId) {
+  var formData = new FormData();
+  formData.append("roomId", roomId);
+
+  var response = await fetch('/join', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json'
+    },
+    body: formData
+  });
+  
+  if (response.status == 200) {
+    window.alert("Joined room!")
+  }
+
+  window.location.reload();
+}
+
+function toChat(roomId) {
+  window.location.href = `/room?${roomId}`;
 }
 
 function getSearchResults() {
