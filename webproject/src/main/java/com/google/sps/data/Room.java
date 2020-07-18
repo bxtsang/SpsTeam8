@@ -1,6 +1,10 @@
 package com.google.sps.data;
 
 import com.google.appengine.api.datastore.Entity;
+import com.google.gson.Gson;
+import com.google.sps.firebase.Firebase;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +22,9 @@ public class Room {
     private double deliveryFee;
     private List<String> users;
     private String creator;
-    private List<Order> orders;
     private double ordersValue;
+
+    private static Gson gson = new Gson();
 
     private Room (Builder builder) {
         this.title = builder.title;
@@ -31,7 +36,6 @@ public class Room {
         this.minPrice = builder.minPrice;
         this.deliveryFee = builder.deliveryFee;
         this.users = new ArrayList<>();
-        this.orders = new ArrayList<>();
     }
     
     public String getTitle() {return title;}
@@ -54,17 +58,31 @@ public class Room {
 
     public String getCreator() {return creator;}
 
-    public List<Order> getOrders() {return orders;}
-
     public double getOrdersValue() {return ordersValue;}
 
     public void addUser(String userEmail) {
         this.users.add(userEmail);
     }
 
-    public void addOrder(Order order) {
-        this.orders.add(order);
-        this.ordersValue += order.getOrderPrice();
+    public void addOrdersValue(double orderPrice) {
+        this.ordersValue += orderPrice;
+    }
+
+    public void save() throws IOException {
+        String roomJson = gson.toJson(this);
+        Firebase.sendRequest("https://summer20-sps-47.firebaseio.com/rooms.json", "POST", roomJson);
+    }
+
+    public void save(String roomId) throws IOException {
+        String roomJson = gson.toJson(this);
+        Firebase.sendRequest("https://summer20-sps-47.firebaseio.com/rooms/" + roomId + ".json", "PUT", roomJson);
+    }
+
+    public static Room getRoomById(String roomId) throws IOException {
+        String roomData = Firebase.sendGetRequest("https://summer20-sps-47.firebaseio.com/rooms/" + roomId + ".json");
+        Room room = gson.fromJson(roomData, Room.class);
+
+        return room;
     }
 
     public static Builder newBuilder() {
