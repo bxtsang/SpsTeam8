@@ -30,6 +30,7 @@ public class OrderServlet extends HttpServlet {
                 .setProduct(request.getParameter("product"))
                 .setQuantity(Integer.parseInt(request.getParameter("quantity")))
                 .setUnitPrice(Double.parseDouble(request.getParameter("unitPrice")))
+                .setRoomId(request.getParameter("roomId"))
                 .build();
 
         String roomId = request.getParameter("roomId");

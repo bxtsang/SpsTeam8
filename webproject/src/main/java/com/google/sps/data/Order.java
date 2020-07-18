@@ -6,6 +6,7 @@ public class Order {
     private int quantity;
     private double unitPrice;
     private double orderPrice;
+    private String roomId;
 
     private Order(Builder builder) {
         this.userEmail = builder.userEmail;
@@ -13,6 +14,7 @@ public class Order {
         this.quantity = builder.quantity;
         this.unitPrice = builder.unitPrice;
         this.orderPrice = quantity * unitPrice;
+        this.roomId = builder.roomId;
     }
 
     public String getUser() {return userEmail;}
@@ -25,6 +27,8 @@ public class Order {
 
     public double getOrderPrice() {return orderPrice;}
 
+    public String getRoomId() {return roomId;}
+
     public static Builder newBuilder() {return new Builder();}
 
     public static class Builder {
@@ -32,6 +36,7 @@ public class Order {
         private String product;
         private int quantity;
         private double unitPrice;
+        private String roomId;
 
         public Builder setUserEmail(String userEmail) {
             this.userEmail = userEmail;
@@ -50,6 +55,11 @@ public class Order {
 
         public Builder setUnitPrice(double unitPrice) {
             this.unitPrice = unitPrice;
+            return this;
+        }
+
+        public Builder setRoomId(String roomId) {
+            this.roomId = roomId;
             return this;
         }
 
