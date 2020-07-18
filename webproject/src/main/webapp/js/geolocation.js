@@ -77,7 +77,7 @@ function initialiseRoomMarkers() {
         const room = rooms[i];
 
         const fetchUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + room.postalCode
-        + '&key=AIzaSyBI2g7TJgk6rtPJrO417VUs-ugnqCeXfwI';
+        + '&key=' + getApiKey();
 
         fetch(fetchUrl)
         .then(response => response.json())
