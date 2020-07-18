@@ -1,4 +1,22 @@
-var roomID;
+var roomId = window.location.search.substr(1);
+window.onload = function() {
+        roomID = window.location.search.substr(1);
+        getRoomDetails();
+        // document.getElementById('chat').innerHTML = '<iframe width="100%" height="100%" frameborder="0" src="chat.html?' + roomID + '"></iframe>';
+    }
+    // async function getRoom() {
+    //     var response = await fetch(`https://summer20-sps-47.firebaseio.com/rooms/${roomId}.json`);
+    //     var room = await response.json();
+    //     console.log("Room: ", room);
+    //     var roomKeys = Object.keys(room);
+    //     roomKeys.forEach(key => {
+    //         document.querySelector("#room-details").innerHTML += `
+    //     <tr>
+    //       <td>${key}</td>
+    //       <td>${room[key]}</td>
+    //     </tr>`;
+    //     });
+    // }
 $(document).ready(function() {
     database = firebase.database();
     name = "user " + Math.floor(Math.random() * Math.floor(5));
@@ -53,51 +71,41 @@ function minutes_with_leading_zeroes(date) {
 function hours_with_leading_zeroes(date) {
     return (date.getHours() < 10 ? '0' : '') + date.getHours();
 }
-
-function getRoomDetails() {
-    let roomDetails = {
-        shopName: "McDonald's",
-        postalCode: "123456",
-        deliveryAddress: "1 Sorby Adams Drive",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-        category: "Food",
-        deliveryFee: 20,
-        minimumOrderPrice: 100,
-        noOfPeopleInRoom: 3,
-        total: 70,
-    };
+async function getRoomDetails() {
+    console.log('HERE!!!');
+    var response = await fetch(`https://summer20-sps-47.firebaseio.com/rooms/${roomId}.json`);
+    var roomDetails = await response.json();
+    console.log("Room: ", roomDetails);
     let roomDetailsContainer = document.getElementById("room-details-container");
     let roomDetailsString = `
-  <div>
-  <span class="room-details-shopName">${roomDetails.shopName}</span>
-  <br />
-  <br />
-  
-  <span class="room-details-header">Delivering To:</span>
-  <br />
-  <span class="room-details-value">${roomDetails.deliveryAddress}</span>
-  <br />
-  <span class="room-details-value">${roomDetails.postalCode}</span>
-  <br />
-  <br />
-  
-  <span class="room-details-header">Delivery fee: </span>
-  <br />
-  <span class="room-details-value">$${roomDetails.deliveryFee}</span>
-  <br/>
-  
-  <span class="room-details-header">$ left to minimum order: </span>
-  <br />
-  <span class="room-details-value">$${
-    roomDetails.minimumOrderPrice - roomDetails.total
-  }</span>
-  </div>
-  
-  <div class="room-details-exit">
-  <form action="/room" method="delete">
-  <button type="submit" class="btn btn-danger">Delete & exit room</button>
-  </form>
-  </div>
-  `;
+    <div>
+    <span class="room-details-shopName">${roomDetails.title}</span>
+    <br />
+    <br />
+    
+    <span class="room-details-header">Delivering To:</span>
+    <br />
+    <span class="room-details-value">${roomDetails.deliveryLocation}</span>
+    <br />
+    <br />
+    
+    <span class="room-details-header">Delivery fee: </span>
+    <br />
+    <span class="room-details-value">$${roomDetails.deliveryFee}</span>
+    <br/>
+    
+    <span class="room-details-header">$ left to minimum order: </span>
+    <br />
+    <span class="room-details-value">$${
+      roomDetails.minPrice - roomDetails.total
+    }</span>
+    </div>
+    
+    <div class="room-details-exit">
+    <form action="/room" method="delete">
+    <button type="submit" class="btn btn-danger">Delete & exit room</button>
+    </form>
+    </div>
+    `;
     roomDetailsContainer.innerHTML = roomDetailsString;
 }
