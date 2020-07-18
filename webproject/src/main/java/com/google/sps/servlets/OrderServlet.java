@@ -33,19 +33,16 @@ public class OrderServlet extends HttpServlet {
                 .setRoomId(request.getParameter("roomId"))
                 .build();
 
-        String roomId = request.getParameter("roomId");
-        Room room = getRoom(roomId);
-        room.addOrder(newOrder);
-        String urlString = "https://summer20-sps-47.firebaseio.com/rooms/" + roomId + ".json";
+        String urlString = "https://summer20-sps-47.firebaseio.com/orders.json";
 
         URL url = new URL(urlString);
         HttpURLConnection con = (HttpURLConnection)url.openConnection();
-        con.setRequestMethod("PUT");
+        con.setRequestMethod("POST");
         con.setRequestProperty("Content-Type", "application/json; utf-8");
         con.setRequestProperty("Accept", "application/json");
         con.setDoOutput(false);
 
-        String roomJson = gson.toJson(room);
+        String roomJson = gson.toJson(newOrder);
 
         try(OutputStream os = con.getOutputStream()) {
             byte[] input = roomJson.getBytes("utf-8");
@@ -67,29 +64,5 @@ public class OrderServlet extends HttpServlet {
 
         response.setContentType("text/json; charset=UTF-8");
         response.getWriter().print(jsonResponse);
-    }
-
-    private Room getRoom(String roomId) throws IOException{
-        String urlString = "https://summer20-sps-47.firebaseio.com/rooms/" + roomId + ".json";
-
-        URL url = new URL(urlString);
-        HttpURLConnection con = (HttpURLConnection)url.openConnection();
-        con.setRequestMethod("GET");
-        con.setRequestProperty("Accept", "application/json");
-
-        String jsonResponse = "";
-
-        try(BufferedReader br = new BufferedReader(
-                new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            StringBuilder firebaseResponse = new StringBuilder();
-            String responseLine = null;
-            while ((responseLine = br.readLine()) != null) {
-                firebaseResponse.append(responseLine.trim());
-            }
-
-            jsonResponse = firebaseResponse.toString();
-        }
-
-        return gson.fromJson(jsonResponse, Room.class);
     }
 }
