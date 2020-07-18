@@ -1,7 +1,27 @@
 #messages {
-    height: 80vh;
+    height: 50vh;
     list-style: none;
-    border-radius: 25px;
+    border-radius: 15px;
     border: 2px solid rgb(170, 170, 170);
     overflow: auto;
+}
+
+#chat-box {
+    margin-left: 1rem;
+}
+
+#message-input-box {
+    border-radius: 5px;
+    border: 2px solid rgb(216, 216, 216);
+    width: 90%;
+}
+
+#message-send-button {
+    border: 0px;
+    background: none;
+    cursor: pointer;
+}
+
+.image-upload>input {
+    display: none;
 }
