@@ -12,7 +12,7 @@ public class Message {
 
     public Message(String user, String imageUrl, String type) {
         String currTime = new SimpleDateFormat("HH:mm").format(new Date());
-        this.user = "me";
+        this.user = user;
         this.time = currTime;
         this.message = imageUrl;
         this.type = type;

@@ -25,26 +25,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class FormHandlerServlet extends HttpServlet {
-  @Override
-  public void init() {
-      try {
-      // Fetch the service account key JSON file contents
-        FileInputStream serviceAccount = new FileInputStream("/home/mtang/cloudshell_open/SpsTeam8-0/webproject/src/main/java/com/google/sps/servlets/key.json");
+    private static String username;
 
-        // Initialize the app with a service account, granting admin privileges
-        FirebaseOptions options = new FirebaseOptions.Builder()
-        .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-        .setDatabaseUrl("https://summer20-sps-47.firebaseio.com")
-        .build();
-        if (FirebaseApp.getApps().isEmpty()) {
-            FirebaseApp.initializeApp(options);
+    @Override
+    public void init() {
+        try {
+            // Fetch the service account key JSON file contents
+            FileInputStream serviceAccount = new FileInputStream("/home/mtang/cloudshell_open/SpsTeam8-0/webproject/src/main/java/com/google/sps/servlets/key.json");
+
+            // Initialize the app with a service account, granting admin privileges
+            FirebaseOptions options = new FirebaseOptions.Builder()
+                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                .setDatabaseUrl("https://summer20-sps-47.firebaseio.com")
+                .build();
+            if (FirebaseApp.getApps().isEmpty()) {
+                FirebaseApp.initializeApp(options);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
-      } catch (FileNotFoundException e) {
-        System.out.println(e.getMessage());
-      } catch (IOException e) {
-        System.out.println(e.getMessage());
-      }
-  }
+        AuthenticationHandler handler = new AuthenticationHandler();
+        User curr = handler.getCurrentUser();
+        username = curr.getNickname();
+    }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -58,7 +63,7 @@ public class FormHandlerServlet extends HttpServlet {
         .getReference("messages")
         .child(roomID)
         .push()
-        .setValueAsync(new Message("me", imageUrl, "image"));
+        .setValueAsync(new Message(username, imageUrl, "image"));
     response.sendRedirect(referrer);
   }
 
