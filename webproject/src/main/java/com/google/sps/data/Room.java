@@ -58,8 +58,8 @@ public class Room {
 
     public double getOrdersValue() {return ordersValue;}
 
-    public void addUser(String userId) {
-        this.users.add(userId);
+    public void addUser(String userEmail) {
+        this.users.add(userEmail);
     }
 
     public void addOrder(Order order) {
@@ -122,8 +122,8 @@ public class Room {
             return this;
         }
 
-        public Builder setCreator(String creatorId) {
-            this.creator = creatorId;
+        public Builder setCreator(String creatorEmail) {
+            this.creator = creatorEmail;
             return this;
         }
 
