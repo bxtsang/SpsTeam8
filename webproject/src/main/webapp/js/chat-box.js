@@ -1,9 +1,4 @@
-var roomId = window.location.search.substr(1);
-window.onload = function() {
-    roomID = window.location.search.substr(1);
-    getRoomDetails();
-    document.getElementById('chat-box').innerHTML = '<iframe width="100%" height="100%" frameborder="0" src="chat.html?' + roomID + '"></iframe>';
-}
+var roomID = window.location.search.substr(1);
 $(document).ready(function() {
     database = firebase.database();
     name = "user " + Math.floor(Math.random() * Math.floor(5));
@@ -18,12 +13,17 @@ $(document).ready(function() {
             html += "<a href=\"" + snap.message + "\"><img src=\"" + snap.message + "\" /></a>";
         }
         html += "</li>";
-        document.getElementById("messages").innerHTML += html;
+        let messagesContainer = document.getElementById("messages")
+        messagesContainer.innerHTML += html;
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        // $('#messages').animate({ scrollTop: $('#messages').prop("scrollHeight") }, 500);
     });
 });
 
 function sendMessage() {
-    var message = document.getElementById("message").value;
+    let messageBox = document.getElementById("message");
+    var message = messageBox.value;
+    messageBox.value = "";
     var date = new Date();
     var time = hours_with_leading_zeroes(date) + ":" + minutes_with_leading_zeroes(date);
     firebase.database().ref('messages/' + roomID).push().set({
@@ -58,41 +58,8 @@ function minutes_with_leading_zeroes(date) {
 function hours_with_leading_zeroes(date) {
     return (date.getHours() < 10 ? '0' : '') + date.getHours();
 }
-async function getRoomDetails() {
-    console.log('HERE!!!');
-    var response = await fetch(`https://summer20-sps-47.firebaseio.com/rooms/${roomId}.json`);
-    var roomDetails = await response.json();
-    console.log("Room: ", roomDetails);
-    let roomDetailsContainer = document.getElementById("room-details-container");
-    let roomDetailsString = `
-    <div>
-    <span class="room-details-shopName">${roomDetails.title}</span>
-    <br />
-    <br />
-    
-    <span class="room-details-header">Delivering To:</span>
-    <br />
-    <span class="room-details-value">${roomDetails.deliveryLocation}</span>
-    <br />
-    <br />
-    
-    <span class="room-details-header">Delivery fee: </span>
-    <br />
-    <span class="room-details-value">$${roomDetails.deliveryFee}</span>
-    <br/>
-    
-    <span class="room-details-header">$ left to minimum order: </span>
-    <br />
-    <span class="room-details-value">$${
-      roomDetails.minPrice - roomDetails.total
-    }</span>
-    </div>
-    
-    <div class="room-details-exit">
-    <form action="/room" method="delete">
-    <button type="submit" class="btn btn-danger">Delete & exit room</button>
-    </form>
-    </div>
-    `;
-    roomDetailsContainer.innerHTML = roomDetailsString;
+
+function submitImageForm() {
+    console.log('Uploading!');
+    document.getElementById("image-form").submit();
 }

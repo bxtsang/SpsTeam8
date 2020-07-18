@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Meap &mdash; My Room</title>
+    <title>Meap &mdash; Chat</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <!-- Font Awesome icons (free version)-->
@@ -26,8 +26,8 @@
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
-
     <script src="js/config.js"></script>
+
 </head>
 
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" onload="fetchBlobstoreUrl();">
@@ -102,7 +102,7 @@
                 </div>
 
                 <div class="row justify-content-center">
-                    <div class="col-3" id="room-details-container">Hello</div>
+                    <div class="col-3" id="room-details-container"></div>
 
                     <div class="col-9">
                         <div id="chat-box"></div>
@@ -149,7 +149,8 @@
     <script src="js/jquery.sticky.js"></script>
 
     <script src="js/main.js"></script>
-    <script src="js/chat-script.js"></script>
+    <script src="js/room-details.js"></script>
+    <script src="js/chat-room.js"></script>
 </body>
 
 </html>
