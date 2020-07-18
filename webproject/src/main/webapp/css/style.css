@@ -2769,6 +2769,6 @@ h5,
   margin-top: 1.5rem;
 }
 
-#logout-button:hover {
+.logout-button:hover {
     cursor: pointer;
 }
