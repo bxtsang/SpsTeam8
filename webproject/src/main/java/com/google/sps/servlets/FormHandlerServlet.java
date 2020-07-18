@@ -29,7 +29,7 @@ public class FormHandlerServlet extends HttpServlet {
   public void init() {
       try {
       // Fetch the service account key JSON file contents
-        FileInputStream serviceAccount = new FileInputStream("/home/mtang/cloudshell_open/SpsTeam8-0/webproject/src/main/java/com/google/sps/servlets/key.json");
+        FileInputStream serviceAccount = new FileInputStream("key.json");
 
         // Initialize the app with a service account, granting admin privileges
         FirebaseOptions options = new FirebaseOptions.Builder()
