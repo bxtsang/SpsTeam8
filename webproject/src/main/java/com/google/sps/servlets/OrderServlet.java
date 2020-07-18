@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.data.Order;
 import com.google.sps.data.Room;
+import com.google.sps.firebase.Firebase;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,37 +33,15 @@ public class OrderServlet extends HttpServlet {
                 .setUnitPrice(Double.parseDouble(request.getParameter("unitPrice")))
                 .setRoomId(request.getParameter("roomId"))
                 .build();
+        String newOrderJson = gson.toJson(newOrder);
 
         String urlString = "https://summer20-sps-47.firebaseio.com/orders.json";
+        Firebase.sendRequest(urlString, "POST", newOrderJson);
 
-        URL url = new URL(urlString);
-        HttpURLConnection con = (HttpURLConnection)url.openConnection();
-        con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "application/json; utf-8");
-        con.setRequestProperty("Accept", "application/json");
-        con.setDoOutput(false);
+        String roomId = request.getParameter("roomId");
+        Room room = Room.getRoomById(roomId);
+        room.addOrdersValue(newOrder.getOrderPrice());
 
-        String roomJson = gson.toJson(newOrder);
-
-        try(OutputStream os = con.getOutputStream()) {
-            byte[] input = roomJson.getBytes("utf-8");
-            os.write(input, 0, input.length);
-        }
-
-        String jsonResponse = "";
-
-        try(BufferedReader br = new BufferedReader(
-                new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            StringBuilder firebaseResponse = new StringBuilder();
-            String responseLine = null;
-            while ((responseLine = br.readLine()) != null) {
-                firebaseResponse.append(responseLine.trim());
-            }
-
-            jsonResponse = firebaseResponse.toString();
-        }
-
-        response.setContentType("text/json; charset=UTF-8");
-        response.getWriter().print(jsonResponse);
+        response.setStatus(200);
     }
 }
