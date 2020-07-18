@@ -1,5 +1,7 @@
 package com.google.sps.servlets;
 
+import com.google.sps.authentication.AuthenticationHandler;
+import com.google.appengine.api.users.User;
 import com.google.sps.data.Message;
 import java.io.FileInputStream;
 import com.google.firebase.FirebaseApp;
