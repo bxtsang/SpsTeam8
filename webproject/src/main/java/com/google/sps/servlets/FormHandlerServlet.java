@@ -2,7 +2,8 @@ package com.google.sps.servlets;
 
 import com.google.sps.data.Message;
 import java.io.FileInputStream;
-import com.google.firebase.*;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.appengine.api.blobstore.BlobInfo;
@@ -50,11 +51,12 @@ public class FormHandlerServlet extends HttpServlet {
 
     String referrer = request.getHeader("referer");
     String[] array = referrer.split("\\?");
-    for (String s: array) {
-        System.out.println(s);
-    } 
     String roomID = array[1];
-    FirebaseDatabase.getInstance().getReference("messages").child(roomID).push().setValueAsync(new Message("me", imageUrl));
+    FirebaseDatabase.getInstance()
+        .getReference("messages")
+        .child(roomID)
+        .push()
+        .setValueAsync(new Message("me", imageUrl));
     response.sendRedirect(referrer);
   }
 
