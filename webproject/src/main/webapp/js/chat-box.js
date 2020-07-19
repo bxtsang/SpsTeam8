@@ -10,7 +10,7 @@ $(document).ready(function() {
         if (snap.type == "text") {
             html += "<span class='chat-message'>" + snap.message + "</span> <br />";
         } else {
-            html += "<a href=\"" + snap.message + "\"><img src=\"" + snap.message + "\" /></a>";
+            html += "<a href=\"" + snap.message + "\"><img src=\"" + snap.message + "\" /></a> <br />";
         }
         html += "<span class='chat-time'>" + snap.time + "</span>";
         html += "</li>";
@@ -46,7 +46,7 @@ function fetchBlobstoreUrl() {
             return response.text();
         })
         .then((imageUploadUrl) => {
-            const messageForm = document.querySelector('#image-form');
+            const messageForm = document.getElementById('image-form');
             messageForm.action = imageUploadUrl;
             messageForm.classList.remove('hidden');
         });
@@ -59,9 +59,3 @@ function minutes_with_leading_zeroes(date) {
 function hours_with_leading_zeroes(date) {
     return (date.getHours() < 10 ? '0' : '') + date.getHours();
 }
-
-// function submitImageForm() {
-//     console.log('Uploading!');
-//     console.log(this.form)
-//     this.form.submit();
-// }
