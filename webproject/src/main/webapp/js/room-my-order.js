@@ -2,6 +2,7 @@ var roomID = window.location.search.substr(1);
 window.onload = function() {
     roomID = window.location.search.substr(1);
     getRoomDetails(roomID);
+    getMyOrder();
 }
 
 function getMyOrder() {

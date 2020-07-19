@@ -24,6 +24,8 @@ async function getRoomDetails(roomID) {
   <span class="room-details-value">$${
     roomDetails.minPrice - roomDetails.total
   }</span>
+  <br />
+  <br />
   </div>
   
   <div class="room-details-exit">
