@@ -1,4 +1,8 @@
 var roomID = window.location.search.substr(1);
+window.onload = function() {
+    hideUploadingSpinner();
+    fetchBlobstoreUrl();
+}
 $(document).ready(function() {
     database = firebase.database();
     name = "user " + Math.floor(Math.random() * Math.floor(5));
@@ -58,4 +62,12 @@ function minutes_with_leading_zeroes(date) {
 
 function hours_with_leading_zeroes(date) {
     return (date.getHours() < 10 ? '0' : '') + date.getHours();
+}
+
+function hideUploadingSpinner() {
+    document.getElementById('uploading-spinner').innerHTML = '';
+}
+
+function showUploadingSpinner() {
+    document.getElementById('uploading-spinner').innerHTML = '<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>';
 }
