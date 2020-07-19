@@ -66,5 +66,4 @@ function showUploadingSpinner() {
     //Disabling a text input field with regular JavaScript.
     document.getElementById("file-input").disabled = true;
     document.getElementsByClassName('upload-button')[0].innerHTML = '<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>';
-    console.log(document.getElementsByClassName('upload-button')[0]);
 }
