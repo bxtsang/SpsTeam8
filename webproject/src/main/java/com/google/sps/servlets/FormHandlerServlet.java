@@ -29,7 +29,7 @@ public class FormHandlerServlet extends HttpServlet {
   public void init() {
       try {
       // Fetch the service account key JSON file contents
-        FileInputStream serviceAccount = new FileInputStream("key.json");
+        FileInputStream serviceAccount = new FileInputStream("/home/abahety/SpsTeam8/webproject/src/main/webapp/key.json");
 
         // Initialize the app with a service account, granting admin privileges
         FirebaseOptions options = new FirebaseOptions.Builder()

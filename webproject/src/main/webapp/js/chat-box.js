@@ -59,7 +59,8 @@ function hours_with_leading_zeroes(date) {
     return (date.getHours() < 10 ? '0' : '') + date.getHours();
 }
 
-function submitImageForm() {
-    console.log('Uploading!');
-    document.getElementById("image-form").submit();
-}
+// function submitImageForm() {
+//     console.log('Uploading!');
+//     console.log(this.form)
+//     this.form.submit();
+// }
