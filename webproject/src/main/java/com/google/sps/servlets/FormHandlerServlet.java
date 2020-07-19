@@ -13,12 +13,14 @@ import com.google.appengine.api.blobstore.BlobInfoFactory;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import com.google.appengine.api.images.Image;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.UnsupportedOperationException;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.annotation.WebServlet;
@@ -27,13 +29,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class FormHandlerServlet extends HttpServlet {
-    private static String username;
+    private static String username = "me";
 
     @Override
     public void init() {
         try {
             // Fetch the service account key JSON file contents
-            FileInputStream serviceAccount = new FileInputStream("/home/mtang/cloudshell_open/SpsTeam8-0/webproject/src/main/java/com/google/sps/servlets/key.json");
+            FileInputStream serviceAccount = new FileInputStream("./key.json");
 
             // Initialize the app with a service account, granting admin privileges
             FirebaseOptions options = new FirebaseOptions.Builder()
@@ -57,8 +59,14 @@ public class FormHandlerServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the URL of the image that the user uploaded to Blobstore.
     String imageUrl = getUploadedFileUrl(request, "image");
-
+    
     String referrer = request.getHeader("referer");
+
+    if (imageUrl == null) {
+        response.sendRedirect(referrer);
+        return;
+    }
+
     String[] array = referrer.split("\\?");
     String roomID = array[1];
     FirebaseDatabase.getInstance()
@@ -86,12 +94,19 @@ public class FormHandlerServlet extends HttpServlet {
     // User submitted form without selecting a file, so we can't get a URL. (live server)
     BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
     if (blobInfo.getSize() == 0) {
-      blobstoreService.delete(blobKey);
-      return null;
+        blobstoreService.delete(blobKey);
+        return null;
     }
 
     // We could check the validity of the file here, e.g. to make sure it's an image file
     // https://stackoverflow.com/q/10779564/873165
+    Image image = ImagesServiceFactory.makeImageFromBlob(blobKey);
+    try {
+        image.getFormat();
+    } catch (UnsupportedOperationException e) {
+        blobstoreService.delete(blobKey);
+        return null;
+    }
 
     // Use ImagesService to get a URL that points to the uploaded file.
     ImagesService imagesService = ImagesServiceFactory.getImagesService();
