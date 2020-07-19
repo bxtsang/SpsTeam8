@@ -6,12 +6,13 @@ $(document).ready(function() {
     firebase.database().ref('messages/' + roomID).on('child_added', function(snapshot) {
         var snap = snapshot.val();
         var html = "<li class='message' id='message-" + snapshot.key + "'>";
-        html += snap.time + " " + snap.user + ": ";
+        html += "<span class='chat-user'>" + snap.user + "</span> <br />";
         if (snap.type == "text") {
-            html += snap.message;
+            html += "<span class='chat-message'>" + snap.message + "</span> <br />";
         } else {
             html += "<a href=\"" + snap.message + "\"><img src=\"" + snap.message + "\" /></a>";
         }
+        html += "<span class='chat-time'>" + snap.time + "</span>";
         html += "</li>";
         let messagesContainer = document.getElementById("messages")
         messagesContainer.innerHTML += html;
