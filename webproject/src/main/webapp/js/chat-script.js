@@ -20,25 +20,6 @@ $(document).ready(function () {
     });
 });
 
-function sendMessage() {
-    var message = document.getElementById("message").value;
-    var date = new Date();
-    var time = hours_with_leading_zeroes(date) + ":" + minutes_with_leading_zeroes(date);
-
-    firebase.database().ref('messages/' + roomID ).push().set({
-        type: "text",
-        user: name,
-        message: message,
-        time: time
-    }, function(error) {
-        if (error) {
-            console.log("Write failed");
-        }
-    });
- 
-    return false;
-}
-
 function fetchBlobstoreUrl() {
   fetch('/blobstore')
       .then((response) => {
