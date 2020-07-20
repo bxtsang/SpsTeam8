@@ -20,7 +20,7 @@ import com.google.appengine.api.images.ServingUrlOptions;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.UnsupportedOperationException;
+import java.lang.IllegalArgumentException;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.annotation.WebServlet;
@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class FormHandlerServlet extends HttpServlet {
-    private static String username = "me";
+    private static String username;
 
     @Override
     public void init() {
@@ -62,7 +62,7 @@ public class FormHandlerServlet extends HttpServlet {
     
     String referrer = request.getHeader("referer");
 
-    if (imageUrl == null) {
+    if (imageUrl == null || imageUrl.equals("")) {
         response.sendRedirect(referrer);
         return;
     }
@@ -98,20 +98,16 @@ public class FormHandlerServlet extends HttpServlet {
         return null;
     }
 
-    // We could check the validity of the file here, e.g. to make sure it's an image file
-    // https://stackoverflow.com/q/10779564/873165
-    Image image = ImagesServiceFactory.makeImageFromBlob(blobKey);
-    try {
-        image.getFormat();
-    } catch (UnsupportedOperationException e) {
-        blobstoreService.delete(blobKey);
-        return null;
-    }
-
     // Use ImagesService to get a URL that points to the uploaded file.
     ImagesService imagesService = ImagesServiceFactory.getImagesService();
     ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
-    String url = imagesService.getServingUrl(options);
+    String url;
+    try {
+        url = imagesService.getServingUrl(options);
+    } catch (IllegalArgumentException e) {
+        blobstoreService.delete(blobKey);
+        return null;
+    }
 
     // GCS's localhost preview is not actually on localhost,
     // so make the URL relative to the current domain.
