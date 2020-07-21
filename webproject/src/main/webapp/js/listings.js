@@ -35,7 +35,7 @@ async function getListings() {
           <span class="card-value">$${roomData.ordersValue}</span>
           <br />`;
 
-    let response2 = await fetch("/join?roomId=" + room[0] + ".json");
+    let response2 = await fetch("/join?roomId=" + room[0]);
     let joinAction = await response2.text();
     //document.querySelector("#action").innerText = joinAction;
     console.log(joinAction);
@@ -59,17 +59,18 @@ async function joinRoom(roomId) {
   var formData = new FormData();
   formData.append("roomId", roomId);
 
-  var response = await $.ajax({
+  $.ajax({
       type: 'POST',
       url: "/join",
       data: {'roomId': roomId},
+      success: function(msg) {
+          window.alert("Joined room!");
+          window.location.reload();
+      },
+      error: function(msg) {
+          window.alert("Something went wrong!");
+      }
   });
-
-  if (response.status == 200) {
-    window.alert("Joined room!")
-  }
-
-  window.location.reload();
 }
 
 function toChat(roomId) {
