@@ -79,6 +79,16 @@
     <url-pattern>/room</url-pattern>
   </servlet-mapping>
 
+  <!-- Username Servlet -->
+  <servlet>
+    <servlet-name>UsernameServlet</servlet-name>
+    <servlet-class>com.google.sps.servlets.UsernameServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UsernameServlet</servlet-name>
+    <url-pattern>/username</url-pattern>
+  </servlet-mapping>
+
   <!-- Entry Servlet -->
   <servlet>
     <servlet-name>EntryServlet</servlet-name>
