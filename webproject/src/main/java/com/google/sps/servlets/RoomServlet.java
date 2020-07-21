@@ -22,7 +22,7 @@ public class RoomServlet extends HttpServlet {
 
     @Override
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws IOException {
-        User user = AuthenticationHandler.getCurrentUser();
+        User user = new AuthenticationHandler().getCurrentUser();
         String userEmail = user.getEmail();
 
         Room newRoom = Room.newBuilder()
