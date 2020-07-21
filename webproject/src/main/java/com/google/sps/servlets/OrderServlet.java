@@ -24,7 +24,7 @@ public class OrderServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        User user = AuthenticationHandler.getCurrentUser();
+        User user = new AuthenticationHandler().getCurrentUser();
 
         Order newOrder = Order.newBuilder()
                 .setUserEmail(user.getEmail())
