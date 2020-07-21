@@ -20,16 +20,11 @@ import java.net.URL;
 
 @WebServlet("/order")
 public class OrderServlet extends HttpServlet {
-    private final AuthenticationHandler authenticationHandler;
     private static Gson gson = new Gson();
-
-    public OrderServlet() {
-        authenticationHandler = new AuthenticationHandler();
-    }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        User user = authenticationHandler.getCurrentUser();
+        User user = new AuthenticationHandler().getCurrentUser();
 
         Order newOrder = Order.newBuilder()
                 .setUserEmail(user.getEmail())
