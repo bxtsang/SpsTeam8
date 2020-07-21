@@ -59,20 +59,17 @@ async function joinRoom(roomId) {
   var formData = new FormData();
   formData.append("roomId", roomId);
 
-  var response = await fetch('/join', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: formData
+  var response = await $.ajax({
+      type: 'POST',
+      url: "/join",
+      data: {'roomId': roomId},
   });
-  
+
   if (response.status == 200) {
     window.alert("Joined room!")
   }
 
-  //window.location.reload();
+  window.location.reload();
 }
 
 function toChat(roomId) {
