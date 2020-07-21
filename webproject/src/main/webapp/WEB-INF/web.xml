@@ -22,21 +22,31 @@
 
   <!-- Blobstore Servlets -->
   <servlet>
-    <servlet-name>Blobstore</servlet-name>
+    <servlet-name>BlobstoreServlet</servlet-name>
     <servlet-class>com.google.sps.servlets.BlobstoreServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Blobstore</servlet-name>
+    <servlet-name>BlobstoreServlet</servlet-name>
     <url-pattern>/blobstore</url-pattern>
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>FormHandler</servlet-name>
+    <servlet-name>FormHandlerServlet</servlet-name>
     <servlet-class>com.google.sps.servlets.FormHandlerServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>FormHandler</servlet-name>
+    <servlet-name>FormHandlerServlet</servlet-name>
     <url-pattern>/my-form-handler</url-pattern>
+  </servlet-mapping>
+
+  <!-- Text Message Servlet -->
+  <servlet>
+    <servlet-name>TextMessageServlet</servlet-name>
+    <servlet-class>com.google.sps.servlets.TextMessageServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TextMessageServlet</servlet-name>
+    <url-pattern>/text-message</url-pattern>
   </servlet-mapping>
 
   <!-- Login Servlet -->
@@ -67,6 +77,16 @@
   <servlet-mapping>
     <servlet-name>Room</servlet-name>
     <url-pattern>/room</url-pattern>
+  </servlet-mapping>
+
+  <!-- Username Servlet -->
+  <servlet>
+    <servlet-name>UsernameServlet</servlet-name>
+    <servlet-class>com.google.sps.servlets.UsernameServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UsernameServlet</servlet-name>
+    <url-pattern>/username</url-pattern>
   </servlet-mapping>
 
   <!-- Entry Servlet -->
