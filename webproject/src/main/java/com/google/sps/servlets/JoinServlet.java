@@ -8,21 +8,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.data.Message;
 import com.google.sps.data.UserRoom;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Collections;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
-@WebServlet("/join")
 public class JoinServlet extends HttpServlet {
     @Override
     public void init() {
         try {
             // Fetch the service account key JSON file contents
-            FileInputStream serviceAccount = new FileInputStream("/home/mtang/cloudshell_open/SpsTeam8-0/webproject/src/main/java/com/google/sps/servlets/key.json");
+            FileInputStream serviceAccount = new FileInputStream("./key.json");
 
             // Initialize the app with a service account, granting admin privileges
             FirebaseOptions options = new FirebaseOptions.Builder()
@@ -48,7 +48,10 @@ public class JoinServlet extends HttpServlet {
         User user = (new AuthenticationHandler()).getCurrentUser();
         String userEmail = user.getEmail();
         String roomId = request.getParameter("roomId");
-        FirebaseDatabase.getInstance().getReference("messages").push().setValueAsync(new UserRoom(userEmail, roomId));
+        for (String name: Collections.list(request.getParameterNames())) {
+            System.out.println(name);
+        }
+        FirebaseDatabase.getInstance().getReference("UserRoom").push().setValueAsync(new UserRoom(userEmail, roomId));
 
         response.setStatus(200);
         response.getWriter().println(roomId);

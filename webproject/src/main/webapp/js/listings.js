@@ -35,7 +35,8 @@ async function getListings() {
           <span class="card-value">$${roomData.ordersValue}</span>
           <br />`;
 
-    let joinAction = await fetch("/join?roomId=" + room[0] + ".json");
+    let response2 = await fetch("/join?roomId=" + room[0] + ".json");
+    let joinAction = await response2.text();
     //document.querySelector("#action").innerText = joinAction;
     console.log(joinAction);
     if (joinAction == "Join") {
@@ -61,6 +62,7 @@ async function joinRoom(roomId) {
   var response = await fetch('/join', {
     method: 'POST',
     headers: {
+      'Content-Type': 'application/json',
       'Accept': 'application/json'
     },
     body: formData
@@ -70,7 +72,7 @@ async function joinRoom(roomId) {
     window.alert("Joined room!")
   }
 
-  window.location.reload();
+  //window.location.reload();
 }
 
 function toChat(roomId) {
