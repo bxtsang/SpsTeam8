@@ -1,5 +1,5 @@
 window.onload = function() {
-  getRooms();
+  getMyRooms();
 }
 
 async function joinRoom(roomId) {
