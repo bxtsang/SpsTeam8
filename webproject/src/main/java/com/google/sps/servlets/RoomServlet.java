@@ -18,11 +18,16 @@ import java.io.InputStreamReader;
 
 @WebServlet("/room")
 public class RoomServlet extends HttpServlet {
+    private final AuthenticationHandler authenticationHandler;
     private static Gson gson = new Gson();
+
+    public RoomServlet() {
+        authenticationHandler = new AuthenticationHandler();
+    }
 
     @Override
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws IOException {
-        User user = AuthenticationHandler.getCurrentUser();
+        User user = authenticationHandler.getCurrentUser();
         String userEmail = user.getEmail();
 
         Room newRoom = Room.newBuilder()
