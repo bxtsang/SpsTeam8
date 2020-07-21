@@ -19,7 +19,7 @@ import java.util.Map;
 public class MyRoomsServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        User user = AuthenticationHandler.getCurrentUser();
+        User user = (new AuthenticationHandler()).getCurrentUser();
         String userEmail = user.getEmail();
 
         String url = "https://summer20-sps-47.firebaseio.com/UserRoom.json?orderBy=%22userEmail%22&equalTo=%22" + userEmail + "%22";

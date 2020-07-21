@@ -45,7 +45,7 @@ public class JoinServlet extends HttpServlet {
             return;
         }
 
-        User user = AuthenticationHandler.getCurrentUser();
+        User user = (new AuthenticationHandler()).getCurrentUser();
         String userEmail = user.getEmail();
         String roomId = request.getParameter("roomId");
         FirebaseDatabase.getInstance().getReference("messages").push().setValueAsync(new UserRoom(userEmail, roomId));
@@ -57,7 +57,7 @@ public class JoinServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String roomId = request.getParameter("roomId");
-        User user = AuthenticationHandler.getCurrentUser();
+        User user = (new AuthenticationHandler()).getCurrentUser();
         String userEmail = user.getEmail();
 
         String url = "https://summer20-sps-47.firebaseio.com/UserRoom.json?orderBy=%22userEmailRoom%22&equalsTo=%22" + userEmail + "_" + roomId + "%22";

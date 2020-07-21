@@ -6,8 +6,9 @@ async function getListings() {
   var data = await response.json();
   var entries = Object.entries(data);
 
-  entries.forEach(room => {
-    var roomData = room[1];
+  for (var i = 0; i < entries.length; i++) {
+      let room = entries[i];
+        var roomData = room[1];
 
     childHtmlString += `<div class="shadow-sm p-3 mb-5 bg-white rounded listing-card">
       <div class="row form-group">
@@ -35,21 +36,21 @@ async function getListings() {
           <br />`;
 
     let joinAction = await fetch("/join?roomId=" + room[0] + ".json");
-    document.querySelector("#action").innerText = joinAction;
-
+    //document.querySelector("#action").innerText = joinAction;
+    console.log(joinAction);
     if (joinAction == "Join") {
-      childHtmlString += `<button onclick="joinRoom(${room[0]})>Join</button>
+      childHtmlString += `<button id="action" onclick="joinRoom('${room[0]}')">Join</button>
       </div>
     </div>
   </div>`;
     } else {
-      childHtmlString += `<button onclick="toChat(${room[0]})>Chat</button>
+        console.log(room[0]);
+      childHtmlString += `<button id="action" onclick="toChat('${room[0]}')">Chat</button>
       </div>
     </div>
   </div>`;
     }
-  });
-
+  }    
   cardsContainer.innerHTML = childHtmlString;
 }
 
@@ -73,7 +74,7 @@ async function joinRoom(roomId) {
 }
 
 function toChat(roomId) {
-  window.location.href = `/room?${roomId}`;
+  window.location.href = `/roomChat.html?${roomId}`;
 }
 
 function getSearchResults() {
