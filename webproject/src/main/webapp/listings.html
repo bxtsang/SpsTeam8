@@ -28,78 +28,23 @@
     <link rel="stylesheet" href="css/style.css" />
 
     <script src="script.js"></script>
-  </head>
+</head>
 
-  <body
-    data-spy="scroll"
-    data-target=".site-navbar-target"
-    data-offset="300"
-    onload="getListings();"
-  >
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" onload="getListings();">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+    <script src="js/config.js"></script>
+
     <div class="site-wrap" id="home-section">
-      <div class="site-mobile-menu site-navbar-target">
-        <div class="site-mobile-menu-header">
-          <div class="site-mobile-menu-close mt-3">
-            <span class="icon-close2 js-menu-toggle"></span>
-          </div>
-        </div>
-        <div class="site-mobile-menu-body"></div>
-      </div>
-
-      <div class="container d-none d-lg-block">
-        <div class="row">
-          <div class="col-12 text-center mb-4 mt-5">
-            <h1 class="mb-0 site-logo">
-              <a href="index.html" class="text-black h2 mb-0">
-                Meap
-              </a>
-            </h1>
-          </div>
-        </div>
-      </div>
-      <!-- The core Firebase JS SDK is always required and must be listed first -->
-      <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
-
-      <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
-      <script src="js/config.js"></script>
-      <header
-        class="site-navbar py-md-4 js-sticky-header site-navbar-target"
-        role="banner"
-      >
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-6 col-md-6 col-xl-2 d-block d-lg-none">
-              <h1 class="mb-0 site-logo">
-                <a href="index.html" class="text-black h2 mb-0">
-                  Meap
-                </a>
-              </h1>
-            </div>
-
-            <div class="col-12 col-md-9 main-menu">
-              <nav
-                class="site-navigation position-relative text-right"
-                role="navigation"
-              >
-                <ul
-                  class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block"
-                >
-                  <li>
-                    <a href="#view-listings" class="nav-link">View Listings</a>
-                  </li>
-                  <li>
-                    <a href="#about-section" class="nav-link">Post a listing</a>
-                  </li>
-                  <li>
-                    <a href="#view-listings" class="nav-link" onclick="getMyRooms()">My Rooms</a>
-                  </li>
-                  <li>
-                    <a onclick="logout()" class="nav-link logout-button">Logout</a>
-                  </li>
-                </ul>
-              </nav>
+        <div class="site-mobile-menu site-navbar-target">
+            <div class="site-mobile-menu-header">
+                <div class="site-mobile-menu-close mt-3">
+                    <span class="icon-close2 js-menu-toggle"></span>
+                </div>
             </div>
             <div class="site-mobile-menu-body"></div>
         </div>
@@ -122,8 +67,8 @@
                         </h1>
                     </div>
 
-                    <div class="col-12 col-md-9 main-menu">
-                        <nav class="site-navigation position-relative text-right" role="navigation">
+                    <div class="col-12 col-md-12 main-menu">
+                        <nav class="site-navigation position-relative text-center" role="navigation">
                             <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                                 <li>
                                     <a href="#view-listings" class="nav-link">View Listings</a>
@@ -135,7 +80,7 @@
                                     <a href="#contact-section" class="nav-link">My Rooms</a>
                                 </li>
                                 <li>
-                                    <a href="logout()" class="nav-link">Logout</a>
+                                    <a onclick="logout()" class="nav-link logout-button">Logout</a>
                                 </li>
                             </ul>
                         </nav>
