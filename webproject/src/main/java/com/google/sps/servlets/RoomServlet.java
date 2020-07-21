@@ -1,6 +1,8 @@
 package com.google.sps.servlets;
 
+import com.google.appengine.api.users.User;
 import com.google.gson.Gson;
+import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.data.Category;
 import com.google.sps.data.Room;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +22,9 @@ public class RoomServlet extends HttpServlet {
 
     @Override
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws IOException {
+        User user = AuthenticationHandler.getCurrentUser();
+        String userEmail = user.getEmail();
+
         Room newRoom = Room.newBuilder()
                 .setTitle(request.getParameter("title"))
                 .setLink(request.getParameter("link"))
@@ -29,37 +34,12 @@ public class RoomServlet extends HttpServlet {
                 .setCategory(Category.valueOf(request.getParameter("category").toUpperCase()))
                 .setMinPrice(Double.parseDouble(request.getParameter("minPrice")))
                 .setDeliveryFee(Double.parseDouble(request.getParameter("deliveryFee")))
+                .setCreator(userEmail)
                 .build();
-        // to add some validation for new room
 
-        URL url = new URL("https://summer20-sps-47.firebaseio.com/rooms.json");
-        HttpURLConnection con = (HttpURLConnection)url.openConnection();
-        con.setRequestMethod("POST");
-        con.setRequestProperty("Content-Type", "application/json; utf-8");
-        con.setRequestProperty("Accept", "application/json");
-        con.setDoOutput(true);
+        newRoom.addUser(userEmail);
 
-        String roomJson = gson.toJson(newRoom);
-
-        try(OutputStream os = con.getOutputStream()) {
-            byte[] input = roomJson.getBytes("utf-8");
-            os.write(input, 0, input.length);
-        }
-
-        String jsonResponse = "";
-
-        try(BufferedReader br = new BufferedReader(
-                new InputStreamReader(con.getInputStream(), "utf-8"))) {
-            StringBuilder firebaseResponse = new StringBuilder();
-            String responseLine = null;
-            while ((responseLine = br.readLine()) != null) {
-                firebaseResponse.append(responseLine.trim());
-            }
-
-            jsonResponse = firebaseResponse.toString();
-        }
-
-        response.setContentType("text/json; charset=UTF-8");
-        response.getWriter().print(jsonResponse);
+        newRoom.save();
+        response.setStatus(200);
     }
 }
