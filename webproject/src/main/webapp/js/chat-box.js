@@ -1,7 +1,6 @@
 var roomID = window.location.search.substr(1);
 window.onload = function() {
-    hideUploadingSpinner();
-    fetchBlobstoreUrl();
+    fetchBlobstoreUrl();    
 }
 $(document).ready(function() {
     database = firebase.database();
@@ -18,10 +17,9 @@ $(document).ready(function() {
         }
         html += "<span class='chat-time'>" + snap.time + "</span>";
         html += "</li>";
-        let messagesContainer = document.getElementById("messages")
+        let messagesContainer = document.getElementById("messages");
         messagesContainer.innerHTML += html;
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        // $('#messages').animate({ scrollTop: $('#messages').prop("scrollHeight") }, 500);
     });
 });
 
@@ -64,10 +62,8 @@ function hours_with_leading_zeroes(date) {
     return (date.getHours() < 10 ? '0' : '') + date.getHours();
 }
 
-function hideUploadingSpinner() {
-    document.getElementById('uploading-spinner').innerHTML = '';
-}
-
-function showUploadingSpinner() {
-    document.getElementById('uploading-spinner').innerHTML = '<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>';
+function showUploadingSpinner() {    	
+    //Disabling a text input field with regular JavaScript.
+    document.getElementById("file-input").disabled = true;
+    document.getElementsByClassName('upload-button')[0].innerHTML = '<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>';
 }
