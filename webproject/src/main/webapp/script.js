@@ -6,7 +6,6 @@ function redirectToGoogleLogin() {
         window.location.href = response;
     });
 }
-
 /**
  * Logs out of the current Google account.
  */
