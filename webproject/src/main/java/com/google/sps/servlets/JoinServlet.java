@@ -64,7 +64,6 @@ public class JoinServlet extends HttpServlet {
         String userEmail = user.getEmail();
 
         String url = "https://summer20-sps-47.firebaseio.com/UserRoom.json?orderBy=%22userEmailRoom%22&equalTo=%22" + userEmail + "_" + roomId + "%22";
-        System.out.println("URL: " + url);
         //Use Firebase class once merged
         HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
         con.setRequestMethod("GET");

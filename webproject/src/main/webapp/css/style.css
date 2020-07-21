@@ -2772,3 +2772,16 @@ h5,
 .logout-button:hover {
     cursor: pointer;
 }
+
+.btn-join {
+    color: #15a089;
+    background: white;
+    border: 3px solid #edf0f5;
+    font-weight: 500;
+}
+
+.btn-chat {
+    background: #15a089;
+    color: white;
+    font-weight: 500;
+}

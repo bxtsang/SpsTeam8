@@ -33,6 +33,7 @@ async function getListings() {
           <br />
           <span class="card-field">$ current orders value: </span>
           <span class="card-value">$${roomData.ordersValue}</span>
+          <br />
           <br />`;
 
     let response2 = await fetch("/join?roomId=" + room[0]);
@@ -40,13 +41,13 @@ async function getListings() {
     //document.querySelector("#action").innerText = joinAction;
     console.log(joinAction);
     if (joinAction == "Join") {
-      childHtmlString += `<button id="action" onclick="joinRoom('${room[0]}')">Join</button>
+      childHtmlString += `<button id="action" class="btn btn-join" onclick="joinRoom('${room[0]}')">Join</button>
       </div>
     </div>
   </div>`;
     } else {
         console.log(room[0]);
-      childHtmlString += `<button id="action" onclick="toChat('${room[0]}')">Chat</button>
+      childHtmlString += `<button id="action" class="btn btn-chat" onclick="toChat('${room[0]}')">Chat</button>
       </div>
     </div>
   </div>`;
