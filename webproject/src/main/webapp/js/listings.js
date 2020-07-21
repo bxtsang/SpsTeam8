@@ -38,15 +38,12 @@ async function getListings() {
 
     let response2 = await fetch("/join?roomId=" + room[0]);
     let joinAction = await response2.text();
-    //document.querySelector("#action").innerText = joinAction;
-    console.log(joinAction);
     if (joinAction == "Join") {
       childHtmlString += `<button id="action" class="btn btn-join" onclick="joinRoom('${room[0]}')">Join</button>
       </div>
     </div>
   </div>`;
     } else {
-        console.log(room[0]);
       childHtmlString += `<button id="action" class="btn btn-chat" onclick="toChat('${room[0]}')">Chat</button>
       </div>
     </div>
