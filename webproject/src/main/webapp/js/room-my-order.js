@@ -11,7 +11,7 @@ async function getMyOrder() {
     let myOrders = await response.json();
     let myOrderItems = Object.values(myOrders);
 
-    let response2 = await fetch(`https://summer20-sps-47.firebaseio.com/rooms/${roomId}.json`)
+    let response2 = await fetch(`https://summer20-sps-47.firebaseio.com/rooms/${roomID}.json`)
     let myRoomDetails = await response2.json();
     let myOrderContainer = document.getElementById("my-order-container");
     if (myOrderItems.length <= 0) {
