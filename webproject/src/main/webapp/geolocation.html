@@ -13,6 +13,7 @@
 
     <script>
         loadGoogleMapsScript();
+
     </script>
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700" rel="stylesheet" />
@@ -68,20 +69,20 @@
                         </h1>
                     </div>
 
-                    <div class="col-12 col-md-9 main-menu">
-                        <nav class="site-navigation position-relative text-right" role="navigation">
+                    <div class="col-12 col-md-12 main-menu">
+                        <nav class="site-navigation position-relative text-center" role="navigation">
                             <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                                 <li>
                                     <a href="#view-listings" class="nav-link">View Listings</a>
                                 </li>
                                 <li>
-                                    <a href="#about-section" class="nav-link">Post a listing</a>
+                                    <a href="/create-room.html" class="nav-link">Post a listing</a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link">My Rooms</a>
+                                    <a href="/rooms.html" class="nav-link">My Rooms</a>
                                 </li>
                                 <li>
-                                    <a href="index.html" class="nav-link">Logout</a>
+                                    <a onclick="logout()" class="nav-link logout-button">Logout</a>
                                 </li>
                             </ul>
                         </nav>
@@ -147,6 +148,7 @@
 
     <script src="js/main.js"></script>
     <script src="js/listings.js"></script>
+    <script src="js/logout.js"></script>
 </body>
 
 </html>
