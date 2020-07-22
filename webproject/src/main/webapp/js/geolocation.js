@@ -103,11 +103,10 @@ function appendMarker(room, lat, lng) {
         title: room.title
     });
 
-    windowContent = '<div style=\'text-align: center\'>'
-            + '<p>' + room.title + '</p>'
-            + '<p>' + room.deliveryLocation + '</p>'
-            + '</div>';
-    alert(windowContent);
+    windowContent = `<div class="text-center">
+            <p> ${room.title} </p>
+            <p> ${room.deliveryLocation} </p>
+            </div>`;
 
     const infoWindow = new google.maps.InfoWindow({
         content: windowContent
