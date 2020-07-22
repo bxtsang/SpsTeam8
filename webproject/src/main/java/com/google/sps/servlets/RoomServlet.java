@@ -24,8 +24,7 @@ public class RoomServlet extends HttpServlet {
     public void doPost (HttpServletRequest request, HttpServletResponse response) throws IOException {
         User user = new AuthenticationHandler().getCurrentUser();
         String userEmail = user.getEmail();
-        System.out.println("Category: " + request.getParameter("category").toUpperCase());
-        System.out.println("*******************************************************");
+
         Room newRoom = Room.newBuilder()
                 .setTitle(request.getParameter("title"))
                 .setLink(request.getParameter("link"))
