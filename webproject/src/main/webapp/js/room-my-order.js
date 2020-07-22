@@ -6,27 +6,13 @@ window.onload = function() {
     getHeaderLinks();
 }
 
-function getMyOrder() {
-    let myOrderItems = [{
-            productName: "Chicken burger",
-            quantity: 2,
-            perUnitPrice: 10,
-        },
-        {
-            productName: "Fish burger",
-            quantity: 1,
-            perUnitPrice: 15,
-        },
-    ];
-    let myRoomDetails = {
-        shopName: "McDonald's",
-        postalCode: "123456",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-        category: "Food",
-        deliveryFee: "20",
-        minimumOrder: "100",
-        noOfPeopleInRoom: 3,
-    };
+async function getMyOrder() {
+    let response = await fetch("/myOrder");
+    let myOrders = await response.json();
+    let myOrderItems = Object.values(myOrders);
+
+    let response2 = await fetch(`https://summer20-sps-47.firebaseio.com/rooms/${roomId}.json`)
+    let myRoomDetails = await response2.json();
     let myOrderContainer = document.getElementById("my-order-container");
     if (myOrderItems.length <= 0) {
         myOrderContainer.innerHTML = "Add an item now!";
