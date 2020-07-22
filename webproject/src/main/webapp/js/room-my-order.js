@@ -7,8 +7,9 @@ window.onload = function() {
 }
 
 async function getMyOrder() {
-    let response = await fetch("/myOrder");
+    let response = await fetch(`/myOrder?roomId=${roomID}`);
     let myOrders = await response.json();
+    console.log(myOrders);
     let myOrderItems = Object.values(myOrders);
 
     let response2 = await fetch(`https://summer20-sps-47.firebaseio.com/rooms/${roomID}.json`)
@@ -16,7 +17,6 @@ async function getMyOrder() {
     let myOrderContainer = document.getElementById("my-order-container");
     if (myOrderItems.length <= 0) {
         myOrderContainer.innerHTML = "Add an item now!";
-        return;
     }
     let myOrderString = `
         <table class="table">
@@ -33,15 +33,15 @@ async function getMyOrder() {
         <tbody>`;
     let total = 0;
     for (let i = 0; i < myOrderItems.length; i++) {
-        productTotal = myOrderItems[i].quantity * myOrderItems[i].perUnitPrice;
+        productTotal = myOrderItems[i].quantity * myOrderItems[i].unitPrice;
         total += productTotal;
         myOrderString += `
     <tr>
     <form action="/myOrder" method="delete">
     <th scope="row">${i + 1}</th>
-    <td>${myOrderItems[i].productName}</td>
+    <td>${myOrderItems[i].product}</td>
     <td>${myOrderItems[i].quantity}</td>
-    <td>${myOrderItems[i].perUnitPrice}</td>
+    <td>${myOrderItems[i].unitPrice}</td>
     <td>${productTotal}</td>
     <td>
     <button type="submit" class="btn my-order-delete-btn">
@@ -83,16 +83,16 @@ function getNewProductForm() {
     <td>
     <input type="number" class="form-control" id="newProductUnitPrice" required />
     </td>
-    <td><button onclick="addOrder()" class="btn btn-add" value="Add" />
+    <td><button onclick="addOrder()" class="btn btn-add" value="Add">Add</button>
     </td>
     <td></td>
     </tr>`;
 }
 
 async function addOrder() {
-    let product = document.querySelector("#newProductName");
-    let quantity = document.querySelector("#newProductQuantity");
-    let unitPrice = document.querySelector("#newProductUnitPrice");
+    let product = document.querySelector("#newProductName").value;
+    let quantity = document.querySelector("#newProductQuantity").value;
+    let unitPrice = document.querySelector("#newProductUnitPrice").value;
 
     let response = await $.ajax({
         type: 'POST',
