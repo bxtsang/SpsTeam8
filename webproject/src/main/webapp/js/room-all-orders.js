@@ -4,6 +4,7 @@ window.onload = function() {
     roomID = window.location.search.substr(1);
     getRoomDetails(roomID);
     getAllOrders();
+    getHeaderLinks();
 }
 
 function getAllOrders() {
@@ -78,4 +79,9 @@ function getAllOrders() {
     <span class = "my-order-grand-total-value">$${total}</span>
     </div>`;
     allOrdersContainer.innerHTML = myOrderString;
+}
+
+function getHeaderLinks() {
+    document.getElementById('chat-link').href = '/roomChat.html?' + roomID;
+    document.getElementById('my-order-link').href = '/roomMyOrder.html?' + roomID;
 }
