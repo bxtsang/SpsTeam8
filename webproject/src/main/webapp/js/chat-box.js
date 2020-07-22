@@ -1,7 +1,11 @@
 var roomID = window.location.search.substr(1);
+var username;
+
 window.onload = function() {
     fetchBlobstoreUrl();    
+    getUsername();
 }
+
 $(document).ready(function() {
     database = firebase.database();
     name = "user " + Math.floor(Math.random() * Math.floor(5));
@@ -23,6 +27,12 @@ $(document).ready(function() {
     });
 });
 
+function getUsername() {
+    fetch('/username').then(response => response.text()).then(response => {
+        username = response;
+    });
+}
+
 function sendMessage() {
     let messageBox = document.getElementById("message");
     var message = messageBox.value;
@@ -31,7 +41,7 @@ function sendMessage() {
     var time = hours_with_leading_zeroes(date) + ":" + minutes_with_leading_zeroes(date);
     firebase.database().ref('messages/' + roomID).push().set({
         type: "text",
-        user: name,
+        user: username,
         message: message,
         time: time
     }, function(error) {
