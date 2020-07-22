@@ -85,7 +85,7 @@ function getMyOrder() {
 }
 
 function getNewProductForm() {
-    return `<form action="/myOrder" method="post">
+    return `<form action="/order" method="post">
     <tr>
     <th scope="row">
     </th>
