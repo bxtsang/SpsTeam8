@@ -68,37 +68,48 @@ function initMap() {
 
 function initialiseRoomMarkers() {
     markers = [];
-    const rooms = [
-        {'location' : 'Lola\'s Cafe', 'postalCode' : '545893'},
-        {'location' : 'Nex', 'postalCode': '556083'}
-    ]; // Hardcoded for now
 
-    for (let i = 0; i < rooms.length; i++) {
-        const room = rooms[i];
-
-        const fetchUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + room.postalCode
-        + '&key=' + getApiKey();
-
-        fetch(fetchUrl)
-        .then(response => response.json())
-        .then(response => {
-            if (response.status === 'OK') {
-                const coordinates = response.results[0].geometry.location;
-                appendMarker(room.location, coordinates.lat, coordinates.lng);
+    fetch('https://summer20-sps-47.firebaseio.com/rooms.json')
+    .then(response => response.json())
+    .then(data => Object.entries(data))
+    .then(entries => {
+        for (entry of entries) {
+            room = entry[1];
+            if (room.deliveryLocation !== undefined) {
+                initialiseSingleRoomMarker(room);
             }
-        });
-    }
+        }
+    });
 }
 
-function appendMarker(location, lat, lng) {
+function initialiseSingleRoomMarker(room) {
+    const fetchUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + room.deliveryLocation
+            + '&key=' + getApiKey();
+
+    fetch(fetchUrl)
+    .then(response => response.json())
+    .then(response => {
+        if (response.status === 'OK') {
+            const coordinates = response.results[0].geometry.location;
+            appendMarker(room, coordinates.lat, coordinates.lng);
+        }
+    });
+}
+
+function appendMarker(room, lat, lng) {
     const marker = new google.maps.Marker({
         position: new google.maps.LatLng(lat, lng),
         map: map,
-        title: location
+        title: room.title
     });
 
+    windowContent = `<div class="text-center">
+            <p> ${room.title} </p>
+            <p> ${room.deliveryLocation} </p>
+            </div>`;
+
     const infoWindow = new google.maps.InfoWindow({
-        content: location
+        content: windowContent
     });
 
     google.maps.event.addListener(marker, 'click', function() {
