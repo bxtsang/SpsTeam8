@@ -2785,3 +2785,11 @@ h5,
     color: white;
     font-weight: 500;
 }
+
+#login-button {
+    color: white;
+}
+
+#login-button-wrapper :hover {
+    color: #15a089 !important;
+}
