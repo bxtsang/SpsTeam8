@@ -7,13 +7,13 @@ window.onload = function() {
 }
 
 async function getMyOrder() {
-    let response = await fetch(`/myOrder?roomId=${roomID}`);
-    let myOrders = await response.json();
-    console.log(myOrders);
+    let orderResponse = await fetch(`/myOrder?roomId=${roomID}`);
+    let myOrders = await orderResponse.json();
     let myOrderItems = Object.values(myOrders);
 
-    let response2 = await fetch(`https://summer20-sps-47.firebaseio.com/rooms/${roomID}.json`)
-    let myRoomDetails = await response2.json();
+    let roomResponse = await fetch(`https://summer20-sps-47.firebaseio.com/rooms/${roomID}.json`)
+    let myRoomDetails = await roomResponse.json();
+    
     let myOrderContainer = document.getElementById("my-order-container");
     if (myOrderItems.length <= 0) {
         myOrderContainer.innerHTML = "Add an item now!";

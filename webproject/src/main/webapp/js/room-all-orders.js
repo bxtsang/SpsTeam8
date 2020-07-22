@@ -11,16 +11,10 @@ async function getAllOrders() {
     let response = await fetch(`https://summer20-sps-47.firebaseio.com/orders.json?orderBy=%22roomId%22&equalTo=%22${roomID}%22`)
     let data = await response.json();
     let allOrderItems = Object.values(data);
-    console.log(allOrderItems);
-    let myRoomDetails = {
-        shopName: "McDonald's",
-        postalCode: "123456",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-        category: "Food",
-        deliveryFee: 20,
-        minimumOrder: 100,
-        noOfPeopleInRoom: 3,
-    };
+    
+    let roomResponse = await fetch(`https://summer20-sps-47.firebaseio.com/rooms/${roomID}.json`)
+    let myRoomDetails = await roomResponse.json();
+    
     let allOrdersContainer = document.getElementById("all-orders-container");
     console.log('AllOrdersContainer: ', allOrdersContainer)
     if (allOrderItems.length <= 0) {
