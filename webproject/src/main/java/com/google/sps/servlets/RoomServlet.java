@@ -41,5 +41,6 @@ public class RoomServlet extends HttpServlet {
 
         newRoom.save();
         response.setStatus(200);
+        response.sendRedirect("/listings.html");
     }
 }
