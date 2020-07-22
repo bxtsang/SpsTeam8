@@ -28,12 +28,15 @@
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
-<body
-    data-spy="scroll"
-    data-target=".site-navbar-target"
-    data-offset="300"
-    onload="getListings();appendUsernameToLogoutButton();"
->
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" onload="getListings(); appendUsernameToLogoutButton();">
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-database.js"></script>
+    <script src="js/config.js"></script>
+
     <div class="site-wrap" id="home-section">
         <div class="site-mobile-menu site-navbar-target">
             <div class="site-mobile-menu-header">
@@ -62,17 +65,17 @@
                         </h1>
                     </div>
 
-                    <div class="col-12 col-md-9 main-menu">
-                        <nav class="site-navigation position-relative text-right" role="navigation">
+                    <div class="col-12 col-md-12 main-menu">
+                        <nav class="site-navigation position-relative text-center" role="navigation">
                             <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                                 <li>
                                     <a href="#view-listings" class="nav-link">View Listings</a>
                                 </li>
                                 <li>
-                                    <a href="#about-section" class="nav-link">Post a listing</a>
+                                    <a href="/create-room.html" class="nav-link">Post a listing</a>
                                 </li>
                                 <li>
-                                    <a href="#contact-section" class="nav-link">My Rooms</a>
+                                    <a href="/my-rooms.html" class="nav-link">My Rooms</a>
                                 </li>
                                 <li>
                                     <a onclick="logout()" class="nav-link logout-button">Logout</a>
@@ -105,7 +108,12 @@
                     <div class="col-6 text-left listings-toggle-options"><a href="geolocation.html">View Map of listings</a></div>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col-12" id="listings-card-container"></div>
+                    <div class="col-12" id="listings-card-container">
+                        <div class="text-center">
+                            <br />
+                            <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -119,6 +127,7 @@
                             Copyright &copy;
                             <script>
                                 document.write(new Date().getFullYear());
+
                             </script>
                             All rights reserved | This template is made with
                             <i class="icon-heart" aria-hidden="true"></i> by

@@ -20,6 +20,26 @@
     <url-pattern>/listings</url-pattern>
   </servlet-mapping>
 
+  <!-- My Rooms Servlet -->
+  <servlet>
+    <servlet-name>MyRoomsServlet</servlet-name>
+    <servlet-class>com.google.sps.servlets.MyRoomsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MyRoomsServlet</servlet-name>
+    <url-pattern>/myRooms</url-pattern>
+  </servlet-mapping>
+
+  <!-- Join Servlet -->
+  <servlet>
+    <servlet-name>JoinServlet</servlet-name>
+    <servlet-class>com.google.sps.servlets.JoinServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>JoinServlet</servlet-name>
+    <url-pattern>/join</url-pattern>
+  </servlet-mapping>
+
   <!-- Blobstore Servlets -->
   <servlet>
     <servlet-name>BlobstoreServlet</servlet-name>
