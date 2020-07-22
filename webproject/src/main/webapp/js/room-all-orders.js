@@ -7,28 +7,14 @@ window.onload = function() {
     getHeaderLinks();
 }
 
-function getAllOrders() {
-    console.log('HEREEEE')
-    let allOrderItems = [{
-            productName: "Chicken burger",
-            quantity: 2,
-            perUnitPrice: 10,
-        },
-        {
-            productName: "Fish burger",
-            quantity: 1,
-            perUnitPrice: 15,
-        },
-    ];
-    let myRoomDetails = {
-        shopName: "McDonald's",
-        postalCode: "123456",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-        category: "Food",
-        deliveryFee: 20,
-        minimumOrder: 100,
-        noOfPeopleInRoom: 3,
-    };
+async function getAllOrders() {
+    let response = await fetch(`https://summer20-sps-47.firebaseio.com/orders.json?orderBy=%22roomId%22&equalTo=%22${roomID}%22`)
+    let data = await response.json();
+    let allOrderItems = Object.values(data);
+    
+    let roomResponse = await fetch(`https://summer20-sps-47.firebaseio.com/rooms/${roomID}.json`)
+    let myRoomDetails = await roomResponse.json();
+    
     let allOrdersContainer = document.getElementById("all-orders-container");
     console.log('AllOrdersContainer: ', allOrdersContainer)
     if (allOrderItems.length <= 0) {
@@ -50,15 +36,15 @@ function getAllOrders() {
         <tbody>`;
     let total = 0;
     for (let i = 0; i < allOrderItems.length; i++) {
-        productTotal = allOrderItems[i].quantity * allOrderItems[i].perUnitPrice;
+        productTotal = allOrderItems[i].quantity * allOrderItems[i].unitPrice;
         total += productTotal;
         myOrderString += `
     <tr>
     <form action="/myOrder" method="delete">
     <th scope="row">${i + 1}</th>
-    <td>${allOrderItems[i].productName}</td>
+    <td>${allOrderItems[i].product}</td>
     <td>${allOrderItems[i].quantity}</td>
-    <td>${allOrderItems[i].perUnitPrice}</td>
+    <td>${allOrderItems[i].unitPrice}</td>
     <td>${productTotal}</td>
     </form>
     </tr>`;
