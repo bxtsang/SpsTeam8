@@ -6,27 +6,13 @@ window.onload = function() {
     getHeaderLinks();
 }
 
-function getMyOrder() {
-    let myOrderItems = [{
-            productName: "Chicken burger",
-            quantity: 2,
-            perUnitPrice: 10,
-        },
-        {
-            productName: "Fish burger",
-            quantity: 1,
-            perUnitPrice: 15,
-        },
-    ];
-    let myRoomDetails = {
-        shopName: "McDonald's",
-        postalCode: "123456",
-        description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
-        category: "Food",
-        deliveryFee: "20",
-        minimumOrder: "100",
-        noOfPeopleInRoom: 3,
-    };
+async function getMyOrder() {
+    let response = await fetch("/myOrder");
+    let myOrders = await response.json();
+    let myOrderItems = Object.values(myOrders);
+
+    let response2 = await fetch(`https://summer20-sps-47.firebaseio.com/rooms/${roomID}.json`)
+    let myRoomDetails = await response2.json();
     let myOrderContainer = document.getElementById("my-order-container");
     if (myOrderItems.length <= 0) {
         myOrderContainer.innerHTML = "Add an item now!";
@@ -85,8 +71,7 @@ function getMyOrder() {
 }
 
 function getNewProductForm() {
-    return `<form action="/order" method="post">
-    <tr>
+    return `<tr>
     <th scope="row">
     </th>
     <td>
@@ -98,12 +83,34 @@ function getNewProductForm() {
     <td>
     <input type="number" class="form-control" id="newProductUnitPrice" required />
     </td>
-    <td><input type="submit" class="btn btn-add" value="Add" />
+    <td><button onclick="addOrder()" class="btn btn-add" value="Add" />
     </td>
     <td></td>
-    </tr>
-    </form>`;
+    </tr>`;
 }
+
+async function addOrder() {
+    let product = document.querySelector("#newProductName");
+    let quantity = document.querySelector("#newProductQuantity");
+    let unitPrice = document.querySelector("#newProductUnitPrice");
+
+    let response = await $.ajax({
+        type: 'POST',
+        url: "/order",
+        data: {
+            'roomId': roomID,
+            'product': product,
+            'quantity': quantity,
+            'unitPrice': unitPrice
+        },
+    });
+  
+    if (response.status == 200) {
+      window.alert("Your order is added!")
+    }
+  
+    window.location.reload();
+  }
 
 function getHeaderLinks() {
     document.getElementById('chat-link').href = '/roomChat.html?' + roomID;
