@@ -71,8 +71,7 @@ async function getMyOrder() {
 }
 
 function getNewProductForm() {
-    return `<form action="/order" method="post">
-    <tr>
+    return `<tr>
     <th scope="row">
     </th>
     <td>
@@ -84,12 +83,34 @@ function getNewProductForm() {
     <td>
     <input type="number" class="form-control" id="newProductUnitPrice" required />
     </td>
-    <td><input type="submit" class="btn btn-add" value="Add" />
+    <td><button onclick="addOrder()" class="btn btn-add" value="Add" />
     </td>
     <td></td>
-    </tr>
-    </form>`;
+    </tr>`;
 }
+
+async function addOrder() {
+    let product = document.querySelector("#newProductName");
+    let quantity = document.querySelector("#newProductQuantity");
+    let unitPrice = document.querySelector("#newProductUnitPrice");
+
+    let response = await $.ajax({
+        type: 'POST',
+        url: "/order",
+        data: {
+            'roomId': roomID,
+            'product': product,
+            'quantity': quantity,
+            'unitPrice': unitPrice
+        },
+    });
+  
+    if (response.status == 200) {
+      window.alert("Your order is added!")
+    }
+  
+    window.location.reload();
+  }
 
 function getHeaderLinks() {
     document.getElementById('chat-link').href = '/roomChat.html?' + roomID;
