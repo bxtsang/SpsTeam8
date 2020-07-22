@@ -3,6 +3,7 @@ window.onload = function() {
     roomID = window.location.search.substr(1);
     getRoomDetails(roomID);
     getMyOrder();
+    getHeaderLinks();
 }
 
 function getMyOrder() {
@@ -102,4 +103,9 @@ function getNewProductForm() {
     <td></td>
     </tr>
     </form>`;
+}
+
+function getHeaderLinks() {
+    document.getElementById('chat-link').href = '/roomChat.html?' + roomID;
+    document.getElementById('all-orders-link').href = '/roomAllOrders.html?' + roomID;
 }

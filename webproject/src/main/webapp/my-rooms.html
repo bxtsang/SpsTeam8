@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Meap &mdash; My Room</title>
+    <title>Meap &mdash; Listings</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <!-- Font Awesome icons (free version)-->
@@ -28,7 +28,12 @@
     <link rel="stylesheet" href="css/style.css" />
 </head>
 
-<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+<body
+    data-spy="scroll"
+    data-target=".site-navbar-target"
+    data-offset="300"
+    onload="getListings();appendUsernameToLogoutButton();"
+>
     <div class="site-wrap" id="home-section">
         <div class="site-mobile-menu site-navbar-target">
             <div class="site-mobile-menu-header">
@@ -57,8 +62,8 @@
                         </h1>
                     </div>
 
-                    <div class="col-12 col-md-12 main-menu">
-                        <nav class="site-navigation position-relative text-center" role="navigation">
+                    <div class="col-12 col-md-9 main-menu">
+                        <nav class="site-navigation position-relative text-right" role="navigation">
                             <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                                 <li>
                                     <a href="/listings.html" class="nav-link">View Listings</a>
@@ -67,7 +72,7 @@
                                     <a href="/create-room.html" class="nav-link">Post a listing</a>
                                 </li>
                                 <li>
-                                    <a href="/my-rooms.html" class="nav-link">My Rooms</a>
+                                    <a href="/rooms.html" class="nav-link">My Rooms</a>
                                 </li>
                                 <li>
                                     <a onclick="logout()" class="nav-link logout-button">Logout</a>
@@ -85,23 +90,10 @@
             </div>
         </header>
 
-        <div class="site-section" id="my-rooms">
+        <div class="site-section" id="view-listings">
             <div class="container">
-                <div class="row justify-content-center searchfield">
-                    <div class="col-4 text-right room-toggle-options">
-                        <a id="chat-link">Chat</a>
-                    </div>
-                    <div class="col-4 text-center room-toggle-options">
-                        <a id="my-order-link">My Order</a>
-                    </div>
-                    <div class="col-4 text-left room-toggle-options active-tab">
-                        <a id="all-orders-link">All Orders</a>
-                    </div>
-                </div>
-
                 <div class="row justify-content-center">
-                    <div class="col-3" id="room-details-container"></div>
-                    <div class="col-9" id="all-orders-container"></div>
+                    <div class="col-12" id="listings-card-container"></div>
                 </div>
             </div>
         </div>
@@ -115,7 +107,6 @@
                             Copyright &copy;
                             <script>
                                 document.write(new Date().getFullYear());
-
                             </script>
                             All rights reserved | This template is made with
                             <i class="icon-heart" aria-hidden="true"></i> by
@@ -127,8 +118,8 @@
             </div>
         </div>
     </div>
-    <!-- .site-wrap -->
 
+    <!-- .site-wrap -->
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/jquery-migrate-3.0.1.min.js"></script>
     <script src="js/jquery-ui.js"></script>
@@ -144,8 +135,6 @@
     <script src="js/jquery.sticky.js"></script>
 
     <script src="js/main.js"></script>
-    <script src="js/room-details.js"></script>
-    <script src="js/room-all-orders.js"></script>
     <script src="js/logout.js"></script>
 </body>
 
