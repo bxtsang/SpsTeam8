@@ -1,9 +1,8 @@
 var roomID = window.location.search.substr(1);
-var username;
+var username = null;
 
 window.onload = function() {
-    fetchBlobstoreUrl();    
-    getUsername();
+    fetchBlobstoreUrl();  
 }
 
 $(document).ready(function() {
@@ -27,29 +26,41 @@ $(document).ready(function() {
     });
 });
 
-function getUsername() {
-    fetch('/username').then(response => response.text()).then(response => {
-        username = response;
-    });
-}
-
 function sendMessage() {
-    let messageBox = document.getElementById("message");
-    var message = messageBox.value;
-    messageBox.value = "";
-    var date = new Date();
-    var time = hours_with_leading_zeroes(date) + ":" + minutes_with_leading_zeroes(date);
-    firebase.database().ref('messages/' + roomID).push().set({
-        type: "text",
-        user: username,
-        message: message,
-        time: time
-    }, function(error) {
-        if (error) {
-            console.log("Write failed");
-        }
+    let usernamePromise = null;
+    
+    if (username == null) {
+	    usernamePromise = getUsername();
+    } else {
+	    usernamePromise = Promise.resolve(username);
+    }
+
+    usernamePromise.then(username => {
+	    let messageBox = document.getElementById("message");
+        var message = messageBox.value;
+        messageBox.value = "";
+        var date = new Date();
+        var time = hours_with_leading_zeroes(date) + ":" + minutes_with_leading_zeroes(date);
+
+        firebase.database().ref('messages/' + roomID).push().set({
+            type: "text",
+            user: username,
+            message: message,
+            time: time
+        }, function(error) {
+            if (error) {
+                console.log("Write failed");
+            }
+        });
     });
     return false;
+}
+
+function getUsername() {
+    return fetch('/username').then(response => response.text()).then(response => {
+        username = response;
+        return response;
+    });
 }
 
 function fetchBlobstoreUrl() {
