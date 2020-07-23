@@ -36,7 +36,7 @@ function sendMessage() {
     }
 
     usernamePromise.then(username => {
-	    let messageBox = document.getElementById("message");
+        let messageBox = document.getElementById("message");
         var message = messageBox.value;
         messageBox.value = "";
         var date = new Date();
