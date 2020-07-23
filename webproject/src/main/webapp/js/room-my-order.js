@@ -52,8 +52,9 @@ async function getMyOrder() {
     </tr>`;
     }
     myDeliveryFee = (
-        myRoomDetails.deliveryFee / myRoomDetails.noOfPeopleInRoom
+        myRoomDetails.deliveryFee / myRoomDetails.users.length
     ).toFixed(2);
+
     myOrderString += getNewProductForm();
     total += parseFloat(myDeliveryFee);
     myOrderString += `</tbody></table>`;
