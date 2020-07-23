@@ -18,13 +18,6 @@ async function getRoomDetails(roomID) {
     <br />
     <span class="room-details-value">$${roomDetails.deliveryFee}</span>
     <br/>
-    
-    <span class="room-details-header">$ left to minimum order: </span>
-    <br />
-    <span class="room-details-value">$${
-        roomDetails.minPrice - roomDetails.total
-    }</span>
-    <br />
     <br />
     </div>
     
