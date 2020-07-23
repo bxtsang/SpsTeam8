@@ -54,7 +54,7 @@ async function getMyOrder() {
     myDeliveryFee = (
         myRoomDetails.deliveryFee / myRoomDetails.users.length
     ).toFixed(2);
-    console.log(myRoomDetails);
+
     myOrderString += getNewProductForm();
     total += parseFloat(myDeliveryFee);
     myOrderString += `</tbody></table>`;
