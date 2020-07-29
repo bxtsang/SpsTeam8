@@ -4,7 +4,6 @@ async function getRoomDetails(roomID) {
 
     var userRoomResponse = await fetch(`https://summer20-sps-47.firebaseio.com/UserRoom.json?orderBy=%22roomId%22&equalTo=%22${roomID}%22`);
     var userRoomData = await userRoomResponse.json();
-    console.log(userRoomData);
     let numUsers = Object.keys(userRoomData).length;
 
     let roomDetailsContainer = document.getElementById("room-details-container");
