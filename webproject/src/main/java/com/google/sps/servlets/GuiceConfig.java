@@ -21,7 +21,6 @@ public class GuiceConfig extends GuiceServletContextListener {
             protected void configureServlets() {
                 super.configureServlets();
 
-                bind(LandingService.class).to(LandingServiceImpl.class);
                 bind(JoinRoomService.class).to(JoinRoomRoomServiceImpl.class);
                 bind(GetJoinService.class).to(GetJoinServiceImpl.class);
 
