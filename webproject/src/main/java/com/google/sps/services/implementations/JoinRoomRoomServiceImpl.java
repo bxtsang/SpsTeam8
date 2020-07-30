@@ -6,6 +6,8 @@ import java.io.IOException;
 import com.google.appengine.api.users.User;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.sps.data.UserRoom;
 import com.google.sps.proto.JoinRoomProto.JoinRoomRequest;
@@ -35,7 +37,16 @@ public class JoinRoomRoomServiceImpl implements JoinRoomService {
         FirebaseDatabase.getInstance()
                 .getReference("UserRoom")
                 .push()
-                .setValueAsync(new UserRoom(userEmail, postJoinRequest.getRoomId()));
+                .setValue(new UserRoom(userEmail, postJoinRequest.getRoomId()), new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                        if (databaseError != null) {
+                            System.out.println("Data could not be saved " + databaseError.getMessage());
+                        } else {
+                            System.out.println("Data saved successfully.");
+                        }
+                    }
+                });
 
         JoinRoomResponse.Builder postJoinResponse = JoinRoomResponse.newBuilder();
         postJoinResponse.setRoomId(postJoinRequest.getRoomId());
