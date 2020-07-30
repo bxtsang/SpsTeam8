@@ -35,10 +35,14 @@ public class GetJoinServiceImpl implements GetJoinService {
         User user = getCurrentUser();
         String userEmail = user.getEmail();
 
-        String url = "https://summer20-sps-47.firebaseio.com/UserRoom.json?orderBy=%22userEmailRoom%22&equalTo=%22"
-                + userEmail + "_" + roomId + "%22";
+        StringBuilder url = new StringBuilder("https://summer20-sps-47.firebaseio.com/UserRoom.json?orderBy=%22userEmailRoom%22&equalTo=%22");
+        url.append(userEmail);
+        url.append("_");
+        url.append(roomId);
+        url.append("%22");
+
         //Use Firebase class once merged
-        HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
+        HttpURLConnection con = (HttpURLConnection) new URL(url.toString()).openConnection();
         con.setRequestMethod("GET");
         con.setRequestProperty("Accept", "application/json");
         con.setDoOutput(true);
