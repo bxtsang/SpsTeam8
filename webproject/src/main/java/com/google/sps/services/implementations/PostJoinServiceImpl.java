@@ -13,19 +13,11 @@ import com.google.sps.data.UserRoom;
 import com.google.sps.proto.PostJoinProto.PostJoinRequest;
 import com.google.sps.proto.PostJoinProto.PostJoinResponse;
 import com.google.sps.services.interfaces.PostJoinService;
+import com.google.sps.util.AuthHandlerUtil;
 import com.google.sps.util.TimestampUtil;
 
 public class PostJoinServiceImpl implements PostJoinService {
-    AuthenticationHandler auth;
-
-    public AuthenticationHandler getAuthenticationHandler() {
-        if (auth == null) {
-            auth = new AuthenticationHandler();
-        }
-        return auth;
-    }
-
-    @Override
+        @Override
     public FirebaseOptions getFirebaseOptions() throws IOException {
         // Fetch the service account key JSON file contents
         FileInputStream serviceAccount = new FileInputStream("./key.json");
@@ -55,6 +47,6 @@ public class PostJoinServiceImpl implements PostJoinService {
     }
 
     public User getCurrentUser() {
-        return getAuthenticationHandler().getCurrentUser();
+        return AuthHandlerUtil.getAuthenticationHandler().getCurrentUser();
     }
 }

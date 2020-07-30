@@ -7,6 +7,7 @@ import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.services.interfaces.PostJoinService;
 import com.google.sps.proto.PostJoinProto.PostJoinRequest;
 import com.google.sps.proto.PostJoinProto.PostJoinResponse;
+import com.google.sps.util.AuthHandlerUtil;
 
 import java.io.*;
 
@@ -41,7 +42,7 @@ public class PostJoinServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        AuthenticationHandler auth = postJoinService.getAuthenticationHandler();
+        AuthenticationHandler auth = AuthHandlerUtil.getAuthenticationHandler();
         if (!auth.isUserLoggedIn()) {
             response.setStatus(400);
             return;

@@ -9,6 +9,5 @@ import com.google.sps.proto.PostJoinProto.PostJoinRequest;
 
 public interface PostJoinService {
     public FirebaseOptions getFirebaseOptions() throws IOException;
-    public AuthenticationHandler getAuthenticationHandler();
     public PostJoinResponse execute(PostJoinRequest joinRequest);
 }

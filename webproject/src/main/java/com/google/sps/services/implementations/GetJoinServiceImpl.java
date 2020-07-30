@@ -10,13 +10,11 @@ import java.net.URL;
 import com.google.appengine.api.users.User;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseOptions;
-import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.proto.GetJoinProto.GetJoinRequest;
 import com.google.sps.services.interfaces.GetJoinService;
+import com.google.sps.util.AuthHandlerUtil;
 
 public class GetJoinServiceImpl implements GetJoinService {
-    AuthenticationHandler auth;
-
     @Override
     public FirebaseOptions getFirebaseOptions() throws IOException {
         // Fetch the service account key JSON file contents
@@ -62,13 +60,6 @@ public class GetJoinServiceImpl implements GetJoinService {
     }
 
     public User getCurrentUser() {
-        return getAuthenticationHandler().getCurrentUser();
-    }
-
-    public AuthenticationHandler getAuthenticationHandler() {
-        if (auth == null) {
-            auth = new AuthenticationHandler();
-        }
-        return auth;
+        return AuthHandlerUtil.getAuthenticationHandler().getCurrentUser();
     }
 }
