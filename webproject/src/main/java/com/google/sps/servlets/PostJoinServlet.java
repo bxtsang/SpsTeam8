@@ -8,6 +8,7 @@ import com.google.sps.services.interfaces.PostJoinService;
 import com.google.sps.proto.PostJoinProto.PostJoinRequest;
 import com.google.sps.proto.PostJoinProto.PostJoinResponse;
 import com.google.sps.util.AuthHandlerUtil;
+import com.google.sps.util.FirebaseUtil;
 
 import java.io.*;
 
@@ -28,16 +29,7 @@ public class PostJoinServlet extends HttpServlet {
 
     @Override
     public void init() {
-        try {
-            FirebaseOptions options = postJoinService.getFirebaseOptions();
-            if (FirebaseApp.getApps().isEmpty()) {
-                FirebaseApp.initializeApp(options);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        FirebaseUtil.initializeFirebase();
     }
 
     @Override

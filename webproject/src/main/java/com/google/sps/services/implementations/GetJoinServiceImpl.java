@@ -16,18 +16,6 @@ import com.google.sps.util.AuthHandlerUtil;
 
 public class GetJoinServiceImpl implements GetJoinService {
     @Override
-    public FirebaseOptions getFirebaseOptions() throws IOException {
-        // Fetch the service account key JSON file contents
-        FileInputStream serviceAccount = new FileInputStream("./key.json");
-
-        // Initialize the app with a service account, granting admin privileges
-        return new FirebaseOptions.Builder()
-                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .setDatabaseUrl("https://summer20-sps-47.firebaseio.com")
-                .build();
-    }
-
-    @Override
     public String execute(GetJoinRequest getJoinRequest) throws IOException {
         String roomId = getJoinRequest.getRoomId();
         User user = getCurrentUser();

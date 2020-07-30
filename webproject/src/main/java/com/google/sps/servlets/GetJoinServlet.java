@@ -4,6 +4,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.sps.services.interfaces.GetJoinService;
 import com.google.sps.proto.GetJoinProto.GetJoinRequest;
+import com.google.sps.util.FirebaseUtil;
 
 import java.io.*;
 
@@ -24,16 +25,7 @@ public class GetJoinServlet extends HttpServlet {
 
     @Override
     public void init() {
-        try {
-            FirebaseOptions options = getJoinService.getFirebaseOptions();
-            if (FirebaseApp.getApps().isEmpty()) {
-                FirebaseApp.initializeApp(options);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+        FirebaseUtil.initializeFirebase();
     }
 
     @Override
