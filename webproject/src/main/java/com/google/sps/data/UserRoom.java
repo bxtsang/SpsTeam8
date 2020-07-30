@@ -1,5 +1,7 @@
 package com.google.sps.data;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 public class UserRoom {
     private String userEmail;
     private String roomId;
@@ -21,5 +23,9 @@ public class UserRoom {
 
     public String getUserEmailRoom() {
         return userEmailRoom;
+    }
+
+    public void save() {
+        FirebaseDatabase.getInstance().getReference("UserRoom").push().setValueAsync(this);
     }
 }

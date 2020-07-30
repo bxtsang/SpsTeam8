@@ -7,6 +7,7 @@ import com.google.sps.firebase.Firebase;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class defines room objects
@@ -60,9 +61,17 @@ public class Room {
         this.ordersValue += orderPrice;
     }
 
+    public void addUser(String userEmail, String roomId) {
+        UserRoom userRoom = new UserRoom(userEmail, roomId);
+        userRoom.save();
+    }
+
     public void save() throws IOException {
         String roomJson = gson.toJson(this);
-        Firebase.sendRequest("https://summer20-sps-47.firebaseio.com/rooms.json", "POST", roomJson);
+        String firebaseResponse = Firebase.sendRequest("https://summer20-sps-47.firebaseio.com/rooms.json", "POST", roomJson);
+        Map<String, String> firebaseData = gson.fromJson(firebaseResponse, Map.class);
+
+        this.addUser(this.creator, firebaseData.get("name"));
     }
 
     public void save(String roomId) throws IOException {
