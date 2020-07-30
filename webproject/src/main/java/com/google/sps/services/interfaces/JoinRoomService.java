@@ -7,7 +7,7 @@ import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.proto.PostJoinProto.PostJoinResponse;
 import com.google.sps.proto.PostJoinProto.PostJoinRequest;
 
-public interface PostJoinService {
+public interface JoinRoomService {
     public FirebaseOptions getFirebaseOptions() throws IOException;
     public PostJoinResponse execute(PostJoinRequest joinRequest);
 }

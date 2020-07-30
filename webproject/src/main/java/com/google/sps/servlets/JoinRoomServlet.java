@@ -2,7 +2,7 @@ package com.google.sps.servlets;
 
 import com.google.protobuf.util.JsonFormat;
 import com.google.sps.authentication.AuthenticationHandler;
-import com.google.sps.services.interfaces.PostJoinService;
+import com.google.sps.services.interfaces.JoinRoomService;
 import com.google.sps.proto.PostJoinProto.PostJoinRequest;
 import com.google.sps.proto.PostJoinProto.PostJoinResponse;
 import com.google.sps.authentication.AuthenticationHandlerSupplier;
@@ -17,12 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Singleton
-public class PostJoinServlet extends HttpServlet {
-    private PostJoinService postJoinService;
+public class JoinRoomServlet extends HttpServlet {
+    private JoinRoomService joinRoomService;
 
     @Inject
-    public PostJoinServlet(PostJoinService postJoinService) {
-        this.postJoinService = postJoinService;
+    public JoinRoomServlet(JoinRoomService joinRoomService) {
+        this.joinRoomService = joinRoomService;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class PostJoinServlet extends HttpServlet {
         PostJoinRequest.Builder postJoinRequest = PostJoinRequest.newBuilder();
         postJoinRequest.setRoomId(roomId);
 
-        PostJoinResponse postJoinResponse = postJoinService.execute(postJoinRequest.build());
+        PostJoinResponse postJoinResponse = joinRoomService.execute(postJoinRequest.build());
 
         response.setContentType("application/json; charset=UTF-8;");
         response.getWriter().println(JsonFormat.printer().print(postJoinResponse));

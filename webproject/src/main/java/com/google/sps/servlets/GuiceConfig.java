@@ -7,10 +7,10 @@ import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
 import com.google.sps.services.implementations.GetJoinServiceImpl;
 import com.google.sps.services.implementations.LandingServiceImpl;
-import com.google.sps.services.implementations.PostJoinServiceImpl;
+import com.google.sps.services.implementations.JoinRoomRoomServiceImpl;
 import com.google.sps.services.interfaces.GetJoinService;
 import com.google.sps.services.interfaces.LandingService;
-import com.google.sps.services.interfaces.PostJoinService;
+import com.google.sps.services.interfaces.JoinRoomService;
 
 public class GuiceConfig extends GuiceServletContextListener {
 
@@ -22,11 +22,11 @@ public class GuiceConfig extends GuiceServletContextListener {
                 super.configureServlets();
 
                 bind(LandingService.class).to(LandingServiceImpl.class);
-                bind(PostJoinService.class).to(PostJoinServiceImpl.class);
+                bind(JoinRoomService.class).to(JoinRoomRoomServiceImpl.class);
                 bind(GetJoinService.class).to(GetJoinServiceImpl.class);
 
                 serve("/landing").with(LandingServlet.class);
-                serve("/postJoin").with(PostJoinServlet.class);
+                serve("/postJoin").with(JoinRoomServlet.class);
                 serve("/getJoin").with(GetJoinServlet.class);
             }
         });

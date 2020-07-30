@@ -10,11 +10,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.sps.data.UserRoom;
 import com.google.sps.proto.PostJoinProto.PostJoinRequest;
 import com.google.sps.proto.PostJoinProto.PostJoinResponse;
-import com.google.sps.services.interfaces.PostJoinService;
+import com.google.sps.services.interfaces.JoinRoomService;
 import com.google.sps.authentication.AuthenticationHandlerSupplier;
 import com.google.sps.util.TimestampUtil;
 
-public class PostJoinServiceImpl implements PostJoinService {
+public class JoinRoomRoomServiceImpl implements JoinRoomService {
         @Override
     public FirebaseOptions getFirebaseOptions() throws IOException {
         // Fetch the service account key JSON file contents
