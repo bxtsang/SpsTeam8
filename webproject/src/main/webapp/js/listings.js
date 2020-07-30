@@ -29,7 +29,7 @@ async function getListings() {
           <span class="card-value">$${roomData.deliveryFee}</span>
           <br />
           <br />`;
-        let response2 = await fetch("/getJoin?roomId=" + room[0]);
+        let response2 = await fetch("/userRoomStatus?roomId=" + room[0]);
         let joinAction = await response2.text();
         if (joinAction == "Join") {
             childHtmlString += `<button id="action" class="btn btn-join" onclick="joinRoom('${room[0]}')">Join</button>
