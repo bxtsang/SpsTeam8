@@ -23,7 +23,7 @@ public class GuiceConfig extends GuiceServletContextListener {
                 bind(GetJoinService.class).to(GetJoinServiceImpl.class);
 
                 serve("/landing").with(LandingServlet.class);
-                serve("/postJoin").with(JoinRoomServlet.class);
+                serve("/joinRoom").with(JoinRoomServlet.class);
                 serve("/getJoin").with(GetJoinServlet.class);
             }
         });
