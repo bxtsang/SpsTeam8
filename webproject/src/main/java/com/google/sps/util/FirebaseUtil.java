@@ -49,14 +49,10 @@ public class FirebaseUtil {
     public String getFirebaseResponse(String url) throws IOException {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference userRoomRef = database.getReference("UserRoom");
-        System.out.println("*****************************");
-        System.out.println(userRoomRef);
-        System.out.println("*****************************");
-        dinosaursRef.orderByKey().addChildEventListener(new ChildEventListener() {
+        userRoomRef.orderByKey().addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                UserRoom userRoom = dataSnapshot.getValue(UserRoom.class);
-                System.out.println(dataSnapshot.getKey() + " was " + userRoom.getRoomId() + " meters tall.");
+                System.out.println(dataSnapshot.getKey());
             }
 
             @Override
@@ -78,9 +74,9 @@ public class FirebaseUtil {
             public void onCancelled(DatabaseError error) {
 
             }
-
-            // ...
         });
+        
+
 
         return "Meap";
 
