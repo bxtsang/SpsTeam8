@@ -1,5 +1,7 @@
 package com.google.sps.services.implementations;
 
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.sps.data.UserRoom;
 import com.google.sps.proto.JoinRoomProto.JoinRoomResponse;
@@ -16,7 +18,13 @@ public class JoinRoomRoomServiceImpl implements JoinRoomService {
         FirebaseDatabase.getInstance()
                 .getReference("UserRoom")
                 .push()
-                .setValueAsync(new UserRoom(userEmail, postJoinRequest.getRoomId()));
+                .setValue(new UserRoom(userEmail, postJoinRequest.getRoomId()), (databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        System.out.println("Data could not be saved " + databaseError.getMessage());
+                    } else {
+                        System.out.println("Data saved successfully.");
+                    }
+                });
 
         return JoinRoomResponse.newBuilder()
                 .setRoomId(postJoinRequest.getRoomId())
