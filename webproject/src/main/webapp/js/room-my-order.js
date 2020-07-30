@@ -7,12 +7,16 @@ window.onload = function() {
 }
 
 async function getMyOrder() {
-    let orderResponse = await fetch(`/myOrder?roomId=${roomID}`);
-    let myOrders = await orderResponse.json();
-    let myOrderItems = Object.values(myOrders);
+    // let orderResponse = await fetch(`/myOrder?roomId=${roomID}`);
+    // let myOrders = await orderResponse.json();
+    // let myOrderItems = Object.values(myOrders);
 
     let roomResponse = await fetch(`https://summer20-sps-47.firebaseio.com/rooms/${roomID}.json`)
     let myRoomDetails = await roomResponse.json();
+
+    let userRoomResponse = await fetch(`https://summer20-sps-47.firebaseio.com/UserRoom.json?orderBy=%22roomId%22&equalTo=%22${roomID}%22`);
+    let users = await userRoomResponse.json();
+    let numUsers = Object.keys(users).length;
     
     let myOrderContainer = document.getElementById("my-order-container");
     if (myOrderItems.length <= 0) {
@@ -52,7 +56,7 @@ async function getMyOrder() {
     </tr>`;
     }
     myDeliveryFee = (
-        myRoomDetails.deliveryFee / myRoomDetails.users.length
+        myRoomDetails.deliveryFee / numUsers
     ).toFixed(2);
 
     myOrderString += getNewProductForm();
