@@ -6,14 +6,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import com.google.appengine.api.users.User;
-import com.google.sps.proto.GetJoinProto.GetJoinRequest;
-import com.google.sps.services.interfaces.GetJoinService;
+import com.google.sps.proto.UserRoomStatusProto;
+import com.google.sps.services.interfaces.UserRoomStatusService;
 import com.google.sps.authentication.AuthenticationHandlerSupplier;
 
-public class GetJoinServiceImpl implements GetJoinService {
+public class UserRoomStatusServiceImpl implements UserRoomStatusService {
     @Override
-    public String execute(GetJoinRequest getJoinRequest) throws IOException {
+    public String execute(UserRoomStatusProto.UserRoomStatusRequest getJoinRequest) throws IOException {
         String roomId = getJoinRequest.getRoomId();
         String userEmail = AuthenticationHandlerSupplier.getAuthenticationHandler().getCurrentUser().getEmail();
 

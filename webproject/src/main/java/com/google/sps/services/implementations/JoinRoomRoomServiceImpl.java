@@ -1,15 +1,9 @@
 package com.google.sps.services.implementations;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-
-import com.google.appengine.api.users.User;
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.sps.data.UserRoom;
-import com.google.sps.proto.JoinRoomProto.JoinRoomRequest;
 import com.google.sps.proto.JoinRoomProto.JoinRoomResponse;
+import com.google.sps.proto.JoinRoomProto.JoinRoomRequest;
 import com.google.sps.services.interfaces.JoinRoomService;
 import com.google.sps.authentication.AuthenticationHandlerSupplier;
 import com.google.sps.util.TimestampUtil;
