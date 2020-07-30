@@ -6,10 +6,8 @@ import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
 import com.google.sps.services.implementations.GetJoinServiceImpl;
-import com.google.sps.services.implementations.LandingServiceImpl;
 import com.google.sps.services.implementations.JoinRoomRoomServiceImpl;
 import com.google.sps.services.interfaces.GetJoinService;
-import com.google.sps.services.interfaces.LandingService;
 import com.google.sps.services.interfaces.JoinRoomService;
 
 public class GuiceConfig extends GuiceServletContextListener {

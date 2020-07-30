@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * A servlet which handles a user joining a  room.
+ */
 @Singleton
 public class JoinRoomServlet extends HttpServlet {
     private JoinRoomService joinRoomService;

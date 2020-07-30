@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * A servlet which manages fetching whether a user has joined a room.
+ */
 @Singleton
 public class GetJoinServlet extends HttpServlet {
     private GetJoinService getJoinService;

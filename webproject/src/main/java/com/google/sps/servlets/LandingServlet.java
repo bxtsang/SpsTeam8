@@ -1,8 +1,6 @@
 package com.google.sps.servlets;
 
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.google.sps.services.interfaces.LandingService;
 import com.google.sps.util.HtmlParser;
 
 import java.io.IOException;
