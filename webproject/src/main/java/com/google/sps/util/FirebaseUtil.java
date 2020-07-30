@@ -15,6 +15,13 @@ import javax.inject.Inject;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.sps.data.UserRoom;
 
 public class FirebaseUtil {
     @Inject
@@ -40,22 +47,39 @@ public class FirebaseUtil {
 
 
     public String getFirebaseResponse(String url) throws IOException {
-        HttpURLConnection con = (HttpURLConnection) new URL(url.toString()).openConnection();
-        con.setRequestMethod("GET");
-        con.setRequestProperty("Accept", "application/json");
-        con.setDoOutput(true);
-
-        String jsonResponse = "";
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
-            StringBuilder firebaseResponse = new StringBuilder();
-            String line;
-
-            while ((line = in.readLine()) != null) {
-                firebaseResponse.append(line);
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference ref = database.getReference("UserRoom");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserRoom rooms = dataSnapshot.getValue(UserRoom.class);
+                System.out.println(rooms);
             }
 
-            jsonResponse = firebaseResponse.toString();
-            return jsonResponse;
-        }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+
+        return "Meap";
+
+//        HttpURLConnection con = (HttpURLConnection) new URL(url.toString()).openConnection();
+//        con.setRequestMethod("GET");
+//        con.setRequestProperty("Accept", "application/json");
+//        con.setDoOutput(true);
+//
+//        String jsonResponse = "";
+//        try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+//            StringBuilder firebaseResponse = new StringBuilder();
+//            String line;
+//
+//            while ((line = in.readLine()) != null) {
+//                firebaseResponse.append(line);
+//            }
+//
+//            jsonResponse = firebaseResponse.toString();
+//            return jsonResponse;
+//        }
     }
 }
