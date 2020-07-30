@@ -29,8 +29,7 @@ public class JoinRoomRoomServiceImpl implements JoinRoomService {
 
     @Override
     public JoinRoomResponse execute(JoinRoomRequest postJoinRequest) {
-        User user = getCurrentUser();
-        String userEmail = user.getEmail();
+        String userEmail = AuthenticationHandlerSupplier.getAuthenticationHandler().getCurrentUser().getEmail();
 
         FirebaseDatabase.getInstance()
                 .getReference("UserRoom")
@@ -41,9 +40,5 @@ public class JoinRoomRoomServiceImpl implements JoinRoomService {
                 .setRoomId(postJoinRequest.getRoomId())
                 .setTimestamp(TimestampUtil.getTimestamp())
                 .build();
-    }
-
-    public User getCurrentUser() {
-        return AuthenticationHandlerSupplier.getAuthenticationHandler().getCurrentUser();
     }
 }

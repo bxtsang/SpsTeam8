@@ -15,8 +15,7 @@ public class GetJoinServiceImpl implements GetJoinService {
     @Override
     public String execute(GetJoinRequest getJoinRequest) throws IOException {
         String roomId = getJoinRequest.getRoomId();
-        User user = getCurrentUser();
-        String userEmail = user.getEmail();
+        String userEmail = AuthenticationHandlerSupplier.getAuthenticationHandler().getCurrentUser().getEmail();
 
         StringBuilder url = new StringBuilder("https://summer20-sps-47.firebaseio.com/UserRoom.json?orderBy=%22userEmailRoom%22&equalTo=%22");
         url.append(userEmail);
@@ -42,9 +41,5 @@ public class GetJoinServiceImpl implements GetJoinService {
             jsonResponse = firebaseResponse.toString();
             return jsonResponse;
         }
-    }
-
-    public User getCurrentUser() {
-        return AuthenticationHandlerSupplier.getAuthenticationHandler().getCurrentUser();
     }
 }
