@@ -25,11 +25,6 @@ public class UserRoomStatusServlet extends HttpServlet {
     }
 
     @Override
-    public void init() {
-        FirebaseUtil.initializeFirebase();
-    }
-
-    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String roomId = request.getParameter("roomId");
         UserRoomStatusRequest.Builder userRoomJoinRequest = UserRoomStatusRequest.newBuilder();

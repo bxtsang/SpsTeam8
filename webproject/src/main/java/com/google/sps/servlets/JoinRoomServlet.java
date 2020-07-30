@@ -29,11 +29,6 @@ public class JoinRoomServlet extends HttpServlet {
     }
 
     @Override
-    public void init() {
-        FirebaseUtil.initializeFirebase();
-    }
-
-    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         AuthenticationHandler auth = AuthenticationHandlerSupplier.getAuthenticationHandler();
         if (!auth.isUserLoggedIn()) {

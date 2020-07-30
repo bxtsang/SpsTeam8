@@ -6,11 +6,23 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import com.google.sps.proto.UserRoomStatusProto;
 import com.google.sps.services.interfaces.UserRoomStatusService;
 import com.google.sps.authentication.AuthenticationHandlerSupplier;
+import com.google.sps.util.FirebaseUtil;
 
+@Singleton
 public class UserRoomStatusServiceImpl implements UserRoomStatusService {
+    private FirebaseUtil firebaseUtil;
+
+    @Inject
+    public UserRoomStatusServiceImpl(FirebaseUtil firebaseUtil) {
+        this.firebaseUtil = firebaseUtil;
+    }
+
     @Override
     public String execute(UserRoomStatusProto.UserRoomStatusRequest getJoinRequest) throws IOException {
         String roomId = getJoinRequest.getRoomId();
@@ -22,23 +34,6 @@ public class UserRoomStatusServiceImpl implements UserRoomStatusService {
         url.append(roomId);
         url.append("%22");
 
-        //Use Firebase class once merged
-        HttpURLConnection con = (HttpURLConnection) new URL(url.toString()).openConnection();
-        con.setRequestMethod("GET");
-        con.setRequestProperty("Accept", "application/json");
-        con.setDoOutput(true);
-
-        String jsonResponse = "";
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
-            StringBuilder firebaseResponse = new StringBuilder();
-            String line;
-
-            while ((line = in.readLine()) != null) {
-                firebaseResponse.append(line);
-            }
-
-            jsonResponse = firebaseResponse.toString();
-            return jsonResponse;
-        }
+        return firebaseUtil.getFirebaseResponse(url.toString());
     }
 }
