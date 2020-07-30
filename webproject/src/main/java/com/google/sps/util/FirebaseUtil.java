@@ -48,18 +48,38 @@ public class FirebaseUtil {
 
     public String getFirebaseResponse(String url) throws IOException {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference ref = database.getReference("UserRoom");
-        ref.addValueEventListener(new ValueEventListener() {
+        final DatabaseReference userRoomRef = database.getReference("UserRoom");
+        System.out.println("*****************************");
+        System.out.println(userRoomRef);
+        System.out.println("*****************************");
+        dinosaursRef.orderByKey().addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                UserRoom rooms = dataSnapshot.getValue(UserRoom.class);
-                System.out.println(rooms);
+            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                UserRoom userRoom = dataSnapshot.getValue(UserRoom.class);
+                System.out.println(dataSnapshot.getKey() + " was " + userRoom.getRoomId() + " meters tall.");
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
+            public void onChildChanged(DataSnapshot snapshot, String previousChildName) {
+
             }
+
+            @Override
+            public void onChildRemoved(DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot snapshot, String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+
+            // ...
         });
 
         return "Meap";
