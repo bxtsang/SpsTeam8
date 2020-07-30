@@ -20,7 +20,6 @@ public class Room {
     private Category category;
     private double minPrice;
     private double deliveryFee;
-    private List<String> users;
     private String creator;
     private double ordersValue;
 
@@ -35,7 +34,6 @@ public class Room {
         this.category = builder.category;
         this.minPrice = builder.minPrice;
         this.deliveryFee = builder.deliveryFee;
-        this.users = new ArrayList<>();
     }
     
     public String getTitle() {return title;}
@@ -54,15 +52,9 @@ public class Room {
 
     public double getDeliveryFee() {return deliveryFee;}
 
-    public List<String> getUsers() {return users;}
-
     public String getCreator() {return creator;}
 
     public double getOrdersValue() {return ordersValue;}
-
-    public void addUser(String userEmail) {
-        this.users.add(userEmail);
-    }
 
     public void addOrdersValue(double orderPrice) {
         this.ordersValue += orderPrice;
