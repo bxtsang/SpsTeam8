@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.sql.Timestamp;
 
 import com.google.appengine.api.users.User;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -67,10 +66,5 @@ public class GetJoinServiceImpl implements GetJoinService {
             auth = new AuthenticationHandler();
         }
         return auth;
-    }
-
-    public long getTimestamp() {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        return timestamp.getTime();
     }
 }

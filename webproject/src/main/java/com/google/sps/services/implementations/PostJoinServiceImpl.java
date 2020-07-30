@@ -13,6 +13,7 @@ import com.google.sps.data.UserRoom;
 import com.google.sps.proto.PostJoinProto.PostJoinRequest;
 import com.google.sps.proto.PostJoinProto.PostJoinResponse;
 import com.google.sps.services.interfaces.PostJoinService;
+import com.google.sps.util.TimestampUtil;
 
 public class PostJoinServiceImpl implements PostJoinService {
     AuthenticationHandler auth;
@@ -48,17 +49,12 @@ public class PostJoinServiceImpl implements PostJoinService {
 
         PostJoinResponse.Builder postJoinResponse = PostJoinResponse.newBuilder();
         postJoinResponse.setRoomId(postJoinRequest.getRoomId());
-        postJoinResponse.setTimestamp(getTimestamp());
+        postJoinResponse.setTimestamp(TimestampUtil.getTimestamp());
 
         return postJoinResponse.build();
     }
 
     public User getCurrentUser() {
         return getAuthenticationHandler().getCurrentUser();
-    }
-
-    public long getTimestamp() {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        return timestamp.getTime();
     }
 }
