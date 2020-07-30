@@ -1,18 +1,15 @@
 package com.google.sps.services.implementations;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 import com.google.appengine.api.users.User;
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.firebase.FirebaseOptions;
 import com.google.sps.proto.GetJoinProto.GetJoinRequest;
 import com.google.sps.services.interfaces.GetJoinService;
-import com.google.sps.util.AuthHandlerUtil;
+import com.google.sps.authentication.AuthenticationHandlerSupplier;
 
 public class GetJoinServiceImpl implements GetJoinService {
     @Override
@@ -48,6 +45,6 @@ public class GetJoinServiceImpl implements GetJoinService {
     }
 
     public User getCurrentUser() {
-        return AuthHandlerUtil.getAuthenticationHandler().getCurrentUser();
+        return AuthenticationHandlerSupplier.getAuthenticationHandler().getCurrentUser();
     }
 }

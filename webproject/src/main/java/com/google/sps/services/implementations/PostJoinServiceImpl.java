@@ -2,18 +2,16 @@ package com.google.sps.services.implementations;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.sql.Timestamp;
 
 import com.google.appengine.api.users.User;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.data.UserRoom;
 import com.google.sps.proto.PostJoinProto.PostJoinRequest;
 import com.google.sps.proto.PostJoinProto.PostJoinResponse;
 import com.google.sps.services.interfaces.PostJoinService;
-import com.google.sps.util.AuthHandlerUtil;
+import com.google.sps.authentication.AuthenticationHandlerSupplier;
 import com.google.sps.util.TimestampUtil;
 
 public class PostJoinServiceImpl implements PostJoinService {
@@ -47,6 +45,6 @@ public class PostJoinServiceImpl implements PostJoinService {
     }
 
     public User getCurrentUser() {
-        return AuthHandlerUtil.getAuthenticationHandler().getCurrentUser();
+        return AuthenticationHandlerSupplier.getAuthenticationHandler().getCurrentUser();
     }
 }

@@ -1,13 +1,11 @@
 package com.google.sps.servlets;
 
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
 import com.google.protobuf.util.JsonFormat;
 import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.services.interfaces.PostJoinService;
 import com.google.sps.proto.PostJoinProto.PostJoinRequest;
 import com.google.sps.proto.PostJoinProto.PostJoinResponse;
-import com.google.sps.util.AuthHandlerUtil;
+import com.google.sps.authentication.AuthenticationHandlerSupplier;
 import com.google.sps.util.FirebaseUtil;
 
 import java.io.*;
@@ -34,7 +32,7 @@ public class PostJoinServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        AuthenticationHandler auth = AuthHandlerUtil.getAuthenticationHandler();
+        AuthenticationHandler auth = AuthenticationHandlerSupplier.getAuthenticationHandler();
         if (!auth.isUserLoggedIn()) {
             response.setStatus(400);
             return;

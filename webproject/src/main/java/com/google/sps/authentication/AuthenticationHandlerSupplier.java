@@ -1,8 +1,6 @@
-package com.google.sps.util;
+package com.google.sps.authentication;
 
-import com.google.sps.authentication.AuthenticationHandler;
-
-public class AuthHandlerUtil {
+public class AuthenticationHandlerSupplier {
     private static AuthenticationHandler auth;
     public static AuthenticationHandler getAuthenticationHandler() {
         if (auth == null) {
