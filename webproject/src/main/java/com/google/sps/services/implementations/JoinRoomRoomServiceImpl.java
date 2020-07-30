@@ -8,8 +8,8 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.sps.data.UserRoom;
-import com.google.sps.proto.PostJoinProto.PostJoinRequest;
-import com.google.sps.proto.PostJoinProto.PostJoinResponse;
+import com.google.sps.proto.JoinRoomProto.JoinRoomRequest;
+import com.google.sps.proto.JoinRoomProto.JoinRoomResponse;
 import com.google.sps.services.interfaces.JoinRoomService;
 import com.google.sps.authentication.AuthenticationHandlerSupplier;
 import com.google.sps.util.TimestampUtil;
@@ -28,7 +28,7 @@ public class JoinRoomRoomServiceImpl implements JoinRoomService {
     }
 
     @Override
-    public PostJoinResponse execute(PostJoinRequest postJoinRequest) {
+    public JoinRoomResponse execute(JoinRoomRequest postJoinRequest) {
         User user = getCurrentUser();
         String userEmail = user.getEmail();
 
@@ -37,7 +37,7 @@ public class JoinRoomRoomServiceImpl implements JoinRoomService {
                 .push()
                 .setValueAsync(new UserRoom(userEmail, postJoinRequest.getRoomId()));
 
-        PostJoinResponse.Builder postJoinResponse = PostJoinResponse.newBuilder();
+        JoinRoomResponse.Builder postJoinResponse = JoinRoomResponse.newBuilder();
         postJoinResponse.setRoomId(postJoinRequest.getRoomId());
         postJoinResponse.setTimestamp(TimestampUtil.getTimestamp());
 

@@ -3,8 +3,8 @@ package com.google.sps.servlets;
 import com.google.protobuf.util.JsonFormat;
 import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.services.interfaces.JoinRoomService;
-import com.google.sps.proto.PostJoinProto.PostJoinRequest;
-import com.google.sps.proto.PostJoinProto.PostJoinResponse;
+import com.google.sps.proto.JoinRoomProto.JoinRoomRequest;
+import com.google.sps.proto.JoinRoomProto.JoinRoomResponse;
 import com.google.sps.authentication.AuthenticationHandlerSupplier;
 import com.google.sps.util.FirebaseUtil;
 
@@ -40,10 +40,10 @@ public class JoinRoomServlet extends HttpServlet {
 
         String roomId = request.getParameter("roomId");
 
-        PostJoinRequest.Builder postJoinRequest = PostJoinRequest.newBuilder();
+        JoinRoomRequest.Builder postJoinRequest = JoinRoomRequest.newBuilder();
         postJoinRequest.setRoomId(roomId);
 
-        PostJoinResponse postJoinResponse = joinRoomService.execute(postJoinRequest.build());
+        JoinRoomResponse postJoinResponse = joinRoomService.execute(postJoinRequest.build());
 
         response.setContentType("application/json; charset=UTF-8;");
         response.getWriter().println(JsonFormat.printer().print(postJoinResponse));
