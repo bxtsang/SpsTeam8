@@ -1,5 +1,7 @@
 package com.google.sps.authentication;
 
+import javax.inject.Inject;
+
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -13,6 +15,7 @@ public class AuthenticationHandler {
     /**
      * Constructs an instance of the AuthenticationHandler class.
      */
+    @Inject
     public AuthenticationHandler() {
         userService = UserServiceFactory.getUserService();
     }
