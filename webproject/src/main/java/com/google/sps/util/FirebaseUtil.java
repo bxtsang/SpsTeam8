@@ -56,45 +56,13 @@ public class FirebaseUtil {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Object document = dataSnapshot.getValue();
-                System.out.println(document);
+                System.out.println("Document: " + document.toString());
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
             }
         });
-
-        // final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        // final DatabaseReference userRoomRef = database.getReference("UserRoom");
-        // // System.out.println("UserRoomRef: ", userRoomRef.toString());
-        // userRoomRef.orderByKey().addChildEventListener(new ChildEventListener() {
-        //     @Override
-        //     public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-        //         System.out.println(dataSnapshot.getKey());
-        //     }
-
-        //     @Override
-        //     public void onChildChanged(DataSnapshot snapshot, String previousChildName) {
-
-        //     }
-
-        //     @Override
-        //     public void onChildRemoved(DataSnapshot snapshot) {
-
-        //     }
-
-        //     @Override
-        //     public void onChildMoved(DataSnapshot snapshot, String previousChildName) {
-
-        //     }
-
-        //     @Override
-        //     public void onCancelled(DatabaseError error) {
-
-        //     }
-        // });
-        
-
 
         return "Meap";
 
