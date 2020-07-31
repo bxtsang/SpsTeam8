@@ -35,6 +35,10 @@ public class FirebaseUtil {
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setDatabaseUrl("https://summer20-sps-47.firebaseio.com")
                     .build();
+
+            System.out.println("*******************************");
+            System.out.println("CALLINNNGGGGGGGG");
+            System.out.println("*******************************");
             if (FirebaseApp.getApps().isEmpty()) {
                 FirebaseApp.initializeApp(options);
             }
@@ -45,57 +49,71 @@ public class FirebaseUtil {
         }
     }
 
-
     public String getFirebaseResponse(String url) throws IOException {
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference userRoomRef = database.getReference("UserRoom");
-        userRoomRef.orderByKey().addChildEventListener(new ChildEventListener() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("UserRoom");
+        System.out.println(ref.toString());
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                System.out.println(dataSnapshot.getKey());
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot snapshot, String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot snapshot, String previousChildName) {
-
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Object document = dataSnapshot.getValue();
+                System.out.println(document);
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-
             }
         });
+
+        // final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        // final DatabaseReference userRoomRef = database.getReference("UserRoom");
+        // // System.out.println("UserRoomRef: ", userRoomRef.toString());
+        // userRoomRef.orderByKey().addChildEventListener(new ChildEventListener() {
+        //     @Override
+        //     public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+        //         System.out.println(dataSnapshot.getKey());
+        //     }
+
+        //     @Override
+        //     public void onChildChanged(DataSnapshot snapshot, String previousChildName) {
+
+        //     }
+
+        //     @Override
+        //     public void onChildRemoved(DataSnapshot snapshot) {
+
+        //     }
+
+        //     @Override
+        //     public void onChildMoved(DataSnapshot snapshot, String previousChildName) {
+
+        //     }
+
+        //     @Override
+        //     public void onCancelled(DatabaseError error) {
+
+        //     }
+        // });
         
 
 
         return "Meap";
 
-//        HttpURLConnection con = (HttpURLConnection) new URL(url.toString()).openConnection();
-//        con.setRequestMethod("GET");
-//        con.setRequestProperty("Accept", "application/json");
-//        con.setDoOutput(true);
-//
-//        String jsonResponse = "";
-//        try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
-//            StringBuilder firebaseResponse = new StringBuilder();
-//            String line;
-//
-//            while ((line = in.readLine()) != null) {
-//                firebaseResponse.append(line);
-//            }
-//
-//            jsonResponse = firebaseResponse.toString();
-//            return jsonResponse;
-//        }
+    //    HttpURLConnection con = (HttpURLConnection) new URL(url.toString()).openConnection();
+    //    con.setRequestMethod("GET");
+    //    con.setRequestProperty("Accept", "application/json");
+    //    con.setDoOutput(true);
+
+    //    String jsonResponse = "";
+    //    try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+    //        StringBuilder firebaseResponse = new StringBuilder();
+    //        String line;
+
+    //        while ((line = in.readLine()) != null) {
+    //            firebaseResponse.append(line);
+    //        }
+
+    //        jsonResponse = firebaseResponse.toString();
+    //        return jsonResponse;
+    //    }
     }
 }
