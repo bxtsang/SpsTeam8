@@ -32,24 +32,24 @@ async function getMyOrder() {
         </thead>
         <tbody>`;
     let total = 0;
-    for (let i = 0; i < myOrderItems.length; i++) {
-        productTotal = myOrderItems[i].quantity * myOrderItems[i].unitPrice;
+    var i = 0;
+    for (var [key, value] of Object.entries(myOrders)) {
+        productTotal = value.quantity * value.unitPrice;
         total += productTotal;
         myOrderString += `
     <tr>
-    <form action="/myOrder" method="delete">
     <th scope="row">${i + 1}</th>
-    <td>${myOrderItems[i].product}</td>
-    <td>${myOrderItems[i].quantity}</td>
-    <td>${myOrderItems[i].unitPrice}</td>
+    <td>${value.product}</td>
+    <td>${value.quantity}</td>
+    <td>${value.unitPrice}</td>
     <td>${productTotal}</td>
     <td>
-    <button type="submit" class="btn my-order-delete-btn">
+    <button onclick="deleteOrder('${key}')" class="btn my-order-delete-btn">
     <i class="fa fa-times" aria-hidden="true"></i>
     </button>
     </td>
-    </form>
     </tr>`;
+    i++;
     }
     myDeliveryFee = (
         myRoomDetails.deliveryFee / myRoomDetails.users.length
@@ -111,7 +111,23 @@ async function addOrder() {
     }
   
     window.location.reload();
-  }
+}
+
+async function deleteOrder(orderID) {
+    let response = await $.ajax({
+        type: 'DELETE',
+        url: "/myOrder",
+        data: {
+            'orderId': orderID
+        },
+    });
+  
+    if (response.status == 200) {
+      window.alert("Your order has been deleted!")
+    }
+  
+    window.location.reload();
+}
 
 function getHeaderLinks() {
     document.getElementById('chat-link').href = '/roomChat.html?' + roomID;
