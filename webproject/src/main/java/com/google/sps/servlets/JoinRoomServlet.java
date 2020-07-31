@@ -5,8 +5,6 @@ import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.proto.JoinRoomProto.JoinRoomResponse;
 import com.google.sps.proto.JoinRoomProto.JoinRoomRequest;
 import com.google.sps.services.interfaces.JoinRoomService;
-import com.google.sps.authentication.AuthenticationHandlerSupplier;
-import com.google.sps.util.FirebaseUtil;
 
 import java.io.*;
 
@@ -22,16 +20,17 @@ import javax.servlet.http.HttpServletResponse;
 @Singleton
 public class JoinRoomServlet extends HttpServlet {
     private JoinRoomService joinRoomService;
+    private AuthenticationHandler authenticationHandler;
 
     @Inject
-    public JoinRoomServlet(JoinRoomService joinRoomService) {
+    public JoinRoomServlet(JoinRoomService joinRoomService, AuthenticationHandler authenticationHandler) {
         this.joinRoomService = joinRoomService;
+        this.authenticationHandler = authenticationHandler;
     }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        AuthenticationHandler auth = AuthenticationHandlerSupplier.getAuthenticationHandler();
-        if (!auth.isUserLoggedIn()) {
+        if (!authenticationHandler.isUserLoggedIn()) {
             response.setStatus(400);
             return;
         }

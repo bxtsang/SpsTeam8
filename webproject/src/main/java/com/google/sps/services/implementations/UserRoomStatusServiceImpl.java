@@ -1,10 +1,6 @@
 package com.google.sps.services.implementations;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -12,7 +8,6 @@ import javax.inject.Singleton;
 import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.proto.UserRoomStatusProto;
 import com.google.sps.services.interfaces.UserRoomStatusService;
-import com.google.sps.authentication.AuthenticationHandlerSupplier;
 import com.google.sps.util.FirebaseUtil;
 
 @Singleton
