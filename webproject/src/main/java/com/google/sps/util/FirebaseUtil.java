@@ -9,6 +9,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 
 import javax.inject.Inject;
 
@@ -52,19 +54,25 @@ public class FirebaseUtil {
     public String getFirebaseResponse(String url) throws IOException {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("UserRoom");
         System.out.println(ref.toString());
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Object document = dataSnapshot.getValue();
-                System.out.println("Document: " + document.toString());
-            }
+        CompletableFuture<Void> cf = CompletableFuture.runAsync(() -> {
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Object document = dataSnapshot.getValue();
+                    System.out.println("Document: " + document.toString());
+                }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-            }
+                @Override
+                public void onCancelled(DatabaseError error) {
+                }
+            });
+
         });
+        cf.join();
 
         return "Meap";
+
+
 
     //    HttpURLConnection con = (HttpURLConnection) new URL(url.toString()).openConnection();
     //    con.setRequestMethod("GET");
