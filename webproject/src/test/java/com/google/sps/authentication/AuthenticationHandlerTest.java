@@ -15,7 +15,6 @@ import org.junit.Test;
  * Test class for AuthenticationHandler.
  */
 public class AuthenticationHandlerTest {
-    
     @Test
     public void isUserLoggedIn_loggedIn_returnsTrue() {
         LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalUserServiceTestConfig())
