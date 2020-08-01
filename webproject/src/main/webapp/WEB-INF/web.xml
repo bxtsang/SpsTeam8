@@ -147,6 +147,16 @@
   <servlet-mapping>
     <servlet-name>OrderServlet</servlet-name>
     <url-pattern>/order</url-pattern>
+  </servlet-mapping>  
+  
+  <!-- Redirect Servlet -->
+  <servlet>
+    <servlet-name>RedirectServlet</servlet-name>
+    <servlet-class>com.google.sps.servlets.RedirectServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RedirectServlet</servlet-name>
+    <url-pattern>/redirect</url-pattern>
   </servlet-mapping>
   
 </web-app>
