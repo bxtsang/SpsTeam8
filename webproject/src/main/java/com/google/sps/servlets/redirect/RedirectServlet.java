@@ -1,4 +1,4 @@
-package com.google.sps.servlets;
+package com.google.sps.servlets.redirect;
 
 import com.google.sps.authentication.AuthenticationHandler;
 import java.io.IOException;
@@ -9,15 +9,17 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * A servlet which manages redirecting to landing page.
  */
-public class RedirectServlet extends HttpServlet {
+public abstract class RedirectServlet extends HttpServlet {
     private final AuthenticationHandler authenticationHandler;
-
+    
     /**
      * Constructs an instance of the LogoutServlet class.
      */
     public RedirectServlet() {
         authenticationHandler = new AuthenticationHandler();
     }
+
+    public abstract String doGetAuthenticated() throws IOException;
 
     /**
      * Called by the server to log the user out of the website.
@@ -27,8 +29,11 @@ public class RedirectServlet extends HttpServlet {
      */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if (!authenticationHandler.isUserLoggedIn()) {
-            response.getWriter().print("/");
+        if (authenticationHandler.isUserLoggedIn()) {
+            response.setContentType("text/html");
+            response.getWriter().println(doGetAuthenticated());
+        } else {
+            response.sendRedirect("/");
         }
     }
 }

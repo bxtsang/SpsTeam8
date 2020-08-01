@@ -130,6 +130,6 @@ async function deleteOrder(orderID) {
 }
 
 function getHeaderLinks() {
-    document.getElementById('chat-link').href = '/roomChat.html?' + roomID;
-    document.getElementById('all-orders-link').href = '/roomAllOrders.html?' + roomID;
+    document.getElementById('chat-link').href = '/roomChat?' + roomID;
+    document.getElementById('all-orders-link').href = '/roomAllOrders?' + roomID;
 }

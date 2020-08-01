@@ -149,14 +149,54 @@
     <url-pattern>/order</url-pattern>
   </servlet-mapping>  
   
-  <!-- Redirect Servlet -->
+  <!-- RoomChat Servlet -->
   <servlet>
-    <servlet-name>RedirectServlet</servlet-name>
-    <servlet-class>com.google.sps.servlets.RedirectServlet</servlet-class>
+    <servlet-name>RoomChatServlet</servlet-name>
+    <servlet-class>com.google.sps.servlets.redirect.RoomChatServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>RedirectServlet</servlet-name>
-    <url-pattern>/redirect</url-pattern>
+    <servlet-name>RoomChatServlet</servlet-name>
+    <url-pattern>/roomChat</url-pattern>
+  </servlet-mapping>  
+
+  <!-- RoomMyOrder Servlet -->
+  <servlet>
+    <servlet-name>RoomMyOrderServlet</servlet-name>
+    <servlet-class>com.google.sps.servlets.redirect.RoomMyOrderServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RoomMyOrderServlet</servlet-name>
+    <url-pattern>/roomMyOrder</url-pattern>
   </servlet-mapping>
-  
+
+  <!-- RoomAllOrders Servlet -->
+  <servlet>
+    <servlet-name>RoomAllOrdersServlet</servlet-name>
+    <servlet-class>com.google.sps.servlets.redirect.RoomAllOrdersServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RoomAllOrdersServlet</servlet-name>
+    <url-pattern>/roomAllOrders</url-pattern>
+  </servlet-mapping>
+
+  <!-- Geolocation Servlet -->
+  <servlet>
+    <servlet-name>GeolocationServlet</servlet-name>
+    <servlet-class>com.google.sps.servlets.redirect.GeolocationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GeolocationServlet</servlet-name>
+    <url-pattern>/geolocation</url-pattern>
+  </servlet-mapping>
+
+  <!-- Create Room Servlet -->
+  <servlet>
+    <servlet-name>CreateRoomServlet</servlet-name>
+    <servlet-class>com.google.sps.servlets.redirect.CreateRoomServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateRoomServlet</servlet-name>
+    <url-pattern>/createRoom</url-pattern>
+  </servlet-mapping>
+
 </web-app>
