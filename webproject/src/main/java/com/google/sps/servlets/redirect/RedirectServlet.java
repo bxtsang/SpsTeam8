@@ -22,7 +22,8 @@ public abstract class RedirectServlet extends HttpServlet {
     public abstract String doGetAuthenticated() throws IOException;
 
     /**
-     * Called by the server to log the user out of the website.
+     * Called by the server to manage access to webpage.
+     * Redirects the user to the landing page if the user is not logged in.
      * @param request An HttpServletRequest object that contains the request the client has made of the servlet.
      * @param response An HttpServletResponse object that contains the response the servlet sends to the client.
      * @throws IOException If an input or output error is detected when the servlet handles the server's request.

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * A servlet which manages redirecting to landing page for RoomChat.
+ * A servlet which parses the html file for RoomAllOrders.
  */
 public class RoomAllOrdersServlet extends RedirectServlet {
     public String doGetAuthenticated() throws IOException {
