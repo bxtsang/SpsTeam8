@@ -52,19 +52,27 @@ async function getAllOrders() {
     myDeliveryFee = (
         myRoomDetails.deliveryFee
     ).toFixed(2);
-    total += parseFloat(myDeliveryFee);
+    let grandTotal = total + parseFloat(myDeliveryFee);
     myOrderString += `</tbody></table>`;
     myOrderString += `
     <div class="col-12 text-center">
     <hr />  
+    <span class = "my-order-delivery-fee-header">Total Order Value: </span>
+    <span class = "my-order-delivery-fee-value" id = "order-value">$${total}</span><br/>
     <span class = "my-order-delivery-fee-header">Delivery fee: </span>
     <span class = "my-order-delivery-fee-value">$${myDeliveryFee}</span>
     <br />
     <hr />
     <span class = "my-order-grand-total-header">Grand Total: </span>
-    <span class = "my-order-grand-total-value">$${total}</span>
+    <span class = "my-order-grand-total-value">$${grandTotal}</span>
     </div>`;
     allOrdersContainer.innerHTML = myOrderString;
+
+    if (total < myRoomDetails.minPrice) {
+        document.querySelector("#order-value").style.color = "red";
+    } else {
+        document.querySelector("#order-value").style.color = "green";
+    }
 }
 
 function getHeaderLinks() {
