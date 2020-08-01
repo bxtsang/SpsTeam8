@@ -36,6 +36,7 @@ public class Room {
         this.minPrice = builder.minPrice;
         this.deliveryFee = builder.deliveryFee;
         this.users = new ArrayList<>();
+        this.creator = builder.creator;
     }
     
     public String getTitle() {return title;}
