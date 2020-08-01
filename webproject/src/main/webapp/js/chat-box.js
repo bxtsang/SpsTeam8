@@ -6,7 +6,6 @@ window.onload = function() {
 }
 
 $(document).ready(function() {
-    database = firebase.database();
     name = "user " + Math.floor(Math.random() * Math.floor(5));
     roomID = window.location.search.substring(1);
     firebase.database().ref('messages/' + roomID).on('child_added', function(snapshot) {
