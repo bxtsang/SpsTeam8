@@ -19,21 +19,17 @@ public class HtmlParserTest {
     private static final String FILE_NAME = "testFile.html";
 
     // This must be public
-    @ClassRule
-    public static TemporaryFolder temporaryFolder = new TemporaryFolder();
+    @Rule
+    public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
     @Test
-    public void parseHtmlFromFile_returnsParsedHtml() {
-        try {
-            File file = temporaryFolder.newFile(FILE_NAME);
+    public void parseHtmlFromFile_returnsParsedHtml() throws IOException {
+        File file = temporaryFolder.newFile(FILE_NAME);
 
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
-            bufferedWriter.write(HTML_STUB);
-            bufferedWriter.close();
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+        bufferedWriter.write(HTML_STUB);
+        bufferedWriter.close();
 
-            assertEquals(HTML_STUB, HtmlParser.parseHtmlFromFile(FILE_NAME));
-        } catch (IOException e) {
-            // Test method should not enter this catch block.
-        }
+        assertEquals(HTML_STUB, HtmlParser.parseHtmlFromFile(FILE_NAME));
     }
 }
