@@ -86,9 +86,9 @@ public class RoomTest {
 
     @Test
     public void getUsers_returnsUsers() {
-        List<String> users = new ArrayList<>();
-        users.add(CREATOR);
-        assertEquals(users, room.getUsers());
+        List<String> expectedUsers = new ArrayList<>();
+        expectedUsers.add(CREATOR);
+        assertEquals(expectedUsers, room.getUsers());
     }
 
     @Test
@@ -103,11 +103,13 @@ public class RoomTest {
 
     @Test
     public void addUser_addsUser() {
-        List<String> users = new ArrayList<>();
-        users.add(CREATOR);
-        users.add(USER);
+        List<String> expectedUsers = new ArrayList<>();
+        expectedUsers.add(CREATOR);
+        expectedUsers.add(USER);
+
         room.addUser(USER);
-        assertEquals(users, room.getUsers());
+
+        assertEquals(expectedUsers, room.getUsers());
     }
 
     @Test
