@@ -9,11 +9,11 @@ function notify(roomName) {
     if (!("Notification" in window)) {
         alert("This browser does not support desktop notification");
     } else if (Notification.permission === "granted") {
-        notification = new Notification("A new room " + roomName + " has opened!");
+        let notification = new Notification("A new room " + roomName + " has opened!");
     } else if (Notification.permission !== "denied") {
         Notification.requestPermission().then(function (permission) {
             if (permission === "granted") {
-                notification = new Notification("A new room " + roomName + " has opened!");
+                let notification = new Notification("A new room " + roomName + " has opened!");
             }
         });
     }

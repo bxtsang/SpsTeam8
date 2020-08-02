@@ -35,6 +35,7 @@ public class RoomServlet extends HttpServlet {
                 .setMinPrice(Double.parseDouble(request.getParameter("minPrice")))
                 .setDeliveryFee(Double.parseDouble(request.getParameter("deliveryFee")))
                 .setCreator(userEmail)
+                .setTimestamp(System.currentTimeMillis())
                 .build();
 
         newRoom.addUser(userEmail);
