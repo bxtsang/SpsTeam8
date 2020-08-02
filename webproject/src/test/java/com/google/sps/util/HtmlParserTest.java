@@ -7,15 +7,18 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import org.junit.Before;
-import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 /**
  * Test class for HtmlParser.
  */
 public class HtmlParserTest {
-    private static final String HTML_STUB = "<!DOCTYPE html>\n<head></head><body><div>Stub</div></body></html>";
+    private static final String HTML_STUB = "<!DOCTYPE html><head></head><body><div>Stub</div></body></html>";
     private static final String FILE_NAME = "testFile.html";
 
     // This must be public
@@ -30,6 +33,6 @@ public class HtmlParserTest {
         bufferedWriter.write(HTML_STUB);
         bufferedWriter.close();
 
-        assertEquals(HTML_STUB, HtmlParser.parseHtmlFromFile(FILE_NAME));
+        assertEquals(HTML_STUB, HtmlParser.parseHtmlFromFile(file.getAbsolutePath()));
     }
 }
