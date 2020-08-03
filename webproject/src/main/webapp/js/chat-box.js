@@ -1,47 +1,63 @@
 var roomID = window.location.search.substr(1);
 var username = null;
-
 window.onload = function() {
-    fetchBlobstoreUrl();  
+    fetchBlobstoreUrl();
+    fetchMessages();
 }
-
 $(document).ready(function() {
-    database = firebase.database();
-    name = "user " + Math.floor(Math.random() * Math.floor(5));
-    roomID = window.location.search.substring(1);
-    firebase.database().ref('messages/' + roomID).on('child_added', function(snapshot) {
-        var snap = snapshot.val();
-        var html = "<li class='message' id='message-" + snapshot.key + "'>";
-        html += "<span class='chat-user'>" + snap.user + "</span> <br />";
-        if (snap.type == "text") {
-            html += "<span class='chat-message'>" + snap.message + "</span> <br />";
-        } else {
-            html += "<a href=\"" + snap.message + "\"><img src=\"" + snap.message + "\" /></a> <br />";
-        }
-        html += "<span class='chat-time'>" + snap.time + "</span>";
-        html += "</li>";
-        let messagesContainer = document.getElementById("messages");
-        messagesContainer.innerHTML += html;
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    });
+    // roomId = window.location.search.substring(1);
+    // var formData = new FormData();
+    // formData.append("roomId", roomId);
+    // const response = await fetch("/messages" + roomId);
+    // database = firebase.database();
+    // name = "user " + Math.floor(Math.random() * Math.floor(5));
+    // roomID = window.location.search.substring(1);
+    // firebase.database().ref('messages/' + roomID).on('child_added', function(snapshot) {
+    //     var snap = snapshot.val();
+    //     var html = "<li class='message' id='message-" + snapshot.key + "'>";
+    //     html += "<span class='chat-user'>" + snap.user + "</span> <br />";
+    //     if (snap.type == "text") {
+    //         html += "<span class='chat-message'>" + snap.message + "</span> <br />";
+    //     } else {
+    //         html += "<a href=\"" + snap.message + "\"><img src=\"" + snap.message + "\" /></a> <br />";
+    //     }
+    //     html += "<span class='chat-time'>" + snap.time + "</span>";
+    //     html += "</li>";
+    //     let messagesContainer = document.getElementById("messages");
+    //     messagesContainer.innerHTML += html;
+    //     messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    // });
 });
+async function fetchMessages(roomId) {
+    roomId = window.location.search.substring(1);
+    var formData = new FormData();
+    formData.append("roomId", roomId);
+    $.ajax({
+        type: 'POST',
+        url: "/fetchMessages",
+        data: { 'roomId': roomId },
+        success: function(msg) {
+            console.log("Messages: ", msg);
+        },
+        error: function(msg) {
+            window.alert("Something went wrong!");
+        }
+    });
+}
 
 function sendMessage() {
     let usernamePromise = null;
-    
     if (username == null) {
-	    usernamePromise = getUsername();
+        usernamePromise = getUsername();
     } else {
-	    usernamePromise = Promise.resolve(username);
+        usernamePromise = Promise.resolve(username);
     }
-
     usernamePromise.then(username => {
         let messageBox = document.getElementById("message");
         var message = messageBox.value;
         messageBox.value = "";
         var date = new Date();
         var time = hours_with_leading_zeroes(date) + ":" + minutes_with_leading_zeroes(date);
-
         firebase.database().ref('messages/' + roomID).push().set({
             type: "text",
             user: username,
@@ -83,7 +99,7 @@ function hours_with_leading_zeroes(date) {
     return (date.getHours() < 10 ? '0' : '') + date.getHours();
 }
 
-function showUploadingSpinner() {    	
+function showUploadingSpinner() {
     //Disabling a text input field with regular JavaScript.
     document.getElementById("file-input").disabled = true;
     document.getElementsByClassName('upload-button')[0].innerHTML = '<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>';

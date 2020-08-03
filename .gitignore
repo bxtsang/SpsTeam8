@@ -2,3 +2,8 @@ target/
 config.js
 key.json
 .idea/
+.classpath
+.factorypath
+.project
+.settings/
+
