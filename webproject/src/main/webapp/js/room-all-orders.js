@@ -1,6 +1,5 @@
 var roomID = window.location.search.substr(1);
 window.onload = function() {
-    console.log('MEAP MEAP')
     roomID = window.location.search.substr(1);
     getRoomDetails(roomID);
     getAllOrders();
@@ -16,7 +15,6 @@ async function getAllOrders() {
     let myRoomDetails = await roomResponse.json();
     
     let allOrdersContainer = document.getElementById("all-orders-container");
-    console.log('AllOrdersContainer: ', allOrdersContainer)
     if (allOrderItems.length <= 0) {
         allOrdersContainer.innerHTML = "Add an item now!";
         return;
