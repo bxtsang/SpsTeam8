@@ -17,30 +17,42 @@ import org.junit.Test;
 public class AuthenticationHandlerTest {
     @Test
     public void isUserLoggedIn_loggedIn_returnsTrue() {
+
+        // Arrange
         LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalUserServiceTestConfig())
             .setEnvIsLoggedIn(true);
         helper.setUp();
         AuthenticationHandler authenticationHandler = new AuthenticationHandler();
+
+        // Act, Assert
         assertTrue(authenticationHandler.isUserLoggedIn());
         helper.tearDown();
     }
 
     @Test
     public void isUserLoggedIn_notLoggedIn_returnsFalse() {
+
+        // Arrange
         LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalUserServiceTestConfig());
         helper.setUp();
         AuthenticationHandler authenticationHandler = new AuthenticationHandler();
+
+        // Act, Assert
         assertFalse(authenticationHandler.isUserLoggedIn());
         helper.tearDown();
     }
 
     @Test
     public void getCurrentUser_returnsCurrentUser() {
+
+        // Arrange
         LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalUserServiceTestConfig())
             .setEnvIsLoggedIn(true).setEnvEmail("test@gmail.com").setEnvAuthDomain("test");
         helper.setUp();
         UserService userService = UserServiceFactory.getUserService();
         AuthenticationHandler authenticationHandler = new AuthenticationHandler();
+
+        // Act, Assert
         assertEquals(userService.getCurrentUser(), authenticationHandler.getCurrentUser());
         helper.tearDown();
     }
