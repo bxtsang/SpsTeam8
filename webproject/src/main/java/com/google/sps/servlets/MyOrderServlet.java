@@ -18,8 +18,6 @@ import java.io.OutputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import static javax.swing.JOptionPane.showMessageDialog;
-
 @WebServlet("/myOrder")
 public class MyOrderServlet extends HttpServlet {
     @Override
@@ -32,17 +30,4 @@ public class MyOrderServlet extends HttpServlet {
         response.setStatus(200);
         response.getWriter().print(firebaseResponse);
     }     
-    
-    @Override
-    public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        BufferedReader reader = request.getReader();
-        String orderId = reader.readLine();
-        if (orderId == null) {
-            showMessageDialog(null, "orderID not found");        
-        }
-        orderId = orderId.split("=")[1];
-        String firebaseResponse = Firebase.sendRequest("https://summer20-sps-47.firebaseio.com/orders/" + orderId + ".json", "DELETE", orderId);
-        response.setStatus(200);
-        response.getWriter().print(firebaseResponse);
-    }
 }
