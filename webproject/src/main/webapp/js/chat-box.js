@@ -4,43 +4,27 @@ window.onload = function() {
     fetchBlobstoreUrl();
     fetchMessages();
 }
-$(document).ready(function() {
-    // roomId = window.location.search.substring(1);
-    // var formData = new FormData();
-    // formData.append("roomId", roomId);
-    // const response = await fetch("/messages" + roomId);
-    // database = firebase.database();
-    // name = "user " + Math.floor(Math.random() * Math.floor(5));
-    // roomID = window.location.search.substring(1);
-    // firebase.database().ref('messages/' + roomID).on('child_added', function(snapshot) {
-    //     var snap = snapshot.val();
-    //     var html = "<li class='message' id='message-" + snapshot.key + "'>";
-    //     html += "<span class='chat-user'>" + snap.user + "</span> <br />";
-    //     if (snap.type == "text") {
-    //         html += "<span class='chat-message'>" + snap.message + "</span> <br />";
-    //     } else {
-    //         html += "<a href=\"" + snap.message + "\"><img src=\"" + snap.message + "\" /></a> <br />";
-    //     }
-    //     html += "<span class='chat-time'>" + snap.time + "</span>";
-    //     html += "</li>";
-    //     let messagesContainer = document.getElementById("messages");
-    //     messagesContainer.innerHTML += html;
-    //     messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    // });
-});
-async function fetchMessages(roomId) {
-    roomId = window.location.search.substring(1);
-    var formData = new FormData();
-    formData.append("roomId", roomId);
-    $.ajax({
-        type: 'POST',
-        url: "/fetchMessages",
-        data: { 'roomId': roomId },
-        success: function(msg) {
-            console.log("Messages: ", msg);
-        },
-        error: function(msg) {
-            window.alert("Something went wrong!");
+
+async function fetchMessages() {
+    const roomId = window.location.search.substring(1);
+    fetch("/fetchMessages?roomId=" + roomId).then(response => response.json()).then(response => {
+        let messagesContainer = document.getElementById("messages");
+        messagesContainer.innerHTML = "";
+        for (let key in response) {
+            const snap = response[key];
+            let html = "<li class='message' id='message-" + key + "'>";
+            html += "<span class='chat-user'>" + snap.user + "</span> <br />";
+
+            if (snap.type == "text") {
+                html += "<span class='chat-message'>" + snap.message + "</span> <br />";
+            } else {
+                html += "<a href=\"" + snap.message + "\"><img src=\"" + snap.message + "\" /></a> <br />";
+            }
+
+            html += "<span class='chat-time'>" + snap.time + "</span>";
+            html += "</li>";
+            messagesContainer.innerHTML += html;
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
     });
 }
@@ -66,6 +50,8 @@ function sendMessage() {
         }, function(error) {
             if (error) {
                 console.log("Write failed");
+            } else {
+                fetchMessages();
             }
         });
     });
