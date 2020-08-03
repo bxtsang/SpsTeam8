@@ -86,8 +86,12 @@ public class RoomTest {
 
     @Test
     public void getUsers_returnsUsers() {
+
+        // Arrange
         List<String> expectedUsers = new ArrayList<>();
         expectedUsers.add(CREATOR);
+
+        // Act, Assert
         assertEquals(expectedUsers, room.getUsers());
     }
 
@@ -103,12 +107,16 @@ public class RoomTest {
 
     @Test
     public void addUser_addsUser() {
+
+        // Arrange
         List<String> expectedUsers = new ArrayList<>();
         expectedUsers.add(CREATOR);
         expectedUsers.add(USER);
 
+        // Act
         room.addUser(USER);
 
+        // Assert
         assertEquals(expectedUsers, room.getUsers());
     }
 
