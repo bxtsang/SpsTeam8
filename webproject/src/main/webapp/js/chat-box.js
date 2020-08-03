@@ -2,7 +2,7 @@ var roomID = window.location.search.substr(1);
 var username = null;
 
 window.onload = function() {
-    fetchBlobstoreUrl();  
+    fetchBlobstoreUrl();
 }
 
 $(document).ready(function() {
@@ -40,7 +40,7 @@ function sendMessage() {
         var message = messageBox.value;
         messageBox.value = "";
         var date = new Date();
-        var time = hours_with_leading_zeroes(date) + ":" + minutes_with_leading_zeroes(date);
+        var time = date.getTime();
 
         firebase.database().ref('messages/' + roomID).push().set({
             type: "text",
