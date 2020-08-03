@@ -27,12 +27,16 @@ public class HtmlParserTest {
 
     @Test
     public void parseHtmlFromFile_returnsParsedHtml() throws IOException {
-        File file = temporaryFolder.newFile(FILE_NAME);
 
+        // Arrange
+        File file = temporaryFolder.newFile(FILE_NAME);
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+
+        // Act
         bufferedWriter.write(HTML_STUB);
         bufferedWriter.close();
 
+        // Assert
         assertEquals(HTML_STUB, HtmlParser.parseHtmlFromFile(file.getAbsolutePath()));
     }
 }
