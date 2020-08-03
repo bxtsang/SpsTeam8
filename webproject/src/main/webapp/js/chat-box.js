@@ -18,7 +18,12 @@ $(document).ready(function() {
         } else {
             html += "<a href=\"" + snap.message + "\"><img src=\"" + snap.message + "\" /></a> <br />";
         }
-        html += "<span class='chat-time'>" + snap.time + "</span>";
+
+        let date = new Date(snap.time);
+        let minutes = minutes_with_leading_zeroes(date);
+        let hours = hours_with_leading_zeroes(date);
+
+        html += `<span class='chat-time'>${hours}:${minutes}</span>`;
         html += "</li>";
         let messagesContainer = document.getElementById("messages");
         messagesContainer.innerHTML += html;
