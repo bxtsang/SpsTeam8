@@ -6,12 +6,12 @@ import java.util.Date;
 
 public class Message {
     private String user;
-    private String time;
+    private long time;
     private String message;
     private String type;
 
     public Message(String user, String imageUrl, String type) {
-        String currTime = new SimpleDateFormat("HH:mm").format(new Date());
+        long currTime = System.currentTimeMillis();
         this.user = user;
         this.time = currTime;
         this.message = imageUrl;
@@ -22,7 +22,7 @@ public class Message {
         return user;
     }
 
-    public String getTime() {
+    public long getTime() {
         return time;
     }
 
