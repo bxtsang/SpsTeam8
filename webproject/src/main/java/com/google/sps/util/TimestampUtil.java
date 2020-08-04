@@ -1,9 +1,9 @@
 package com.google.sps.util;
 
-import java.sql.Timestamp;
+import java.time.Instant;
 
 public class TimestampUtil {
     public static long getTimestamp() {
-        return (new Timestamp(System.currentTimeMillis())).getTime();
+        return Instant.now().getEpochSecond();
     }
 }
