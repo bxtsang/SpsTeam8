@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import com.google.sps.authentication.AuthenticationHandler;
-import com.google.sps.proto.UserRoomStatusProto;
+import com.google.sps.proto.UserRoomStatusProto.UserRoomStatusRequest;
 import com.google.sps.services.interfaces.UserRoomStatusService;
 import com.google.sps.util.FirebaseUtil;
 
@@ -22,7 +22,7 @@ public class UserRoomStatusServiceImpl implements UserRoomStatusService {
     }
 
     @Override
-    public boolean execute(UserRoomStatusProto.UserRoomStatusRequest getJoinRequest) throws IOException {
+    public boolean execute(UserRoomStatusRequest getJoinRequest) throws IOException {
         String roomId = getJoinRequest.getRoomId();
         String userEmail = authenticationHandler.getCurrentUser().getEmail();
 
