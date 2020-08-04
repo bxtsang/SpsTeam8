@@ -1,6 +1,8 @@
 package com.google.sps.dataManagers;
 
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.LinkedBlockingDeque;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -34,7 +36,7 @@ public class UserRoomManager {
     }
 
     public boolean hasUserJoinedRoom(String userEmail, String roomId) {
-        final boolean[] isUserInRoom = { false };
+        final BlockingQueue queue = new LinkedBlockingDeque(1);
         CountDownLatch done = new CountDownLatch(1);
 
         firebaseUtil.getUserRoomReference().addListenerForSingleValueEvent(new ValueEventListener() {
@@ -42,7 +44,7 @@ public class UserRoomManager {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
                     if (data.child("userEmailRoom").getValue().equals(userEmail + "_" + roomId)) {
-                        isUserInRoom[0] = true;
+                        queue.add(true);
                     }
                 }
                 done.countDown();
@@ -60,6 +62,10 @@ public class UserRoomManager {
             e.printStackTrace();
         }
 
-        return isUserInRoom[0];
+        if (queue.remainingCapacity() == 1) {
+            return false;
+        }
+
+        return true;
     }
 }
