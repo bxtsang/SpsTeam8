@@ -45,8 +45,6 @@ public class MyOrderServlet extends HttpServlet {
         String orderId = reader.readLine();
         orderId = orderId.split("=")[1];
         String orderData = Firebase.sendGetRequest("https://summer20-sps-47.firebaseio.com/orders/" + orderId + ".json");
-        System.out.println(!Objects.equals(orderData, "null"));
-        System.out.println(!Objects.equals(orderData, "null") && isValidOrder(orderData));
 
         if (!Objects.equals(orderData, "null") && isValidOrder(orderData)) {
             String firebaseResponse = Firebase.sendRequest("https://summer20-sps-47.firebaseio.com/orders/" + orderId + ".json", "DELETE", orderId);
@@ -60,7 +58,6 @@ public class MyOrderServlet extends HttpServlet {
         String key = "";
 
         if (orderJson.entrySet().size() != 7) {
-            System.out.println(orderJson.entrySet().size());
             return false;
         }
 
