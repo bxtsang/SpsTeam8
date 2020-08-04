@@ -43,17 +43,9 @@ public class FirebaseUtil {
         }
     }
 
-    public void addUserRoom(String userEmail, String roomId) {
-        FirebaseDatabase.getInstance()
-            .getReference("UserRoom")
-            .push()
-            .setValue(new UserRoom(userEmail, roomId), (databaseError, databaseReference) -> {
-                if (databaseError != null) {
-                    System.out.println("Data could not be saved " + databaseError.getMessage());
-                } else {
-                    System.out.println("Data saved successfully.");
-                }
-            });
+    public DatabaseReference getUserRoomReference() {
+        return FirebaseDatabase.getInstance()
+            .getReference("UserRoom");
     }
 
     public boolean hasUserJoinedRoom(String userEmail, String roomId) throws IOException {

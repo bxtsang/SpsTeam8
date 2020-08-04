@@ -17,6 +17,7 @@
     <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.inject.extensions:guice-servlet:4.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.inject.extensions:guice-assistedinject:4.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.12.4" level="project" />
     <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java-util:3.12.4" level="project" />
     <orderEntry type="library" name="Maven: com.google.errorprone:error_prone_annotations:2.3.4" level="project" />
