@@ -7,6 +7,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -26,33 +27,31 @@ public class UserRoomManager {
         UserRoom userRoom = UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom().build();
 
         firebaseUtil.getUserRoomReference().push()
-            .setValue(userRoom, (databaseError, databaseReference) -> {
-                if (databaseError != null) {
-                    System.out.println("Data could not be saved " + databaseError.getMessage());
-                } else {
-                    System.out.println("Data saved successfully.");
-                }
-            });
+                .setValue(userRoom, (databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        System.out.println("Data could not be saved " + databaseError.getMessage());
+                    } else {
+                        System.out.println("Data saved successfully.");
+                    }
+                });
     }
 
     public boolean hasUserJoinedRoom(String userEmail, String roomId) {
+        String userEmailRoom = userEmail + "_" + roomId;
         final BlockingQueue queue = new LinkedBlockingDeque(1);
         CountDownLatch done = new CountDownLatch(1);
-
-        firebaseUtil.getUserRoomReference().addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseUtil.getUserRoomReference().orderByChild("userEmailRoom").equalTo(userEmailRoom).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    if (data.child("userEmailRoom").getValue().equals(userEmail + "_" + roomId)) {
-                        queue.add(true);
-                    }
+                if (dataSnapshot.exists()) {
+                    queue.add(true);
                 }
                 done.countDown();
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                System.out.println("error");
+            public void onCancelled(DatabaseError databaseError) {
+                throw databaseError.toException();
             }
         });
 
