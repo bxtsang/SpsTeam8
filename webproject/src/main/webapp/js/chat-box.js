@@ -27,6 +27,7 @@ async function fetchMessages() {
 }
 
 function sendMessage() {
+    const roomId = window.location.search.substring(1);
     let usernamePromise = null;
     if (username == null) {
         usernamePromise = getUsername();
@@ -40,10 +41,9 @@ function sendMessage() {
         $.ajax({
             type: 'POST',
             url: "/text-message",
-            data: { "user": username, "message": message },
+            data: { "user": username, "message": message, "roomId": roomId},
             success: function(msg) {
-                window.alert("Message Sent");
-                window.location.reload();
+                fetchMessages();
             },
             error: function(msg) {
                 window.alert("Something went wrong!");

@@ -25,6 +25,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collections;
 
 public class TextMessageServlet extends HttpServlet {
     private static String username;
@@ -55,18 +56,15 @@ public class TextMessageServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // Get the URL of the image that the user uploaded to Blobstore.
-        String message = request.getParameter("textmessage");
-
-        String referrer = request.getHeader("referer");
-        String[] array = referrer.split("\\?");
-        String roomID = array[1];
+        
+        String message = request.getParameter("message");
+        String roomID = request.getParameter("roomId");
         FirebaseDatabase.getInstance()
             .getReference("messages")
             .child(roomID)
             .push()
             .setValueAsync(new Message(username, message, "text"));
 
-        response.sendRedirect(referrer);
+        response.setStatus(200);
     }
 }
