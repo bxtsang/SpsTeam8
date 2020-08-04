@@ -56,10 +56,10 @@ public class FirebaseUtil {
             });
     }
 
-    public boolean hasUserJoinedRoom(String url, String userEmail, String roomId) throws IOException {
+    public boolean hasUserJoinedRoom(String userEmail, String roomId) throws IOException {
         final boolean[] isUserInRoom = { false };
         CountDownLatch done = new CountDownLatch(1);
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(url);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("UserRoom");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

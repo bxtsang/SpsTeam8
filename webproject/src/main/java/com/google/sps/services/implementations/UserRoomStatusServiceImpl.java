@@ -25,9 +25,6 @@ public class UserRoomStatusServiceImpl implements UserRoomStatusService {
     public boolean execute(UserRoomStatusRequest getJoinRequest) throws IOException {
         String roomId = getJoinRequest.getRoomId();
         String userEmail = authenticationHandler.getCurrentUser().getEmail();
-
-        String url = "UserRoom";
-
-        return firebaseUtil.hasUserJoinedRoom(url, userEmail, roomId);
+        return firebaseUtil.hasUserJoinedRoom(userEmail, roomId);
     }
 }
