@@ -12,11 +12,11 @@ import com.google.sps.util.FirebaseUtil;
 
 @Singleton
 public class UserRoomStatusServiceImpl implements UserRoomStatusService {
-    private FirebaseUtil firebaseUtil;
     private AuthenticationHandler authenticationHandler;
+    private FirebaseUtil firebaseUtil;
 
     @Inject
-    public UserRoomStatusServiceImpl(FirebaseUtil firebaseUtil, AuthenticationHandler authenticationHandler) {
+    public UserRoomStatusServiceImpl(AuthenticationHandler authenticationHandler, FirebaseUtil firebaseUtil) {
         this.firebaseUtil = firebaseUtil;
         this.authenticationHandler = authenticationHandler;
     }

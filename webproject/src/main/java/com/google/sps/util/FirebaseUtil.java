@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.sps.data.UserRoom;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +41,19 @@ public class FirebaseUtil {
         if (FirebaseApp.getApps().isEmpty()) {
             FirebaseApp.initializeApp(options);
         }
+    }
+
+    public void addUserRoom(String userEmail, String roomId) {
+        FirebaseDatabase.getInstance()
+            .getReference("UserRoom")
+            .push()
+            .setValue(new UserRoom(userEmail, roomId), (databaseError, databaseReference) -> {
+                if (databaseError != null) {
+                    System.out.println("Data could not be saved " + databaseError.getMessage());
+                } else {
+                    System.out.println("Data saved successfully.");
+                }
+            });
     }
 
     public boolean hasUserJoinedRoom(String url, String userEmail, String roomId) throws IOException {

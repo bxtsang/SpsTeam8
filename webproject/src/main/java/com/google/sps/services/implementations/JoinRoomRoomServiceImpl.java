@@ -8,13 +8,16 @@ import com.google.sps.data.UserRoom;
 import com.google.sps.proto.JoinRoomProto.JoinRoomResponse;
 import com.google.sps.proto.JoinRoomProto.JoinRoomRequest;
 import com.google.sps.services.interfaces.JoinRoomService;
+import com.google.sps.util.FirebaseUtil;
 import com.google.sps.util.TimestampUtil;
 
 public class JoinRoomRoomServiceImpl implements JoinRoomService {
     private AuthenticationHandler authenticationHandler;
+    private FirebaseUtil firebaseUtil;
 
     @Inject
-    public JoinRoomRoomServiceImpl(AuthenticationHandler authenticationHandler) {
+    public JoinRoomRoomServiceImpl(AuthenticationHandler authenticationHandler, FirebaseUtil firebaseUtil) {
+        this.firebaseUtil = firebaseUtil;
         this.authenticationHandler = authenticationHandler;
     }
 
@@ -22,16 +25,7 @@ public class JoinRoomRoomServiceImpl implements JoinRoomService {
     public JoinRoomResponse execute(JoinRoomRequest postJoinRequest) {
         String userEmail = authenticationHandler.getCurrentUser().getEmail();
 
-        FirebaseDatabase.getInstance()
-                .getReference("UserRoom")
-                .push()
-                .setValue(new UserRoom(userEmail, postJoinRequest.getRoomId()), (databaseError, databaseReference) -> {
-                    if (databaseError != null) {
-                        System.out.println("Data could not be saved " + databaseError.getMessage());
-                    } else {
-                        System.out.println("Data saved successfully.");
-                    }
-                });
+        firebaseUtil.addUserRoom(userEmail, postJoinRequest.getRoomId());
 
         return JoinRoomResponse.newBuilder()
                 .setRoomId(postJoinRequest.getRoomId())
