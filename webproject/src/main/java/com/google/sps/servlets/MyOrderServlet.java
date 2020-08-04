@@ -19,10 +19,15 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Objects;
 
-import static javax.swing.JOptionPane.showMessageDialog;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonElement;
 
 @WebServlet("/myOrder")
 public class MyOrderServlet extends HttpServlet {
+    //private static Gson gson = new Gson();
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         User user = new AuthenticationHandler().getCurrentUser();
@@ -40,10 +45,34 @@ public class MyOrderServlet extends HttpServlet {
         String orderId = reader.readLine();
         orderId = orderId.split("=")[1];
         String orderData = Firebase.sendGetRequest("https://summer20-sps-47.firebaseio.com/orders/" + orderId + ".json");
-        if (!Objects.equals(orderData, "null")) {
+        System.out.println(!Objects.equals(orderData, "null"));
+        System.out.println(!Objects.equals(orderData, "null") && isValidOrder(orderData));
+
+        if (!Objects.equals(orderData, "null") && isValidOrder(orderData)) {
             String firebaseResponse = Firebase.sendRequest("https://summer20-sps-47.firebaseio.com/orders/" + orderId + ".json", "DELETE", orderId);
             response.setStatus(200);
             response.getWriter().print(firebaseResponse);
         }
+    }
+
+    private Boolean isValidOrder(String orderData) {
+        JsonObject orderJson = new JsonParser().parse(orderData).getAsJsonObject();
+        String key = "";
+
+        if (orderJson.entrySet().size() != 7) {
+            System.out.println(orderJson.entrySet().size());
+            return false;
+        }
+
+        for (java.util.Map.Entry<String, JsonElement> mp: orderJson.entrySet()) {
+            key = mp.getKey();
+            if (!key.equals("orderPrice") && !key.equals("product") && !key.equals("quantity") 
+                && !key.equals("roomId") && !key.equals("unitPrice") && !key.equals("userEmail")
+                && !key.equals("userEmailRoomId")) {
+                    return false;
+            }
+        }
+
+        return true;
     }
 }
