@@ -30,12 +30,12 @@ public class UserRoomStatusServlet extends HttpServlet {
         UserRoomStatusRequest.Builder userRoomJoinRequest = UserRoomStatusRequest.newBuilder();
         userRoomJoinRequest.setRoomId(roomId);
 
-        String getJoinResponse = userRoomStatusService.execute(userRoomJoinRequest.build());
+        boolean isUserInRoom = userRoomStatusService.execute(userRoomJoinRequest.build());
         response.setContentType("text/plain");
-        if (getJoinResponse.substring(0, 2).equals("{}")) {
-            response.getWriter().print("Join");
-        } else {
+        if (isUserInRoom) {
             response.getWriter().print("Chat");
+        } else {
+            response.getWriter().print("Join");
         }
     }
 }

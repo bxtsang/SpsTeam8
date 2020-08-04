@@ -8,5 +8,5 @@ import com.google.sps.proto.UserRoomStatusProto.UserRoomStatusRequest;
  * An interface to handle dependency injection in GetJoinServlet.
  */
 public interface UserRoomStatusService {
-    public String execute(UserRoomStatusRequest getJoinRequest) throws IOException;
+    public boolean execute(UserRoomStatusRequest getJoinRequest) throws IOException;
 }

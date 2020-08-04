@@ -22,16 +22,12 @@ public class UserRoomStatusServiceImpl implements UserRoomStatusService {
     }
 
     @Override
-    public String execute(UserRoomStatusProto.UserRoomStatusRequest getJoinRequest) throws IOException {
+    public boolean execute(UserRoomStatusProto.UserRoomStatusRequest getJoinRequest) throws IOException {
         String roomId = getJoinRequest.getRoomId();
         String userEmail = authenticationHandler.getCurrentUser().getEmail();
 
-        StringBuilder url = new StringBuilder("https://summer20-sps-47.firebaseio.com/UserRoom.json?orderBy=%22userEmailRoom%22&equalTo=%22");
-        url.append(userEmail);
-        url.append("_");
-        url.append(roomId);
-        url.append("%22");
+        String url = "UserRoom";
 
-        return firebaseUtil.getFirebaseResponse(url.toString());
+        return firebaseUtil.hasUserJoinedRoom(url, userEmail, roomId);
     }
 }

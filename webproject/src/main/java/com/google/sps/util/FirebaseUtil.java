@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.net.HttpURLConnection;
 import java.io.*;
 import java.net.URL;
+import java.util.concurrent.CountDownLatch;
 
 @Singleton
 public class FirebaseUtil {
@@ -35,51 +36,39 @@ public class FirebaseUtil {
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .setDatabaseUrl("https://summer20-sps-47.firebaseio.com")
                 .build();
-
-        System.out.println("*******************************");
-        System.out.println("CALLINNNGGGGGGGG");
-        System.out.println("*******************************");
+        
         if (FirebaseApp.getApps().isEmpty()) {
             FirebaseApp.initializeApp(options);
         }
     }
 
-    public String getFirebaseResponse(String url) throws IOException {
-        // DatabaseReference ref = FirebaseDatabase.getInstance().getReference("UserRoom");
-        // ref.addListenerForSingleValueEvent(new ValueEventListener() {
-        //     @Override
-        //     public void onDataChange(DataSnapshot dataSnapshot) {
-        //         Object document = dataSnapshot.getValue();
-        //         System.out.println("Document: " + document.toString());
-        //     }
-            
-        //     @Override
-        //     public void onCancelled(DatabaseError error) {
-        //         System.out.println("error");
-        //     }
-        // });
-        // System.out.println(ref.toString());
-
-        // return "Meap";
-
-        //Use Firebase class once merged
-        HttpURLConnection con = (HttpURLConnection) new URL(url).openConnection();
-        con.setRequestMethod("GET");
-        con.setRequestProperty("Accept", "application/json");
-        con.setDoOutput(true);
-
-        String jsonResponse = "";
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
-            StringBuilder firebaseResponse = new StringBuilder();
-            String line;
-
-            while ((line = in.readLine()) != null) {
-                firebaseResponse.append(line);
+    public boolean hasUserJoinedRoom(String url, String userEmail, String roomId) throws IOException {
+        final boolean[] isUserInRoom = { false };
+        CountDownLatch done = new CountDownLatch(1);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(url);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    if (data.child("userEmailRoom").getValue().equals(userEmail + "_" + roomId)) {
+                        isUserInRoom[0] = true;
+                    }
+                }
+                done.countDown();
             }
 
-            jsonResponse = firebaseResponse.toString();
+            @Override
+            public void onCancelled(DatabaseError error) {
+                System.out.println("error");
+            }
+        });
+
+        try {
+            done.await(); //it will wait till the response is received from firebase.
+        } catch(InterruptedException e) {
+            e.printStackTrace();
         }
-        System.out.println("Json response: " + jsonResponse);
-        return jsonResponse;
+
+        return isUserInRoom[0];
     }
 }
