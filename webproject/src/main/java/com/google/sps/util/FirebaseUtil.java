@@ -30,7 +30,7 @@ public class FirebaseUtil {
     @Inject
     public FirebaseUtil() throws Exception {
         // Fetch the service account key JSON file contents
-        FileInputStream serviceAccount = new FileInputStream("/home/abahety/SpsTeam8/webproject/src/main/webapp/key.json");
+        FileInputStream serviceAccount = new FileInputStream("./key.json");
 
         // Initialize the app with a service account, granting admin privileges
         FirebaseOptions options = new FirebaseOptions.Builder()
