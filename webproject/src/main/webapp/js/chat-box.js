@@ -4,7 +4,6 @@ window.onload = function() {
     fetchBlobstoreUrl();
     fetchMessages();
 }
-
 async function fetchMessages() {
     const roomId = window.location.search.substring(1);
     fetch("/fetchMessages?roomId=" + roomId).then(response => response.json()).then(response => {
@@ -14,13 +13,11 @@ async function fetchMessages() {
             const snap = response[key];
             let html = "<li class='message' id='message-" + key + "'>";
             html += "<span class='chat-user'>" + snap.user + "</span> <br />";
-
             if (snap.type == "text") {
                 html += "<span class='chat-message'>" + snap.message + "</span> <br />";
             } else {
                 html += "<a href=\"" + snap.message + "\"><img src=\"" + snap.message + "\" /></a> <br />";
             }
-
             html += "<span class='chat-time'>" + snap.time + "</span>";
             html += "</li>";
             messagesContainer.innerHTML += html;
@@ -40,18 +37,16 @@ function sendMessage() {
         let messageBox = document.getElementById("message");
         var message = messageBox.value;
         messageBox.value = "";
-        var date = new Date();
-        var time = hours_with_leading_zeroes(date) + ":" + minutes_with_leading_zeroes(date);
-        firebase.database().ref('messages/' + roomID).push().set({
-            type: "text",
-            user: username,
-            message: message,
-            time: time
-        }, function(error) {
-            if (error) {
-                console.log("Write failed");
-            } else {
-                fetchMessages();
+        $.ajax({
+            type: 'POST',
+            url: "/text-message",
+            data: { "user": username, "message": message },
+            success: function(msg) {
+                window.alert("Message Sent");
+                window.location.reload();
+            },
+            error: function(msg) {
+                window.alert("Something went wrong!");
             }
         });
     });
