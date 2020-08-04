@@ -4,6 +4,7 @@ window.onload = function() {
     fetchBlobstoreUrl();
     fetchMessages();
 }
+
 async function fetchMessages() {
     const roomId = window.location.search.substring(1);
     fetch("/fetchMessages?roomId=" + roomId).then(response => response.json()).then(response => {

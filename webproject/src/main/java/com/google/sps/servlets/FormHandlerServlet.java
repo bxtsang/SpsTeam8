@@ -58,6 +58,26 @@ public class FormHandlerServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         // Get the URL of the image that the user uploaded to Blobstore.
+        // String imageUrl = getUploadedFileUrl(request, "image");
+        // System.out.println("imageurl: "+ imageUrl);
+        // String roomID = request.getParameter("roomId");
+        // System.out.println("roomID: " + roomID);
+        // System.out.printn("username: " + username);
+
+        // if (imageUrl == null || imageUrl.equals("")) {
+        //     response.setStatus(400);
+        //     return;
+        // }
+
+        // System.out.println();
+        // FirebaseDatabase.getInstance()
+        //     .getReference("messages")
+        //     .child(roomID)
+        //     .push()
+        //     .setValueAsync(new Message(username, imageUrl, "image"));
+        
+        // response.setStatus(200);
+
         String imageUrl = getUploadedFileUrl(request, "image");
         
         String referrer = request.getHeader("referer");
@@ -69,11 +89,14 @@ public class FormHandlerServlet extends HttpServlet {
 
         String[] array = referrer.split("\\?");
         String roomID = array[1];
+        
         FirebaseDatabase.getInstance()
             .getReference("messages")
             .child(roomID)
             .push()
             .setValueAsync(new Message(username, imageUrl, "image"));
+        System.out.println("Sendinggggggggggggggggggggg");
+        System.out.println("Referrer: " + referrer);
         response.sendRedirect(referrer);
     }
 
