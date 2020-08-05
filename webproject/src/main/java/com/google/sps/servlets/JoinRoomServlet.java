@@ -10,6 +10,7 @@ import com.google.sps.services.interfaces.JoinRoomService;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +30,7 @@ public class JoinRoomServlet extends HttpServlet {
     }
 
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         if (!authenticationHandler.isUserLoggedIn()) {
             response.setStatus(400);
             return;
@@ -40,7 +41,12 @@ public class JoinRoomServlet extends HttpServlet {
         JoinRoomRequest.Builder joinRoomRequest = JoinRoomRequest.newBuilder();
         joinRoomRequest.setRoomId(roomId);
 
-        JoinRoomResponse joinRoomResponse = joinRoomService.execute(joinRoomRequest.build());
+        JoinRoomResponse joinRoomResponse = null;
+        try {
+            joinRoomResponse = joinRoomService.execute(joinRoomRequest.build());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         response.setContentType("application/json; charset=UTF-8;");
         response.getWriter().println(JsonFormat.printer().print(joinRoomResponse));

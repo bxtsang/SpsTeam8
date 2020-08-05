@@ -10,10 +10,7 @@ import javax.inject.Singleton;
 import javax.servlet.ServletException;
 
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.sps.data.UserRoom;
 import com.google.sps.util.FirebaseUtil;
 
