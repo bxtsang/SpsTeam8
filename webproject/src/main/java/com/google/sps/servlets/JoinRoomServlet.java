@@ -1,12 +1,12 @@
 package com.google.sps.servlets;
 
+import java.io.IOException;
+
 import com.google.protobuf.util.JsonFormat;
 import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.proto.JoinRoomProto.JoinRoomResponse;
 import com.google.sps.proto.JoinRoomProto.JoinRoomRequest;
 import com.google.sps.services.interfaces.JoinRoomService;
-
-import java.io.*;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

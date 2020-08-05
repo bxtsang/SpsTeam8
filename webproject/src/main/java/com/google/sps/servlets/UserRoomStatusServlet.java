@@ -1,10 +1,10 @@
 package com.google.sps.servlets;
 
+import java.io.IOException;
+
 import com.google.sps.proto.UserRoomStatusProto.UserRoomStatusResponse;
 import com.google.sps.proto.UserRoomStatusProto.UserRoomStatusRequest;
 import com.google.sps.services.interfaces.UserRoomStatusService;
-
-import java.io.*;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
