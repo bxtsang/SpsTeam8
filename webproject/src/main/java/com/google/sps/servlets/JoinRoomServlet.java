@@ -37,8 +37,8 @@ public class JoinRoomServlet extends HttpServlet {
         }
 
         String roomId = request.getParameter("roomId");
-        JoinRoomRequest.Builder joinRoomRequest = JoinRoomRequest.newBuilder().setRoomId(roomId);
-        JoinRoomResponse joinRoomResponse = joinRoomService.execute(joinRoomRequest.build());
+        JoinRoomRequest joinRoomRequest = JoinRoomRequest.newBuilder().setRoomId(roomId).build();
+        JoinRoomResponse joinRoomResponse = joinRoomService.execute(joinRoomRequest);
 
         response.setContentType("application/json; charset=UTF-8;");
         response.getWriter().println(JsonFormat.printer().print(joinRoomResponse));
