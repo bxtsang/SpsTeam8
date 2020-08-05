@@ -49,14 +49,21 @@ public class UserRoomManager {
         return userRoom;
     }
 
-    public Optional<DataSnapshot> getUserRoom(String userEmail, String roomId) throws ServletException {
+    public UserRoom getUserRoom(String userEmail, String roomId) throws ServletException {
         if (!isRoomIdValid(roomId)) {
             throw new ServletException("Invalid roomId");
         }
 
         String userEmailRoom = userEmail + "_" + roomId;
+        UserRoom userRoom =
+                UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom(userEmailRoom).build();
         Query query = firebaseUtil.getUserRoomReference().orderByChild("userEmailRoom");
-        return firebaseUtil.getQuerySnapshot(query, userEmailRoom);
+        Optional<DataSnapshot> dataSnapshot = firebaseUtil.getQuerySnapshot(query, userEmailRoom);
+        if (dataSnapshot.isPresent()) {
+            return userRoom;
+        }
+
+        return null;
     }
 
     private boolean isRoomIdValid(String roomId) throws ServletException {
