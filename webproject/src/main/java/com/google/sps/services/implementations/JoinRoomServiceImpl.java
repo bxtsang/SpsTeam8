@@ -13,13 +13,13 @@ import com.google.sps.services.interfaces.JoinRoomService;
 import com.google.sps.util.FirebaseUtil;
 import com.google.sps.util.TimestampUtil;
 
-public class JoinRoomRoomServiceImpl implements JoinRoomService {
+public class JoinRoomServiceImpl implements JoinRoomService {
     private AuthenticationHandler authenticationHandler;
     private UserRoomManager userRoomManager;
 
     @Inject
-    public JoinRoomRoomServiceImpl(AuthenticationHandler authenticationHandler,
-                                   UserRoomManager userRoomManager) {
+    public JoinRoomServiceImpl(AuthenticationHandler authenticationHandler,
+                               UserRoomManager userRoomManager) {
         this.authenticationHandler = authenticationHandler;
         this.userRoomManager = userRoomManager;
     }
