@@ -11,5 +11,4 @@ message UserRoomStatusRequest {
 message UserRoomStatusResponse {
   required string roomId = 1;
   required bool isJoined = 2;
-  required uint64 timestamp = 3;
 }

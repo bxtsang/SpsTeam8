@@ -591,15 +591,6 @@ public final class UserRoomStatusProto {
      * <code>required bool isJoined = 2;</code>
      */
     boolean getIsJoined();
-
-    /**
-     * <code>required uint64 timestamp = 3;</code>
-     */
-    boolean hasTimestamp();
-    /**
-     * <code>required uint64 timestamp = 3;</code>
-     */
-    long getTimestamp();
   }
   /**
    * Protobuf type {@code com.google.sps.proto.UserRoomStatusResponse}
@@ -615,7 +606,6 @@ public final class UserRoomStatusProto {
     private UserRoomStatusResponse() {
       roomId_ = "";
       isJoined_ = false;
-      timestamp_ = 0L;
     }
 
     @java.lang.Override
@@ -655,11 +645,6 @@ public final class UserRoomStatusProto {
             case 16: {
               bitField0_ |= 0x00000002;
               isJoined_ = input.readBool();
-              break;
-            }
-            case 24: {
-              bitField0_ |= 0x00000004;
-              timestamp_ = input.readUInt64();
               break;
             }
           }
@@ -744,21 +729,6 @@ public final class UserRoomStatusProto {
       return isJoined_;
     }
 
-    public static final int TIMESTAMP_FIELD_NUMBER = 3;
-    private long timestamp_;
-    /**
-     * <code>required uint64 timestamp = 3;</code>
-     */
-    public boolean hasTimestamp() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
-    /**
-     * <code>required uint64 timestamp = 3;</code>
-     */
-    public long getTimestamp() {
-      return timestamp_;
-    }
-
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -770,10 +740,6 @@ public final class UserRoomStatusProto {
         return false;
       }
       if (!hasIsJoined()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasTimestamp()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -789,9 +755,6 @@ public final class UserRoomStatusProto {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeBool(2, isJoined_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeUInt64(3, timestamp_);
-      }
       unknownFields.writeTo(output);
     }
 
@@ -806,10 +769,6 @@ public final class UserRoomStatusProto {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(2, isJoined_);
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(3, timestamp_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -838,11 +797,6 @@ public final class UserRoomStatusProto {
         result = result && (getIsJoined()
             == other.getIsJoined());
       }
-      result = result && (hasTimestamp() == other.hasTimestamp());
-      if (hasTimestamp()) {
-        result = result && (getTimestamp()
-            == other.getTimestamp());
-      }
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -862,11 +816,6 @@ public final class UserRoomStatusProto {
         hash = (37 * hash) + ISJOINED_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
             getIsJoined());
-      }
-      if (hasTimestamp()) {
-        hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-            getTimestamp());
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -990,8 +939,6 @@ public final class UserRoomStatusProto {
         bitField0_ = (bitField0_ & ~0x00000001);
         isJoined_ = false;
         bitField0_ = (bitField0_ & ~0x00000002);
-        timestamp_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00000004);
         return this;
       }
 
@@ -1024,10 +971,6 @@ public final class UserRoomStatusProto {
           to_bitField0_ |= 0x00000002;
         }
         result.isJoined_ = isJoined_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-          to_bitField0_ |= 0x00000004;
-        }
-        result.timestamp_ = timestamp_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1078,9 +1021,6 @@ public final class UserRoomStatusProto {
         if (other.hasIsJoined()) {
           setIsJoined(other.getIsJoined());
         }
-        if (other.hasTimestamp()) {
-          setTimestamp(other.getTimestamp());
-        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -1091,9 +1031,6 @@ public final class UserRoomStatusProto {
           return false;
         }
         if (!hasIsJoined()) {
-          return false;
-        }
-        if (!hasTimestamp()) {
           return false;
         }
         return true;
@@ -1225,38 +1162,6 @@ public final class UserRoomStatusProto {
         onChanged();
         return this;
       }
-
-      private long timestamp_ ;
-      /**
-       * <code>required uint64 timestamp = 3;</code>
-       */
-      public boolean hasTimestamp() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      /**
-       * <code>required uint64 timestamp = 3;</code>
-       */
-      public long getTimestamp() {
-        return timestamp_;
-      }
-      /**
-       * <code>required uint64 timestamp = 3;</code>
-       */
-      public Builder setTimestamp(long value) {
-        bitField0_ |= 0x00000004;
-        timestamp_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required uint64 timestamp = 3;</code>
-       */
-      public Builder clearTimestamp() {
-        bitField0_ = (bitField0_ & ~0x00000004);
-        timestamp_ = 0L;
-        onChanged();
-        return this;
-      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFields(unknownFields);
@@ -1327,10 +1232,9 @@ public final class UserRoomStatusProto {
     java.lang.String[] descriptorData = {
       "\n3webproject/src/main/java/proto/UserRoo" +
       "mStatus.proto\022\024com.google.sps.proto\"\'\n\025U" +
-      "serRoomStatusRequest\022\016\n\006roomId\030\001 \002(\t\"M\n\026" +
+      "serRoomStatusRequest\022\016\n\006roomId\030\001 \002(\t\":\n\026" +
       "UserRoomStatusResponse\022\016\n\006roomId\030\001 \002(\t\022\020" +
-      "\n\010isJoined\030\002 \002(\010\022\021\n\ttimestamp\030\003 \002(\004B\025B\023U" +
-      "serRoomStatusProto"
+      "\n\010isJoined\030\002 \002(\010B\025B\023UserRoomStatusProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1355,7 +1259,7 @@ public final class UserRoomStatusProto {
     internal_static_com_google_sps_proto_UserRoomStatusResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_google_sps_proto_UserRoomStatusResponse_descriptor,
-        new java.lang.String[] { "RoomId", "IsJoined", "Timestamp", });
+        new java.lang.String[] { "RoomId", "IsJoined", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -29,7 +29,6 @@ public class JoinRoomRoomServiceImpl implements JoinRoomService {
         userRoomManager.addUserRoom(userEmail, postJoinRequest.getRoomId());
         return JoinRoomResponse.newBuilder()
                 .setRoomId(postJoinRequest.getRoomId())
-                .setTimestamp(TimestampUtil.getTimestamp())
                 .build();
     }
 }

@@ -38,7 +38,6 @@ public class UserRoomStatusServiceImpl implements UserRoomStatusService {
         return UserRoomStatusResponse.newBuilder()
                 .setIsJoined(isJoined)
                 .setRoomId(roomId)
-                .setTimestamp(TimestampUtil.getTimestamp())
                 .build();
     }
 }
