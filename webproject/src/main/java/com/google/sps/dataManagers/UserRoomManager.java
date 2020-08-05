@@ -1,5 +1,6 @@
 package com.google.sps.dataManagers;
 
+import java.util.Optional;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
@@ -35,7 +36,7 @@ public class UserRoomManager {
                 });
     }
 
-    public boolean hasUserJoinedRoom(String userEmail, String roomId) throws InterruptedException {
+    public Optional getUserRoom(String userEmail, String roomId) throws InterruptedException {
         String userEmailRoom = userEmail + "_" + roomId;
         final BlockingQueue queue = new LinkedBlockingDeque(1);
 
@@ -43,9 +44,9 @@ public class UserRoomManager {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    queue.add(true);
+                    queue.add(Optional.of(dataSnapshot));
                 } else {
-                    queue.add(false);
+                    queue.add(Optional.empty());
                 }
             }
 
@@ -56,6 +57,6 @@ public class UserRoomManager {
         });
 
 
-        return (boolean) queue.poll(30, TimeUnit.SECONDS);
+        return (Optional) queue.poll(30, TimeUnit.SECONDS);
     }
 }

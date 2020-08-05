@@ -1,5 +1,7 @@
 package com.google.sps.services.implementations;
 
+import java.util.Optional;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -26,7 +28,13 @@ public class UserRoomStatusServiceImpl implements UserRoomStatusService {
         String roomId = getJoinRequest.getRoomId();
         String userEmail = authenticationHandler.getCurrentUser().getEmail();
 
-        boolean isJoined = userRoomManager.hasUserJoinedRoom(userEmail, roomId);
+        Optional userRoom = userRoomManager.getUserRoom(userEmail, roomId);
+        boolean isJoined = false;
+
+        if (userRoom.isPresent()) {
+            isJoined = true;
+        }
+
         return UserRoomStatusResponse.newBuilder()
                 .setIsJoined(isJoined)
                 .setRoomId(roomId)
