@@ -43,10 +43,8 @@ public class UserRoomManager {
                         }
                     }
                 });
-        
-        UserRoom userRoom =
-                UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom(userEmailRoom).build();
-        return userRoom;
+                
+        return UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom(userEmailRoom).build();
     }
 
     public UserRoom getUserRoom(String userEmail, String roomId) throws ServletException {
