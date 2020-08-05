@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.servlet.ServletException;
 
+import com.google.firebase.database.DataSnapshot;
 import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.dataManagers.UserRoomManager;
 import com.google.sps.proto.UserRoomStatusProto.UserRoomStatusResponse;
@@ -28,7 +29,7 @@ public class UserRoomStatusServiceImpl implements UserRoomStatusService {
         String roomId = getJoinRequest.getRoomId();
         String userEmail = authenticationHandler.getCurrentUser().getEmail();
 
-        Optional userRoom = userRoomManager.getUserRoom(userEmail, roomId);
+        Optional<DataSnapshot> userRoom = userRoomManager.getUserRoom(userEmail, roomId);
         boolean isJoined = false;
 
         if (userRoom.isPresent()) {
