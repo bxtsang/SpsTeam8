@@ -23,7 +23,7 @@ public class UserRoomStatusServiceImpl implements UserRoomStatusService {
     }
 
     @Override
-    public boolean execute(UserRoomStatusRequest getJoinRequest) throws IOException {
+    public boolean execute(UserRoomStatusRequest getJoinRequest) throws InterruptedException {
         String roomId = getJoinRequest.getRoomId();
         String userEmail = authenticationHandler.getCurrentUser().getEmail();
         return userRoomManager.hasUserJoinedRoom(userEmail, roomId);

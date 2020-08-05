@@ -1,13 +1,12 @@
 package com.google.sps.dataManagers;
 
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -36,17 +35,18 @@ public class UserRoomManager {
                 });
     }
 
-    public boolean hasUserJoinedRoom(String userEmail, String roomId) {
+    public boolean hasUserJoinedRoom(String userEmail, String roomId) throws InterruptedException {
         String userEmailRoom = userEmail + "_" + roomId;
         final BlockingQueue queue = new LinkedBlockingDeque(1);
-        CountDownLatch done = new CountDownLatch(1);
+
         firebaseUtil.getUserRoomReference().orderByChild("userEmailRoom").equalTo(userEmailRoom).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     queue.add(true);
+                } else {
+                    queue.add(false);
                 }
-                done.countDown();
             }
 
             @Override
@@ -55,16 +55,7 @@ public class UserRoomManager {
             }
         });
 
-        try {
-            done.await(); //it will wait till the response is received from firebase.
-        } catch(InterruptedException e) {
-            e.printStackTrace();
-        }
 
-        if (queue.remainingCapacity() == 1) {
-            return false;
-        }
-
-        return true;
+        return (boolean) queue.poll(30, TimeUnit.SECONDS);
     }
 }
