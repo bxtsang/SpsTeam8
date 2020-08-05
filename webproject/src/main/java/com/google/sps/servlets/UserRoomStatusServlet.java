@@ -29,8 +29,8 @@ public class UserRoomStatusServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String roomId = request.getParameter("roomId");
 
-        UserRoomStatusRequest.Builder userRoomJoinRequest = UserRoomStatusRequest.newBuilder().setRoomId(roomId);
-        UserRoomStatusResponse userRoomStatusResponse = userRoomStatusService.execute(userRoomJoinRequest.build());
+        UserRoomStatusRequest userRoomJoinRequest = UserRoomStatusRequest.newBuilder().setRoomId(roomId).build();
+        UserRoomStatusResponse userRoomStatusResponse = userRoomStatusService.execute(userRoomJoinRequest);
 
         response.setContentType("text/plain");
         if (userRoomStatusResponse.getIsJoined()) {
