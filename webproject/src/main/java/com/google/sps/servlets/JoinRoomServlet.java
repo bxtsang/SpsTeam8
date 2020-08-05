@@ -38,8 +38,7 @@ public class JoinRoomServlet extends HttpServlet {
 
         String roomId = request.getParameter("roomId");
 
-        JoinRoomRequest.Builder joinRoomRequest = JoinRoomRequest.newBuilder();
-        joinRoomRequest.setRoomId(roomId);
+        JoinRoomRequest.Builder joinRoomRequest = JoinRoomRequest.newBuilder().setRoomId(roomId);
 
         JoinRoomResponse joinRoomResponse = null;
         try {
