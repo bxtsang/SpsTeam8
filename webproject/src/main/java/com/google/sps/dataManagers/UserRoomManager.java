@@ -53,10 +53,9 @@ public class UserRoomManager {
         }
 
         String userEmailRoom = userEmail + "_" + roomId;
-        
         Query query = firebaseUtil.getUserRoomReference().orderByChild("userEmailRoom");
-        
         Optional<DataSnapshot> dataSnapshot = firebaseUtil.getQuerySnapshot(query, userEmailRoom);
+
         if (!dataSnapshot.isPresent()) {
             return null;
         }
