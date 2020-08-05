@@ -4,8 +4,7 @@ import javax.inject.Inject;
 import javax.servlet.ServletException;
 
 import com.google.sps.authentication.AuthenticationHandler;
-//import com.google.sps.data.UserRoomProto.UserRoom;
-import com.google.sps.data.UserRoom;
+import com.google.sps.data.UserRoomProto.UserRoom;
 import com.google.sps.dataManagers.UserRoomManager;
 import com.google.sps.proto.JoinRoomProto.JoinRoomResponse;
 import com.google.sps.proto.JoinRoomProto.JoinRoomRequest;

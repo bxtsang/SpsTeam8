@@ -8,9 +8,10 @@ import javax.servlet.ServletException;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.Query;
-//import com.google.sps.data.UserRoomProto.UserRoom;
-import com.google.sps.data.UserRoom;
+import com.google.sps.data.UserRoomProto.UserRoom;
 import com.google.sps.util.FirebaseUtil;
+import java.util.HashMap;
+import java.util.Map;
 
 @Singleton
 public class UserRoomManager {
@@ -27,12 +28,16 @@ public class UserRoomManager {
         }
 
         String userEmailRoom = userEmail + "_" + roomId;
-//        UserRoom userRoom =
-//                UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom(userEmailRoom).build();
-        UserRoom userRoom = new UserRoom(userEmail, roomId);
+        UserRoom userRoom =
+                UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom(userEmailRoom).build();
+        
+        Map<String, String> userRoomMapping = new HashMap<>();
+        userRoomMapping.put("userEmail", userEmail);
+        userRoomMapping.put("roomId", roomId);
+        userRoomMapping.put("userEmailRoom", userEmailRoom);
 
         firebaseUtil.getUserRoomReference().push()
-                .setValue(userRoom, (databaseError, databaseReference) -> {
+                .setValue(userRoomMapping, (databaseError, databaseReference) -> {
                     if (databaseError != null) {
                         try {
                             throw new ServletException("Invalid roomId");
