@@ -38,6 +38,5 @@ public class UserRoomStatusServlet extends HttpServlet {
         } else {
             response.getWriter().print("Join");
         }
-
     }
 }
