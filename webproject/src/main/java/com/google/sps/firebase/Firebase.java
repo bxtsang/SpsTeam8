@@ -59,4 +59,34 @@ public class Firebase {
 
         return jsonResponse;
     }
+
+    public static String sendPatchRequest(String urlString, String requestBody) throws IOException {
+        URL url = new URL(urlString);
+        HttpURLConnection con = (HttpURLConnection)url.openConnection();
+        con.setRequestProperty("Content-Type", "application/json; utf-8");
+        con.setRequestProperty("Accept", "application/json");
+        con.setRequestProperty("X-HTTP-Method-Override", "PATCH");
+        con.setRequestMethod("POST");
+        con.setDoOutput(true);
+
+        try(OutputStream os = con.getOutputStream()) {
+            byte[] input = requestBody.getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        String jsonResponse = "";
+
+        try(BufferedReader br = new BufferedReader(
+                new InputStreamReader(con.getInputStream(), "utf-8"))) {
+            StringBuilder firebaseResponse = new StringBuilder();
+            String responseLine = null;
+            while ((responseLine = br.readLine()) != null) {
+                firebaseResponse.append(responseLine.trim());
+            }
+
+            jsonResponse = firebaseResponse.toString();
+        }
+
+        return jsonResponse;
+    }
 }
