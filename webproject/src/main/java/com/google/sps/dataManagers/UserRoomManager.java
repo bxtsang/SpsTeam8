@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.Query;
-import com.google.sps.data.UserRoom;
+import com.google.sps.data.UserRoomProto.UserRoom;
 import com.google.sps.util.FirebaseUtil;
 
 @Singleton
@@ -25,7 +25,9 @@ public class UserRoomManager {
             throw new ServletException("Invalid roomId");
         }
 
-        UserRoom userRoom = UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom().build();
+        String userEmailRoom = userEmail + "_" + roomId;
+        UserRoom userRoom =
+                UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom(userEmailRoom).build();
 
         firebaseUtil.getUserRoomReference().push()
                 .setValue(userRoom, (databaseError, databaseReference) -> {
