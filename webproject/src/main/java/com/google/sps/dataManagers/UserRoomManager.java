@@ -30,9 +30,11 @@ public class UserRoomManager {
         firebaseUtil.getUserRoomReference().push()
                 .setValue(userRoom, (databaseError, databaseReference) -> {
                     if (databaseError != null) {
-                        System.out.println("Data could not be saved " + databaseError.getMessage());
-                    } else {
-                        System.out.println("Data saved successfully.");
+                        try {
+                            throw new ServletException("Invalid roomId");
+                        } catch (ServletException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
 
