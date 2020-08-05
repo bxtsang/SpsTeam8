@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.servlet.ServletException;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
@@ -47,7 +48,7 @@ public class FirebaseUtil {
                 .getReference("rooms");
     }
 
-    public Optional<DataSnapshot> getQuerySnapshot(Query query, String input) throws InterruptedException {
+    public Optional<DataSnapshot> getQuerySnapshot(Query query, String input) throws ServletException {
         final BlockingQueue<Optional<DataSnapshot>> queue = new LinkedBlockingDeque(1);
         query.equalTo(input).addValueEventListener(new ValueEventListener() {
             @Override
@@ -65,7 +66,11 @@ public class FirebaseUtil {
             }
         });
 
-        return queue.poll(30, TimeUnit.SECONDS);
+        try {
+            return queue.poll(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            throw new ServletException("The database did not return a response for the specified query");
+        }
     }
 
 

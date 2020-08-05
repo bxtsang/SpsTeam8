@@ -25,7 +25,7 @@ public class JoinRoomServiceImpl implements JoinRoomService {
     }
 
     @Override
-    public JoinRoomResponse execute(JoinRoomRequest postJoinRequest) throws ServletException, InterruptedException {
+    public JoinRoomResponse execute(JoinRoomRequest postJoinRequest) throws ServletException {
         String userEmail = authenticationHandler.getCurrentUser().getEmail();
         UserRoom userRoom = userRoomManager.addUserRoom(userEmail, postJoinRequest.getRoomId());
         return JoinRoomResponse.newBuilder()

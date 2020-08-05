@@ -23,7 +23,7 @@ public class UserRoomManager {
         this.firebaseUtil = firebaseUtil;
     }
 
-    public UserRoom addUserRoom(String userEmail, String roomId) throws InterruptedException, ServletException {
+    public UserRoom addUserRoom(String userEmail, String roomId) throws ServletException {
         if (!isRoomIdValid(roomId)) {
             throw new ServletException("Invalid roomId");
         }
@@ -42,13 +42,13 @@ public class UserRoomManager {
         return userRoom;
     }
 
-    public Optional<DataSnapshot> getUserRoom(String userEmail, String roomId) throws InterruptedException {
+    public Optional<DataSnapshot> getUserRoom(String userEmail, String roomId) throws ServletException {
         String userEmailRoom = userEmail + "_" + roomId;
         Query query = firebaseUtil.getUserRoomReference().orderByChild("UserRoom");
         return firebaseUtil.getQuerySnapshot(query, userEmailRoom);
     }
 
-    private boolean isRoomIdValid(String roomId) throws InterruptedException {
+    private boolean isRoomIdValid(String roomId) throws ServletException {
         Query query = firebaseUtil.getRoomsReference().orderByKey();
         Optional<DataSnapshot> room = firebaseUtil.getQuerySnapshot(query, roomId);
         return room.isPresent();

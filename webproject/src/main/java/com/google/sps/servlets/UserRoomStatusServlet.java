@@ -8,6 +8,7 @@ import com.google.sps.services.interfaces.UserRoomStatusService;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,16 +26,11 @@ public class UserRoomStatusServlet extends HttpServlet {
     }
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String roomId = request.getParameter("roomId");
         UserRoomStatusRequest.Builder userRoomJoinRequest = UserRoomStatusRequest.newBuilder().setRoomId(roomId);
 
-        UserRoomStatusResponse userRoomStatusResponse = null;
-        try {
-            userRoomStatusResponse = userRoomStatusService.execute(userRoomJoinRequest.build());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        UserRoomStatusResponse userRoomStatusResponse = userRoomStatusService.execute(userRoomJoinRequest.build());
 
         response.setContentType("text/plain");
         if (userRoomStatusResponse.getIsJoined()) {

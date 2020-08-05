@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.servlet.ServletException;
 
 import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.dataManagers.UserRoomManager;
@@ -24,7 +25,7 @@ public class UserRoomStatusServiceImpl implements UserRoomStatusService {
     }
 
     @Override
-    public UserRoomStatusResponse execute(UserRoomStatusRequest getJoinRequest) throws InterruptedException {
+    public UserRoomStatusResponse execute(UserRoomStatusRequest getJoinRequest) throws ServletException {
         String roomId = getJoinRequest.getRoomId();
         String userEmail = authenticationHandler.getCurrentUser().getEmail();
 
