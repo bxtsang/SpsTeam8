@@ -1,6 +1,7 @@
 package com.google.sps.services.implementations;
 
 import javax.inject.Inject;
+import javax.servlet.ServletException;
 
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.sps.authentication.AuthenticationHandler;
@@ -24,9 +25,9 @@ public class JoinRoomRoomServiceImpl implements JoinRoomService {
     }
 
     @Override
-    public JoinRoomResponse execute(JoinRoomRequest postJoinRequest) {
+    public JoinRoomResponse execute(JoinRoomRequest postJoinRequest) throws ServletException, InterruptedException {
         String userEmail = authenticationHandler.getCurrentUser().getEmail();
-        userRoomManager.addUserRoom(userEmail, postJoinRequest.getRoomId());
+        UserRoom userRoom = userRoomManager.addUserRoom(userEmail, postJoinRequest.getRoomId());
         return JoinRoomResponse.newBuilder()
                 .setRoomId(postJoinRequest.getRoomId())
                 .build();

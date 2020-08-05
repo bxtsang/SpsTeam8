@@ -7,9 +7,12 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.servlet.ServletException;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.sps.data.UserRoom;
 import com.google.sps.util.FirebaseUtil;
@@ -23,7 +26,11 @@ public class UserRoomManager {
         this.firebaseUtil = firebaseUtil;
     }
 
-    public void addUserRoom(String userEmail, String roomId) {
+    public UserRoom addUserRoom(String userEmail, String roomId) throws InterruptedException, ServletException {
+        if (!isRoomIdValid(roomId)) {
+            throw new ServletException("Invalid roomId");
+        }
+
         UserRoom userRoom = UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom().build();
 
         firebaseUtil.getUserRoomReference().push()
@@ -34,28 +41,19 @@ public class UserRoomManager {
                         System.out.println("Data saved successfully.");
                     }
                 });
+
+        return userRoom;
     }
 
-    public Optional getUserRoom(String userEmail, String roomId) throws InterruptedException {
+    public Optional<DataSnapshot> getUserRoom(String userEmail, String roomId) throws InterruptedException {
         String userEmailRoom = userEmail + "_" + roomId;
-        final BlockingQueue queue = new LinkedBlockingDeque(1);
+        Query query = firebaseUtil.getUserRoomReference().orderByChild("UserRoom");
+        return firebaseUtil.getQuerySnapshot(query, userEmailRoom);
+    }
 
-        firebaseUtil.getUserRoomReference().orderByChild("userEmailRoom").equalTo(userEmailRoom).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    queue.add(Optional.of(dataSnapshot));
-                } else {
-                    queue.add(Optional.empty());
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                throw databaseError.toException();
-            }
-        });
-
-        return (Optional) queue.poll(30, TimeUnit.SECONDS);
+    private boolean isRoomIdValid(String roomId) throws InterruptedException {
+        Query query = firebaseUtil.getRoomsReference().orderByKey();
+        Optional<DataSnapshot> room = firebaseUtil.getQuerySnapshot(query, roomId);
+        return room.isPresent();
     }
 }
