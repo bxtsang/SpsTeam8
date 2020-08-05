@@ -8,7 +8,8 @@ import javax.servlet.ServletException;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.Query;
-import com.google.sps.data.UserRoomProto.UserRoom;
+//import com.google.sps.data.UserRoomProto.UserRoom;
+import com.google.sps.data.UserRoom;
 import com.google.sps.util.FirebaseUtil;
 
 @Singleton
@@ -26,8 +27,9 @@ public class UserRoomManager {
         }
 
         String userEmailRoom = userEmail + "_" + roomId;
-        UserRoom userRoom =
-                UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom(userEmailRoom).build();
+//        UserRoom userRoom =
+//                UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom(userEmailRoom).build();
+        UserRoom userRoom = new UserRoom(userEmail, roomId);
 
         firebaseUtil.getUserRoomReference().push()
                 .setValue(userRoom, (databaseError, databaseReference) -> {
