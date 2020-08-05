@@ -28,17 +28,19 @@ public class UserRoomStatusServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String roomId = request.getParameter("roomId");
         UserRoomStatusRequest.Builder userRoomJoinRequest = UserRoomStatusRequest.newBuilder().setRoomId(roomId);
-        
+
+        UserRoomStatusResponse userRoomStatusResponse = null;
         try {
-            UserRoomStatusResponse userRoomStatusResponse = userRoomStatusService.execute(userRoomJoinRequest.build());
-            response.setContentType("text/plain");
-            if (userRoomStatusResponse.getIsJoined()) {
-                response.getWriter().print("Chat");
-            } else {
-                response.getWriter().print("Join");
-            }
+            userRoomStatusResponse = userRoomStatusService.execute(userRoomJoinRequest.build());
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+
+        response.setContentType("text/plain");
+        if (userRoomStatusResponse.getIsJoined()) {
+            response.getWriter().print("Chat");
+        } else {
+            response.getWriter().print("Join");
         }
 
     }
