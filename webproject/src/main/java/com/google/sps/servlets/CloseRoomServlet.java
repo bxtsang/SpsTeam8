@@ -30,11 +30,6 @@ public class CloseRoomServlet extends HttpServlet {
         roomsUrlString.append(".json");
         Firebase.sendPatchRequest(roomsUrlString.toString(), "{\"isOpen\":false}");
 
-        StringBuilder userRoomUrlString = new StringBuilder("https://summer20-sps-47.firebaseio.com/UserRoom/");
-        userRoomUrlString.append(roomId);
-        userRoomUrlString.append(".json");
-        Firebase.sendPatchRequest(userRoomUrlString.toString(), "{\"isOpen\":false}");
-
         response.sendRedirect("/");
     }
 }
