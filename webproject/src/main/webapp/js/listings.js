@@ -7,42 +7,43 @@ async function getListings() {
     for (var i = 0; i < entries.length; i++) {
         let room = entries[i];
         var roomData = room[1];
-        childHtmlString += `<div class="shadow-sm p-3 mb-5 bg-white rounded listing-card">
-      <div class="row form-group">
-        <div class="col-md-6 mb-3 mb-md-0">
-          <span class="card-heading title">${roomData.title}</span>
-          <br />
-          <span class="card-field">Postal Code: </span>
-          <span class="card-value postal-code-value">
-            ${roomData.deliveryLocation}
-          </span>
-          <br />
-          <span class="card-description">
-            ${roomData.description}
-          </span>
-        </div>
-        <div class="col-md-6 text-right">
-          <span class="card-field">Category: </span>
-          <span class="card-value category-value">${roomData.category}</span>
-          <br />
-          <span class="card-field">Delivery fee: </span>
-          <span class="card-value">$${roomData.deliveryFee}</span>
-          <br />
-          <br />`;
-        let response2 = await fetch("/join?roomId=" + room[0]);
-        let joinAction = await response2.text();
-        if (joinAction == "Join") {
-            childHtmlString += `<button id="action" class="btn btn-join" onclick="joinRoom('${room[0]}')">Join</button>
-      </div>
-    </div>
-  </div>`;
-        } else {
-            childHtmlString += `<button id="action" class="btn btn-chat" onclick="toChat('${room[0]}')">Chat</button>
-      </div>
-    </div>
-  </div>`;
+        if (roomData.isOpen) {
+            childHtmlString += `<div class="shadow-sm p-3 mb-5 bg-white rounded listing-card">
+                    <div class="row form-group">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                    <span class="card-heading title">${roomData.title}</span>
+                    <br />
+                    <span class="card-field">Postal Code: </span>
+                    <span class="card-value postal-code-value">
+                        ${roomData.deliveryLocation}
+                    </span>
+                    <br />
+                    <span class="card-description">
+                        ${roomData.description}
+                    </span>
+                    </div>
+                    <div class="col-md-6 text-right">
+                    <span class="card-field">Category: </span>
+                    <span class="card-value category-value">${roomData.category}</span>
+                    <br />
+                    <span class="card-field">Delivery fee: </span>
+                    <span class="card-value">$${roomData.deliveryFee}</span>
+                    <br />
+                    <br />`;
+
+            let response2 = await fetch("/join?roomId=" + room[0]);
+            let joinAction = await response2.text();
+
+            if (joinAction == "Join") {
+                childHtmlString += `<button id="action" class="btn btn-join" onclick="joinRoom('${room[0]}')">Join</button>`;
+            } else {
+                childHtmlString += `<button id="action" class="btn btn-chat" onclick="toChat('${room[0]}')">Chat</button>`;
+            }
+
+            childHtmlString += `</div></div></div>`;
         }
     }
+
     cardsContainer.innerHTML = childHtmlString;
 }
 async function joinRoom(roomId) {
