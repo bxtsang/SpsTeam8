@@ -28,12 +28,12 @@ public class CloseRoomServlet extends HttpServlet {
         StringBuilder roomsUrlString = new StringBuilder("https://summer20-sps-47.firebaseio.com/rooms/");
         roomsUrlString.append(roomId);
         roomsUrlString.append(".json");
-        Firebase.sendRequest(roomsUrlString.toString(), "DELETE", "");
+        Firebase.sendPatchRequest(roomsUrlString.toString(), "{\"isOpen\":false}");
 
         StringBuilder userRoomUrlString = new StringBuilder("https://summer20-sps-47.firebaseio.com/UserRoom/");
         userRoomUrlString.append(roomId);
         userRoomUrlString.append(".json");
-        Firebase.sendRequest(userRoomUrlString.toString(), "DELETE", "");
+        Firebase.sendPatchRequest(userRoomUrlString.toString(), "{\"isOpen\":false}");
 
         response.sendRedirect("/");
     }
