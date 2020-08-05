@@ -11,7 +11,6 @@ import com.google.sps.dataManagers.UserRoomManager;
 import com.google.sps.proto.UserRoomStatusProto.UserRoomStatusResponse;
 import com.google.sps.proto.UserRoomStatusProto.UserRoomStatusRequest;
 import com.google.sps.services.interfaces.UserRoomStatusService;
-import com.google.sps.util.TimestampUtil;
 
 @Singleton
 public class UserRoomStatusServiceImpl implements UserRoomStatusService {

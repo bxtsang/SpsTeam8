@@ -1,9 +1,6 @@
 package com.google.sps.dataManagers;
 
 import java.util.Optional;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -43,6 +40,10 @@ public class UserRoomManager {
     }
 
     public Optional<DataSnapshot> getUserRoom(String userEmail, String roomId) throws ServletException {
+        if (!isRoomIdValid(roomId)) {
+            throw new ServletException("Invalid roomId");
+        }
+
         String userEmailRoom = userEmail + "_" + roomId;
         Query query = firebaseUtil.getUserRoomReference().orderByChild("UserRoom");
         return firebaseUtil.getQuerySnapshot(query, userEmailRoom);

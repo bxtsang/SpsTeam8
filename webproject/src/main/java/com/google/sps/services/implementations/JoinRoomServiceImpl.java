@@ -3,15 +3,12 @@ package com.google.sps.services.implementations;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.data.UserRoom;
 import com.google.sps.dataManagers.UserRoomManager;
 import com.google.sps.proto.JoinRoomProto.JoinRoomResponse;
 import com.google.sps.proto.JoinRoomProto.JoinRoomRequest;
 import com.google.sps.services.interfaces.JoinRoomService;
-import com.google.sps.util.FirebaseUtil;
-import com.google.sps.util.TimestampUtil;
 
 public class JoinRoomServiceImpl implements JoinRoomService {
     private AuthenticationHandler authenticationHandler;
