@@ -26,11 +26,8 @@ public class UserRoomManager {
         if (!isRoomIdValid(roomId)) {
             throw new ServletException("Invalid roomId");
         }
-
+     
         String userEmailRoom = userEmail + "_" + roomId;
-        UserRoom userRoom =
-                UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom(userEmailRoom).build();
-        
         Map<String, String> userRoomMapping = new HashMap<>();
         userRoomMapping.put("userEmail", userEmail);
         userRoomMapping.put("roomId", roomId);
@@ -46,8 +43,8 @@ public class UserRoomManager {
                         }
                     }
                 });
-
-        return userRoom;
+                
+        return UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom(userEmailRoom).build();
     }
 
     public UserRoom getUserRoom(String userEmail, String roomId) throws ServletException {
@@ -58,7 +55,9 @@ public class UserRoomManager {
         String userEmailRoom = userEmail + "_" + roomId;
         UserRoom userRoom =
                 UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom(userEmailRoom).build();
+        
         Query query = firebaseUtil.getUserRoomReference().orderByChild("userEmailRoom");
+        
         Optional<DataSnapshot> dataSnapshot = firebaseUtil.getQuerySnapshot(query, userEmailRoom);
         if (dataSnapshot.isPresent()) {
             return userRoom;
