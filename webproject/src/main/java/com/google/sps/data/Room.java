@@ -23,6 +23,7 @@ public class Room {
     private List<String> users;
     private String creator;
     private double ordersValue;
+    private boolean isOpen;
 
     private static Gson gson = new Gson();
 
@@ -36,6 +37,7 @@ public class Room {
         this.minPrice = builder.minPrice;
         this.deliveryFee = builder.deliveryFee;
         this.users = new ArrayList<>();
+        this.isOpen = true;
     }
     
     public String getTitle() {return title;}
