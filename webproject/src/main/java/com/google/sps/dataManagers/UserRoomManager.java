@@ -26,11 +26,8 @@ public class UserRoomManager {
         if (!isRoomIdValid(roomId)) {
             throw new ServletException("Invalid roomId");
         }
-
+     
         String userEmailRoom = userEmail + "_" + roomId;
-        UserRoom userRoom =
-                UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom(userEmailRoom).build();
-        
         Map<String, String> userRoomMapping = new HashMap<>();
         userRoomMapping.put("userEmail", userEmail);
         userRoomMapping.put("roomId", roomId);
@@ -46,7 +43,9 @@ public class UserRoomManager {
                         }
                     }
                 });
-
+        
+        UserRoom userRoom =
+                UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom(userEmailRoom).build();
         return userRoom;
     }
 
