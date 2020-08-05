@@ -2,5 +2,6 @@ target/
 config.js
 key.json
 .idea/
-*.iml
+webproject.iml
+googleMapsKey.json
 
