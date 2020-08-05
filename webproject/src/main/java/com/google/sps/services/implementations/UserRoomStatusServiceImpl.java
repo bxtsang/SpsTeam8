@@ -1,15 +1,14 @@
 package com.google.sps.services.implementations;
 
-import java.io.IOException;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.dataManagers.UserRoomManager;
+import com.google.sps.proto.UserRoomStatusProto.UserRoomStatusResponse;
 import com.google.sps.proto.UserRoomStatusProto.UserRoomStatusRequest;
 import com.google.sps.services.interfaces.UserRoomStatusService;
-import com.google.sps.util.FirebaseUtil;
+import com.google.sps.util.TimestampUtil;
 
 @Singleton
 public class UserRoomStatusServiceImpl implements UserRoomStatusService {
@@ -23,9 +22,15 @@ public class UserRoomStatusServiceImpl implements UserRoomStatusService {
     }
 
     @Override
-    public boolean execute(UserRoomStatusRequest getJoinRequest) throws InterruptedException {
+    public UserRoomStatusResponse execute(UserRoomStatusRequest getJoinRequest) throws InterruptedException {
         String roomId = getJoinRequest.getRoomId();
         String userEmail = authenticationHandler.getCurrentUser().getEmail();
-        return userRoomManager.hasUserJoinedRoom(userEmail, roomId);
+
+        boolean isJoined = userRoomManager.hasUserJoinedRoom(userEmail, roomId);
+        return UserRoomStatusResponse.newBuilder()
+                .setIsJoined(isJoined)
+                .setRoomId(roomId)
+                .setTimestamp(TimestampUtil.getTimestamp())
+                .build();
     }
 }

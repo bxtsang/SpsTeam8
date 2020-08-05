@@ -1,8 +1,8 @@
 package com.google.sps.servlets;
 
+import com.google.sps.proto.UserRoomStatusProto.UserRoomStatusResponse;
 import com.google.sps.proto.UserRoomStatusProto.UserRoomStatusRequest;
 import com.google.sps.services.interfaces.UserRoomStatusService;
-import com.google.sps.util.FirebaseUtil;
 
 import java.io.*;
 
@@ -31,9 +31,9 @@ public class UserRoomStatusServlet extends HttpServlet {
         userRoomJoinRequest.setRoomId(roomId);
         
         try {
-            boolean isUserInRoom = userRoomStatusService.execute(userRoomJoinRequest.build());
+            UserRoomStatusResponse userRoomStatusResponse = userRoomStatusService.execute(userRoomJoinRequest.build());
             response.setContentType("text/plain");
-            if (isUserInRoom) {
+            if (userRoomStatusResponse.getIsJoined()) {
                 response.getWriter().print("Chat");
             } else {
                 response.getWriter().print("Join");
