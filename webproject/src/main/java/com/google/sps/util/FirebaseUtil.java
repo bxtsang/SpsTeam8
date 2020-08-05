@@ -72,6 +72,4 @@ public class FirebaseUtil {
             throw new ServletException("The database did not return a response for the specified query");
         }
     }
-
-
 }
