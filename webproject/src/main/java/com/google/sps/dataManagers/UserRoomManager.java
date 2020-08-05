@@ -56,7 +56,6 @@ public class UserRoomManager {
             }
         });
 
-
         return (Optional) queue.poll(30, TimeUnit.SECONDS);
     }
 }
