@@ -1,0 +1,11 @@
+syntax = "proto2";
+
+package com.google.sps.data;
+
+option java_outer_classname = "UserRoomProto";
+
+message UserRoom {
+  required string userEmail = 1;
+  required string roomId = 2;
+  required string userEmailRoom = 3;
+}

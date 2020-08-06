@@ -51,7 +51,7 @@ async function joinRoom(roomId) {
     formData.append("roomId", roomId);
     $.ajax({
         type: 'POST',
-        url: "/join",
+        url: "/joinRoom",
         data: { 'roomId': roomId },
         success: function(msg) {
             window.alert("Joined room!");
