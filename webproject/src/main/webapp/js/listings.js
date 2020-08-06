@@ -31,8 +31,8 @@ async function getListings() {
                     <br />
                     <br />`;
 
-            let response2 = await fetch("/join?roomId=" + room[0]);
-            let joinAction = await response2.text();
+            let isRoomJoinedResponse = await fetch("/join?roomId=" + room[0]);
+            let joinAction = await isRoomJoinedResponse.text();
 
             if (joinAction == "Join") {
                 childHtmlString += `<button id="action" class="btn btn-join" onclick="joinRoom('${room[0]}')">Join</button>`;
