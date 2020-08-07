@@ -10,12 +10,3 @@ message Message {
   required string message = 3;
   required string type = 4;
 }
-
-message FetchMessagesRequest {
-  required string roomId = 1;
-}
-
-message FetchMessagesResponse {
-  required string roomId = 1;
-  repeated Message messages = 2;
-}

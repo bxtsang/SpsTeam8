@@ -1,15 +1,11 @@
 package com.google.sps.servlets;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 import com.google.protobuf.util.JsonFormat;
-import com.google.sps.data.MessageProto.FetchMessagesResponse;
-import com.google.sps.data.MessageProto.FetchMessagesRequest;
+import com.google.sps.proto.FetchMessagesProto.FetchMessagesResponse;
+import com.google.sps.proto.FetchMessagesProto.FetchMessagesRequest;
 import com.google.sps.services.interfaces.FetchMessagesService;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

@@ -2,6 +2,8 @@ syntax = "proto2";
 
 package com.google.sps.proto;
 
+import "Message.proto";
+
 option java_outer_classname = "FetchMessagesProto";
 
 message FetchMessagesRequest {
@@ -10,5 +12,5 @@ message FetchMessagesRequest {
 
 message FetchMessagesResponse {
   required string roomId = 1;
-  repeated Message messages = 2;
+  repeated com.google.sps.data.Message messages = 2;
 }
