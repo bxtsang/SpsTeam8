@@ -52,7 +52,7 @@ public class MessagesManager {
     }
 
     public Message addMessage(String user, String message, String roomId) throws ServletException {
-        String timestamp = TimestampUtil.getHhMmTimestamp();
+        String timestamp = String.valueOf(TimestampUtil.getTimestamp());
         String type = "text";
 
         Map<String, String> messageMapping = new HashMap<>();

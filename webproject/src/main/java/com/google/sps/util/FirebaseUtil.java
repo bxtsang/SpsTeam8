@@ -111,8 +111,7 @@ public class FirebaseUtil {
         ref.push()
             .setValue(mappings, (databaseError, databaseReference) -> {
                 if (databaseError != null) {
-                    queue.add(Optional.of(new ServletException("There was an error adding a new object to the " +
-                            "database.")));
+                    queue.add(Optional.of(new ServletException("There was an error adding a new object to the database.")));
                 } else {
                     queue.add(Optional.empty());
                 }
