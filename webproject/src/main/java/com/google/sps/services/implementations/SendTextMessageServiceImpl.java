@@ -31,6 +31,5 @@ public class SendTextMessageServiceImpl implements SendTextMessageService {
         Message messageObject = messagesManager.addMessage(user, message, roomId);
 
         return SendTextMessageResponse.newBuilder().setMessages(messageObject).build();
-
     }
 }
