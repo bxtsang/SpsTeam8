@@ -1,12 +1,6 @@
 package com.google.sps.servlets;
 
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.sps.authentication.AuthenticationHandler;
-import com.google.sps.util.FirebaseUtil;
-
 import java.io.IOException;
-import java.util.concurrent.CountDownLatch;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -20,13 +14,11 @@ import javax.servlet.ServletException;
  */
 @Singleton
 public class CloseRoomServlet extends HttpServlet {
-    private CountDownLatch countDownLatch;
-    private FirebaseUtil firebaseUtil;
+    private CloseRoomService closeRoomService;
 
     @Inject
-    public CloseRoomServlet() throws Exception {
-        countDownLatch = new CountDownLatch(1);
-        firebaseUtil = new FirebaseUtil();
+    public CloseRoomServlet(CloseRoomService closeRoomService) throws Exception {
+        this.closeRoomService = closeRoomService;
     }
 
     /**
@@ -39,14 +31,9 @@ public class CloseRoomServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String roomId = request.getParameter("roomId");
-        firebaseUtil.getRoomsReference().child(roomId).child("isOpen")
-                .setValue(Boolean.FALSE, (error, reference) -> countDownLatch.countDown());
 
-        try {
-            countDownLatch.await();
-        } catch (InterruptedException e) {
-            throw new ServletException("There was an error updating the database when closing the room.");
-        }
+        CloseRoomRequest closeRoomRequest = CloseRoomRequest.newBuilder().setRoomId(roomId).build();
+        closeRoomService.execute(closeRoomRequest);
         
         response.sendRedirect("/");
     }
