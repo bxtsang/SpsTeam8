@@ -19,12 +19,14 @@ public class GuiceConfig extends GuiceServletContextListener {
             protected void configureServlets() {
                 super.configureServlets();
 
+                bind(CloseRoomService.class).to(CloseRoomServiceImpl.class);
                 bind(JoinRoomService.class).to(JoinRoomServiceImpl.class);
                 bind(UserRoomStatusService.class).to(UserRoomStatusServiceImpl.class);
 
                 serve("/landing").with(LandingServlet.class);
                 serve("/joinRoom").with(JoinRoomServlet.class);
                 serve("/userRoomStatus").with(UserRoomStatusServlet.class);
+                serve("/closeRoom").with(CloseRoomServlet.class);
             }
         });
     }
