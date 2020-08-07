@@ -1,6 +1,9 @@
 package com.google.sps.dataManagers;
 
 import java.util.Optional;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -25,20 +28,23 @@ public class RoomManager {
             throw new ServletException("Invalid roomId");
         }
 
-        CountDownLatch countDownLatch = new CountDownLatch(1);
+        final BlockingQueue<Optional<ServletException>> queue = new LinkedBlockingDeque(1);
         firebaseUtil.getRoomsReference().child(roomId).child("isOpen")
                 .setValue(Boolean.FALSE, (error, reference) -> {
-                    if (error == null) {
-                        countDownLatch.countDown();
+                    if (error != null) {
+                        queue.add(Optional.of(new ServletException("There was an error closing the room.")));
                     } else {
-                        throw new ServletException("There was an error in updating the database when closing the room.");
+                        queue.add(Optional.empty());
                     }
                 });
-
+        
         try {
-            countDownLatch.await();
+            Optional<ServletException> servletException = queue.poll(30, TimeUnit.SECONDS);
+            if (servletException.isPresent()) {
+                throw servletException.get();
+            }
         } catch (InterruptedException e) {
-            throw new ServletException("The close room process was interrupted.");
+            throw new ServletException("The close room process did not return a response from the database.");
         }
 
         return Room.newBuilder().setId(roomId).build();

@@ -1,5 +1,9 @@
 package com.google.sps.servlets;
 
+import com.google.sps.proto.CloseRoomProto.CloseRoomRequest;
+import com.google.sps.proto.CloseRoomProto.CloseRoomResponse;
+import com.google.sps.services.interfaces.CloseRoomService;
+
 import java.io.IOException;
 
 import javax.inject.Inject;
@@ -33,7 +37,7 @@ public class CloseRoomServlet extends HttpServlet {
         String roomId = request.getParameter("roomId");
 
         CloseRoomRequest closeRoomRequest = CloseRoomRequest.newBuilder().setRoomId(roomId).build();
-        closeRoomService.execute(closeRoomRequest);
+        CloseRoomResponse closeRoomResponse = closeRoomService.execute(closeRoomRequest);
         
         response.sendRedirect("/");
     }
