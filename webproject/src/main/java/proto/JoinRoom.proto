@@ -1,0 +1,13 @@
+syntax = "proto2";
+
+package com.google.sps.proto;
+
+option java_outer_classname = "JoinRoomProto";
+
+message JoinRoomRequest {
+  required string roomId = 1;
+}
+
+message JoinRoomResponse {
+  required string roomId = 1;
+}
