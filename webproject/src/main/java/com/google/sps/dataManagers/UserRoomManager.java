@@ -47,30 +47,6 @@ public class UserRoomManager {
         return UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom(userEmailRoom).build();
     }
 
-    public UserRoom closeUserRoom(String roomId) throws ServletException {
-        if (!isRoomIdValid(roomId)) {
-            throw new ServletException("Invalid roomId");
-        }
-
-        CountDownLatch countDownLatch = new CountDownLatch(1);
-        firebaseUtil.getRoomsReference().child(roomId).child("isOpen")
-                .setValue(Boolean.FALSE, (error, reference) -> {
-                    if (error == null) {
-                        countDownLatch.countDown();
-                    } else {
-                        throw new ServletException("There was an error in updating the database when closing the room.");
-                    }
-                });
-
-        try {
-            countDownLatch.await();
-        } catch (InterruptedException e) {
-            throw new ServletException("The close room process was interrupted.");
-        }
-
-        return UserRoom.newBuilder().setRoomId(roomId).build();
-    }
-
     public UserRoom getUserRoom(String userEmail, String roomId) throws ServletException {
         if (!isRoomIdValid(roomId)) {
             throw new ServletException("Invalid roomId");
