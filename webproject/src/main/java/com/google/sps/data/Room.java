@@ -24,6 +24,7 @@ public class Room {
     private String creator;
     private double ordersValue;
     private boolean isOpen;
+    private String id;
 
     private static Gson gson = new Gson();
 
@@ -38,6 +39,7 @@ public class Room {
         this.deliveryFee = builder.deliveryFee;
         this.users = new ArrayList<>();
         this.isOpen = true;
+        this.id = builder.id;
     }
     
     public String getTitle() {return title;}
@@ -61,6 +63,8 @@ public class Room {
     public String getCreator() {return creator;}
 
     public double getOrdersValue() {return ordersValue;}
+
+    public String getId() {return id;}
 
     public void addUser(String userEmail) {
         this.users.add(userEmail);
@@ -101,6 +105,7 @@ public class Room {
         private double minPrice;
         private double deliveryFee;
         private String creator;
+        private String id;
 
         public Builder setTitle(String title) {
             this.title = title;
@@ -144,6 +149,11 @@ public class Room {
 
         public Builder setCreator(String creatorEmail) {
             this.creator = creatorEmail;
+            return this;
+        }
+
+        public Builder setId(String id) {
+            this.id = id;
             return this;
         }
 
