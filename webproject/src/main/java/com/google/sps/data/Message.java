@@ -1,18 +1,14 @@
 package com.google.sps.data;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class Message {
     private String user;
     private String time;
     private String message;
     private String type;
 
-    public Message(String user, String message, String type) {
-        String currTime = new SimpleDateFormat("HH:mm").format(new Date());
+    public Message(String user, String message, String type, String time) {
         this.user = user;
-        this.time = currTime;
+        this.time = time;
         this.message = message;
         this.type = type;
     }

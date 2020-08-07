@@ -2,6 +2,7 @@ package com.google.sps.data;
 
 import static org.junit.Assert.assertEquals;
 
+import com.google.sps.util.TimestampUtil;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.junit.Before;
@@ -14,12 +15,13 @@ public class MessageTest {
     private static final String USER = "test user";
     private static final String MESSAGE = "test message";
     private static final String TYPE = "test type";
+    private static final String FORMATTED_TIME = TimestampUtil.getFormattedTime();
 
     private Message message;
 
     @Before
     public void setUp() {
-        message = new Message(USER, MESSAGE, TYPE);
+        message = new Message(USER, MESSAGE, TYPE, FORMATTED_TIME);
     }
 
     @Test
@@ -29,7 +31,7 @@ public class MessageTest {
 
     @Test
     public void getTime_returnsTime() {
-        assertEquals(new SimpleDateFormat("HH:mm").format(new Date()), message.getTime());
+        assertEquals(FORMATTED_TIME, message.getTime());
     }
 
     @Test
