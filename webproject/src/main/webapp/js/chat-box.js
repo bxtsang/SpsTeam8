@@ -63,9 +63,7 @@ function getUsername() {
 
 function fetchBlobstoreUrl() {
     fetch('/blobstore')
-        .then((response) => {
-            return response.text();
-        })
+        .then(response => response.text())
         .then((imageUploadUrl) => {
             const messageForm = document.getElementById('image-form');
             messageForm.action = imageUploadUrl;
