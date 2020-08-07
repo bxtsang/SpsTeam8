@@ -37,10 +37,6 @@ public class MessagesManager {
             String time = dataSnapshot.child("time").getValue(String.class);
             String message = dataSnapshot.child("message").getValue(String.class);
             String type = dataSnapshot.child("type").getValue(String.class);
-            System.out.println("User: " + user);
-            System.out.println("Time: " + time);
-            System.out.println("Message: " + message);
-            System.out.println("Type: " + type);
             Message messageObject =
                     Message.newBuilder().setMessage(message).setTime(time).setUser(user).setType(type).build();
             messages.add(messageObject);

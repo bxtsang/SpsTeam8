@@ -66,16 +66,6 @@
     <url-pattern>/text-message</url-pattern>
   </servlet-mapping>
 
-  <!-- Fetch Messages Servlet -->
-  <servlet>
-    <servlet-name>FetchMessagesServlet</servlet-name>
-    <servlet-class>com.google.sps.servlets.FetchMessagesServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>FetchMessagesServlet</servlet-name>
-    <url-pattern>/fetchMessages</url-pattern>
-  </servlet-mapping>
-
   <!-- Login Servlet -->
   <servlet>
     <servlet-name>LoginServlet</servlet-name>

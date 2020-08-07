@@ -88,7 +88,6 @@ public class FirebaseUtil {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<DataSnapshot> dataSnapshots = new ArrayList<>();
                 for (DataSnapshot data: dataSnapshot.getChildren()) {
-                    System.out.println("Data: " + data);
                     dataSnapshots.add(data);
                 }
                 queue.add(dataSnapshots);

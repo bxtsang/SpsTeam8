@@ -10,8 +10,8 @@ async function fetchMessages() {
     fetch("/fetchMessages?roomId=" + roomId).then(response => response.json()).then(response => {
         let messagesContainer = document.getElementById("messages");
         messagesContainer.innerHTML = "";
-        for (let key in response) {
-            const snap = response[key];
+        for (let key in response.messages) {
+            const snap = response.messages[key];
             let html = "<li class='message' id='message-" + key + "'>";
             html += "<span class='chat-user'>" + snap.user + "</span> <br />";
             if (snap.type == "text") {

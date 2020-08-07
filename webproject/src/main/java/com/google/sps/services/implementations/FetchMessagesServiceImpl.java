@@ -35,10 +35,8 @@ public class FetchMessagesServiceImpl implements FetchMessagesService {
         FetchMessagesResponse.Builder fetchMessagesResponseBuilder =
                 FetchMessagesResponse.newBuilder().setRoomId(roomId);
 
-        int index = 0;
         for(Message message : messages) {
-            fetchMessagesResponseBuilder.setMessages(index, message);
-            index++;
+            fetchMessagesResponseBuilder.addMessages(message);
         }
 
         return fetchMessagesResponseBuilder.build();
