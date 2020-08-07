@@ -1,6 +1,9 @@
 package com.google.sps.dataManagers;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -9,8 +12,10 @@ import javax.servlet.ServletException;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.sps.data.MessageProto.Message;
 import com.google.sps.util.FirebaseUtil;
+import com.google.sps.util.TimestampUtil;
 
 @Singleton
 public class MessagesManager {
@@ -28,7 +33,7 @@ public class MessagesManager {
             throw new ServletException("Invalid roomId");
         }
 
-        DatabaseReference ref = firebaseUtil.getMessagesReference(roomId);
+        DatabaseReference ref = firebaseUtil.getMessagesReference().child(roomId);
         List<DataSnapshot> dataSnapshots = firebaseUtil.getAllSnapshotsFromReference(ref);
 
         List<Message> messages = new ArrayList<>();
@@ -43,5 +48,21 @@ public class MessagesManager {
         }
 
         return messages;
+    }
+
+    public Message addMessage(String user, String message, String roomId) throws ServletException {
+        String timestamp = TimestampUtil.getHhMmTimestamp();
+        String type = "text";
+
+        HashMap<String, String> messageMapping = new HashMap<>();
+        messageMapping.put("user", user);
+        messageMapping.put("message", message);
+        messageMapping.put("type", type);
+        messageMapping.put("time", timestamp);
+
+        DatabaseReference databaseReference = firebaseUtil.getMessagesReference();
+        firebaseUtil.addToDatabase(databaseReference, messageMapping);
+
+        return Message.newBuilder().setMessage(message).setUser(user).setType(type).setTime(timestamp).build();
     }
 }

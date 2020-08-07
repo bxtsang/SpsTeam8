@@ -41,7 +41,7 @@ function sendMessage() {
         messageBox.value = "";
         $.ajax({
             type: 'POST',
-            url: "/text-message",
+            url: "/sendTextMessage",
             data: { "user": username, "message": message, "roomId": roomId},
             success: function(msg) {
                 fetchMessages();
