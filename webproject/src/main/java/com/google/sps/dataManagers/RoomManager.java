@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.Query;
-import com.google.sps.data.RoomProto.Room;
+import com.google.sps.data.Room;
 import com.google.sps.util.FirebaseUtil;
 
 @Singleton
@@ -41,7 +41,7 @@ public class RoomManager {
             throw new ServletException("The close room process was interrupted.");
         }
 
-        return Room.newBuilder().setRoomId(roomId).build();
+        return Room.newBuilder().setId(roomId).build();
     }
 
     private boolean isRoomIdValid(String roomId) throws ServletException {
