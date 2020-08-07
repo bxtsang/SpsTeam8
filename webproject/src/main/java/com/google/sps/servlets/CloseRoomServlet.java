@@ -2,13 +2,14 @@ package com.google.sps.servlets;
 
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.gson.Gson;
 import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.util.FirebaseUtil;
 
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,11 +18,12 @@ import javax.servlet.ServletException;
 /**
  * A servlet which manages room closure.
  */
+@Singleton
 public class CloseRoomServlet extends HttpServlet {
-    private static Gson gson = new Gson();
     private CountDownLatch countDownLatch;
     private FirebaseUtil firebaseUtil;
 
+    @Inject
     public CloseRoomServlet() throws Exception {
         countDownLatch = new CountDownLatch(1);
         firebaseUtil = new FirebaseUtil();
