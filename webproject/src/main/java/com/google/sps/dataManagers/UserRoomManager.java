@@ -13,9 +13,6 @@ import com.google.sps.data.UserRoomProto.UserRoom;
 import com.google.sps.util.FirebaseUtil;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
-import java.util.concurrent.TimeUnit;
 
 @Singleton
 public class UserRoomManager {

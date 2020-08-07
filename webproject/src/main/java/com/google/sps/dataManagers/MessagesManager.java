@@ -1,8 +1,6 @@
 package com.google.sps.dataManagers;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +11,6 @@ import javax.servlet.ServletException;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.sps.data.MessageProto.Message;
 import com.google.sps.util.FirebaseUtil;
 import com.google.sps.util.TimestampUtil;
