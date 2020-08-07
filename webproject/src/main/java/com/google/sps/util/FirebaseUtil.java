@@ -1,6 +1,9 @@
 package com.google.sps.util;
 
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -48,6 +51,11 @@ public class FirebaseUtil {
                 .getReference("rooms");
     }
 
+    public DatabaseReference getMessagesReference(String roomId) {
+        return FirebaseDatabase.getInstance()
+                .getReference("messages/" + roomId);
+    }
+
     public Optional<DataSnapshot> getQuerySnapshot(Query query, String input) throws ServletException {
         final BlockingQueue<Optional<DataSnapshot>> queue = new LinkedBlockingDeque(1);
         query.equalTo(input).addValueEventListener(new ValueEventListener() {
@@ -70,6 +78,32 @@ public class FirebaseUtil {
             return queue.poll(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             throw new ServletException("The database did not return a response for the specified query");
+        }
+    }
+
+    public List<DataSnapshot> getAllSnapshotsFromReference(DatabaseReference databaseReference) throws ServletException {
+        final BlockingQueue<List<DataSnapshot>> queue = new LinkedBlockingDeque<>(1);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<DataSnapshot> dataSnapshots = new ArrayList<>();
+                for (DataSnapshot data: dataSnapshot.getChildren()) {
+                    System.out.println("Data: " + data);
+                    dataSnapshots.add(data);
+                }
+                queue.add(dataSnapshots);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                throw databaseError.toException();
+            }
+        });
+
+        try {
+            return queue.poll(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            throw new ServletException("The database did not return a response for the specified reference");
         }
     }
 }

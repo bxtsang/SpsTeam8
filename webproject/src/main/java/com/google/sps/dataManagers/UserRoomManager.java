@@ -63,7 +63,7 @@ public class UserRoomManager {
         return UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom(userEmailRoom).build();
     }
 
-    private boolean isRoomIdValid(String roomId) throws ServletException {
+    public boolean isRoomIdValid(String roomId) throws ServletException {
         Query query = firebaseUtil.getRoomsReference().orderByKey();
         Optional<DataSnapshot> room = firebaseUtil.getQuerySnapshot(query, roomId);
         return room.isPresent();
