@@ -61,7 +61,7 @@ public class MessagesManager {
         messageMapping.put("type", type);
         messageMapping.put("time", timestamp);
 
-        DatabaseReference databaseReference = firebaseUtil.getMessagesReference();
+        DatabaseReference databaseReference = firebaseUtil.getMessagesReference().child(roomId);
         firebaseUtil.addToDatabase(databaseReference, messageMapping);
         return Message.newBuilder().setMessage(message).setUser(user).setType(type).setTime(timestamp).build();
     }
