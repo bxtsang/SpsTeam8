@@ -12,6 +12,9 @@ import com.google.sps.data.UserRoomProto.UserRoom;
 import com.google.sps.util.FirebaseUtil;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.TimeUnit;
 
 @Singleton
 public class UserRoomManager {
@@ -33,16 +36,24 @@ public class UserRoomManager {
         userRoomMapping.put("roomId", roomId);
         userRoomMapping.put("userEmailRoom", userEmailRoom);
 
+        final BlockingQueue<Optional<ServletException>> queue = new LinkedBlockingDeque(1);
         firebaseUtil.getUserRoomReference().push()
                 .setValue(userRoomMapping, (databaseError, databaseReference) -> {
                     if (databaseError != null) {
-                        try {
-                            throw new ServletException("Invalid roomId");
-                        } catch (ServletException e) {
-                            e.printStackTrace();
-                        }
+                        queue.add(Optional.of(new ServletException("There was an error adding a new UserRoom.")));
+                    } else {
+                        queue.add(Optional.empty());
                     }
                 });
+
+        try {
+            Optional<ServletException> servletException = queue.poll(30, TimeUnit.SECONDS);
+            if (servletException.isPresent()) {
+                throw  servletException.get();
+            }
+        } catch (InterruptedException e) {
+            throw new ServletException("The add user room process did not return a new response from the database.");
+        }
                 
         return UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom(userEmailRoom).build();
     }
