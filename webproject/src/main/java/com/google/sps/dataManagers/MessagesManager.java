@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -54,7 +55,7 @@ public class MessagesManager {
         String timestamp = TimestampUtil.getHhMmTimestamp();
         String type = "text";
 
-        HashMap<String, String> messageMapping = new HashMap<>();
+        Map<String, String> messageMapping = new HashMap<>();
         messageMapping.put("user", user);
         messageMapping.put("message", message);
         messageMapping.put("type", type);
@@ -62,7 +63,6 @@ public class MessagesManager {
 
         DatabaseReference databaseReference = firebaseUtil.getMessagesReference();
         firebaseUtil.addToDatabase(databaseReference, messageMapping);
-
         return Message.newBuilder().setMessage(message).setUser(user).setType(type).setTime(timestamp).build();
     }
 }

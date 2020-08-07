@@ -2,8 +2,8 @@ package com.google.sps.util;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -106,7 +106,7 @@ public class FirebaseUtil {
         }
     }
 
-    public void addToDatabase(DatabaseReference ref, HashMap<?, ?> mappings) throws ServletException {
+    public void addToDatabase(DatabaseReference ref, Map<?, ?> mappings) throws ServletException {
         final BlockingQueue<Optional<ServletException>> queue = new LinkedBlockingDeque(1);
         ref.push()
             .setValue(mappings, (databaseError, databaseReference) -> {
