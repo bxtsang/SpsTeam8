@@ -49,15 +49,14 @@ async function getListings() {
 
 function getSortedEntries(entries) {
     return entries.sort((a, b) => {
-        console.log("a: ", a);
-        console.log("b: ", b);
-        let aSmth = (a.ordersValue - a.minPrice + a.deliveryFee) / len(a.users);
-        let bSmth = (b.ordersValue - b.minPrice + b.deliveryFee) / len(b.users);
-        console.log("aSmth: ", aSmth);
-        console.log("bSmth: ", bSmth);
-        return aSmth - bSmth;
+        aRoom = a[1];
+        bRoom = b[1];
+        let aRoomAveragePerPersonValue = (aRoom.ordersValue - aRoom.minPrice + aRoom.deliveryFee) / aRoom.users.length;
+        let bRoomAveragePerPersonValue = (bRoom.ordersValue - bRoom.minPrice + bRoom.deliveryFee) / bRoom.users.length;
+        return bRoomAveragePerPersonValue - aRoomAveragePerPersonValue;
     })
 }
+
 async function joinRoom(roomId) {
     var formData = new FormData();
     formData.append("roomId", roomId);
