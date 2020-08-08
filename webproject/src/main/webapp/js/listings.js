@@ -1,6 +1,7 @@
 async function getListings() {
     let cardsContainer = document.getElementById("listings-card-container");
     let childHtmlString = "";
+    var testing = await fetch("/fetchRooms");
     var response = await fetch("https://summer20-sps-47.firebaseio.com/rooms.json");
     var data = await response.json();
     var entries = Object.entries(data);
@@ -51,15 +52,13 @@ function getSortedEntries(entries) {
     return entries.sort((a, b) => {
         const aRoom = a[1];
         const bRoom = b[1];
-        const aRoomOrderValue = aRoom.ordersValue < aRoom.minPrice ? aRoom.minPrice : aRoom.ordersValue;
-        const bRoomOrderValue = bRoom.ordersValue < bRoom.minPrice ? bRoom.minPrice : bRoom.ordersValue;
+        const aRoomOrderValue = Math.max(aRoom.ordersValue, aRoom.minPrice);
+        const bRoomOrderValue = Math.max(bRoom.ordersValue, bRoom.minPrice);
         const aRoomAveragePerPersonValue = (aRoomOrderValue + aRoom.deliveryFee) / aRoom.users.length;
         const bRoomAveragePerPersonValue = (bRoomOrderValue + bRoom.deliveryFee) / bRoom.users.length;
-        
         return aRoomAveragePerPersonValue - bRoomAveragePerPersonValue;
     })
 }
-
 async function joinRoom(roomId) {
     var formData = new FormData();
     formData.append("roomId", roomId);

@@ -5,8 +5,10 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.servlet.GuiceServletContextListener;
 import com.google.inject.servlet.ServletModule;
+import com.google.sps.services.implementations.FetchRoomsServiceImpl;
 import com.google.sps.services.implementations.UserRoomStatusServiceImpl;
 import com.google.sps.services.implementations.JoinRoomServiceImpl;
+import com.google.sps.services.interfaces.FetchRoomsService;
 import com.google.sps.services.interfaces.UserRoomStatusService;
 import com.google.sps.services.interfaces.JoinRoomService;
 
@@ -21,10 +23,12 @@ public class GuiceConfig extends GuiceServletContextListener {
 
                 bind(JoinRoomService.class).to(JoinRoomServiceImpl.class);
                 bind(UserRoomStatusService.class).to(UserRoomStatusServiceImpl.class);
+                bind(FetchRoomsService.class).to(FetchRoomsServiceImpl.class);
 
                 serve("/landing").with(LandingServlet.class);
                 serve("/joinRoom").with(JoinRoomServlet.class);
                 serve("/userRoomStatus").with(UserRoomStatusServlet.class);
+                serve("/fetchRooms").with(FetchRoomsServlet.class);
             }
         });
     }
