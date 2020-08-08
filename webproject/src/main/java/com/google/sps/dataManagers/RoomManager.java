@@ -11,7 +11,7 @@ import javax.servlet.ServletException;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
-import com.google.sps.data.CategoryProto;
+import com.google.sps.data.CategoryProto.Category;
 import com.google.sps.data.RoomProto.Room;
 import com.google.sps.util.FirebaseUtil;
 
@@ -43,7 +43,7 @@ public class RoomManager {
             String description = dataSnapshot.child("description").getValue(String.class);
             int deliveryLocation = dataSnapshot.child("deliveryLocation").getValue(int.class);
             int phoneNumber = dataSnapshot.child("phoneNumber").getValue(int.class);
-            CategoryProto.Category category = dataSnapshot.child("category").getValue(CategoryProto.Category.class);
+            Category category = dataSnapshot.child("category").getValue(Category.class);
             double minPrice = dataSnapshot.child("minPrice").getValue(double.class);
             double deliveryFee = dataSnapshot.child("deliveryFee").getValue(double.class);
             boolean isOpen = dataSnapshot.child("isOpen").getValue(boolean.class);
