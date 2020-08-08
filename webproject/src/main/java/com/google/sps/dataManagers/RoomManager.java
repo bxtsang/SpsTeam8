@@ -29,10 +29,10 @@ public class RoomManager {
         List<DataSnapshot> dataSnapshots = firebaseUtil.getAllSnapshotsFromReference(ref);
 
         Queue<Room> sortedRooms = new PriorityQueue<>(dataSnapshots.size(), (aRoom, bRoom) -> {
-            double aRoomOrderValue = Math.max(aRoom.getOrdersValue(), aRoom.getMinPrice());
-            double bRoomOrderValue = Math.max(bRoom.getOrdersValue(), bRoom.getMinPrice());
-            double aRoomAveragePerPersonValue = (aRoomOrderValue + aRoom.getDeliveryFee()) / aRoom.getUsersCount();
-            double bRoomAveragePerPersonValue = (bRoomOrderValue + bRoom.getDeliveryFee()) / bRoom.getUsersCount();
+            double aRoomAveragePerPersonValue =
+                    (aRoom.getMinPrice() - aRoom.getOrdersValue() + aRoom.getDeliveryFee()) / aRoom.getUsersCount();
+            double bRoomAveragePerPersonValue =
+                    (bRoom.getMinPrice()  - bRoom.getOrdersValue() + bRoom.getOrdersValue()) / bRoom.getUsersCount();
             return  Double.compare(aRoomAveragePerPersonValue, bRoomAveragePerPersonValue);
         });
 
