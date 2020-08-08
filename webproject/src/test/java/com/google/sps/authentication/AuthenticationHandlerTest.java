@@ -24,8 +24,11 @@ public class AuthenticationHandlerTest {
         helper.setUp();
         AuthenticationHandler authenticationHandler = new AuthenticationHandler();
 
-        // Act, Assert
-        assertTrue(authenticationHandler.isUserLoggedIn());
+        // Act
+        boolean isUserLoggedIn = authenticationHandler.isUserLoggedIn();
+
+        // Assert
+        assertTrue(isUserLoggedIn);
         helper.tearDown();
     }
 
@@ -37,8 +40,11 @@ public class AuthenticationHandlerTest {
         helper.setUp();
         AuthenticationHandler authenticationHandler = new AuthenticationHandler();
 
-        // Act, Assert
-        assertFalse(authenticationHandler.isUserLoggedIn());
+        // Act
+        boolean isUserLoggedIn = authenticationHandler.isUserLoggedIn();
+
+        // Assert
+        assertTrue(isUserLoggedIn);
         helper.tearDown();
     }
 
@@ -52,8 +58,12 @@ public class AuthenticationHandlerTest {
         UserService userService = UserServiceFactory.getUserService();
         AuthenticationHandler authenticationHandler = new AuthenticationHandler();
 
-        // Act, Assert
-        assertEquals(userService.getCurrentUser(), authenticationHandler.getCurrentUser());
+        // Act
+        String expectedUser = userService.getCurrentUser();
+        String actualUser = authenticationHandler.getCurrentUser();
+
+        // Assert
+        assertEquals(expectedUser, actualUser);
         helper.tearDown();
     }
 }
