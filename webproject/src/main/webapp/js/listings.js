@@ -32,12 +32,12 @@ async function getListings() {
         let response2 = await fetch("/userRoomStatus?roomId=" + room.id);
         let joinAction = await response2.text();
         if (joinAction == "Join") {
-            childHtmlString += `<button id="action" class="btn btn-join" onclick="joinRoom('${room[0]}')">Join</button>
+            childHtmlString += `<button id="action" class="btn btn-join" onclick="joinRoom('${room.id}')">Join</button>
       </div>
     </div>
   </div>`;
         } else {
-            childHtmlString += `<button id="action" class="btn btn-chat" onclick="toChat('${room[0]}')">Chat</button>
+            childHtmlString += `<button id="action" class="btn btn-chat" onclick="toChat('${room.id}')">Chat</button>
       </div>
     </div>
   </div>`;
@@ -47,9 +47,7 @@ async function getListings() {
 }
 
 function getSortedEntries(entries) {
-    return entries.sort((a, b) => {
-        const aRoom = a[1];
-        const bRoom = b[1];
+    return entries.sort((aRoom, bRoom) => {
         const aRoomOrderValue = Math.max(aRoom.ordersValue, aRoom.minPrice);
         const bRoomOrderValue = Math.max(bRoom.ordersValue, bRoom.minPrice);
         const aRoomAveragePerPersonValue = (aRoomOrderValue + aRoom.deliveryFee) / aRoom.users.length;
