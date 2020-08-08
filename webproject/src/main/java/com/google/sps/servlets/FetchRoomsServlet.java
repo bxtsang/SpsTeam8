@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
-import com.google.sps.data.Room;
-import com.google.sps.firebase.Firebase;
+import com.google.protobuf.util.JsonFormat;
+import com.google.sps.data.CategoryProto.Category;
+import com.google.sps.data.RoomProto.Room;
+import com.google.sps.proto.FetchRoomsProto.FetchRoomsResponse;
 import com.google.sps.services.interfaces.FetchRoomsService;
 import com.google.sps.util.FirebaseUtil;
 
@@ -37,17 +39,44 @@ public class FetchRoomsServlet extends HttpServlet {
 
         DatabaseReference ref = firebaseUtil.getRoomsReference();
         List<DataSnapshot> dataSnapshots = firebaseUtil.getAllSnapshotsFromReference(ref);
+        FetchRoomsResponse.Builder fetchRoomsResponseBuilder = FetchRoomsResponse.newBuilder();
 
-        List<Room> rooms = new ArrayList<>();
         for (DataSnapshot dataSnapshot : dataSnapshots) {
-            System.out.println("Datasnapshot: " + dataSnapshot);
-            Room room = dataSnapshot.getValue(Room.class);
-            System.out.println("Room: " + room);
-            rooms.add(room);
+            String title = dataSnapshot.child("title").getValue(String.class);
+            String link = dataSnapshot.child("link").getValue(String.class);
+            String description = dataSnapshot.child("description").getValue(String.class);
+            int deliveryLocation = dataSnapshot.child("deliveryLocation").getValue(int.class);
+            int phoneNumber = dataSnapshot.child("phoneNumber").getValue(int.class);
+            Category category = dataSnapshot.child("category").getValue(Category.class);
+            double minPrice = dataSnapshot.child("minPrice").getValue(double.class);
+            double deliveryFee = dataSnapshot.child("deliveryFee").getValue(double.class);
+            List<String> users = dataSnapshot.child("users").getValue(List.class);
+            boolean isOpen = dataSnapshot.child("isOpen").getValue(boolean.class);
+            double ordersValue = dataSnapshot.child("ordersValue").getValue(double.class);
+            long timestamp = dataSnapshot.child("timestamp").getValue(long.class);
+
+            Room.Builder roomBuiler = Room.newBuilder()
+                    .setTitle(title)
+                    .setLink(link)
+                    .setDescription(description)
+                    .setDeliveryLocation(deliveryLocation)
+                    .setPhoneNumber(phoneNumber)
+                    .setCategory(category)
+                    .setMinPrice(minPrice)
+                    .setDeliveryFee(deliveryFee)
+                    .setIsOpen(isOpen)
+                    .setOrdersValue(ordersValue)
+                    .setTimestamp(timestamp);
+
+            for (String user : users) {
+                roomBuiler.addUsers(user);
+            }
+
+            fetchRoomsResponseBuilder.addRooms(roomBuiler.build());
         }
 
-        System.out.println("RoomS: " + rooms);
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().println(JsonFormat.printer().print(fetchRoomsResponseBuilder.build()));
         response.setStatus(200);
-
     }
 }
