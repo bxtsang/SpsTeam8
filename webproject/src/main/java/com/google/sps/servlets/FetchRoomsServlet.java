@@ -50,10 +50,14 @@ public class FetchRoomsServlet extends HttpServlet {
             Category category = dataSnapshot.child("category").getValue(Category.class);
             double minPrice = dataSnapshot.child("minPrice").getValue(double.class);
             double deliveryFee = dataSnapshot.child("deliveryFee").getValue(double.class);
-            List<String> users = dataSnapshot.child("users").getValue(List.class);
             boolean isOpen = dataSnapshot.child("isOpen").getValue(boolean.class);
             double ordersValue = dataSnapshot.child("ordersValue").getValue(double.class);
             long timestamp = dataSnapshot.child("timestamp").getValue(long.class);
+
+            List<String> users = new ArrayList<>();
+            for (DataSnapshot data : dataSnapshot.child("users").getChildren()) {
+                users.add(data.getValue(String.class));
+            }
 
             Room.Builder roomBuiler = Room.newBuilder()
                     .setTitle(title)

@@ -1,10 +1,9 @@
 async function getListings() {
     let cardsContainer = document.getElementById("listings-card-container");
     let childHtmlString = "";
-    var testing = await fetch("/fetchRooms");
-    var response = await fetch("https://summer20-sps-47.firebaseio.com/rooms.json");
-    var data = await response.json();
-    var entries = Object.entries(data);
+    var response = await fetch("/fetchRooms");
+    var data = await testing.json();
+    var entries = data.rooms;
     var sortedEntries = getSortedEntries(entries);
     for (var i = 0; i < sortedEntries.length; i++) {
         let room = sortedEntries[i];
