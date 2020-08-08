@@ -45,16 +45,6 @@ async function getListings() {
     cardsContainer.innerHTML = childHtmlString;
 }
 
-//function getSortedEntries(entries) {
-//    return entries.sort((aRoom, bRoom) => {
-//        const aRoomOrderValue = Math.max(aRoom.ordersValue, aRoom.minPrice);
-//        const bRoomOrderValue = Math.max(bRoom.ordersValue, bRoom.minPrice);
-//        const aRoomAveragePerPersonValue = (aRoomOrderValue + aRoom.deliveryFee) / aRoom.users.length;
-//        const bRoomAveragePerPersonValue = (bRoomOrderValue + bRoom.deliveryFee) / bRoom.users.length;
-//        return aRoomAveragePerPersonValue - bRoomAveragePerPersonValue;
-//    })
-//}
-
 async function joinRoom(roomId) {
     var formData = new FormData();
     formData.append("roomId", roomId);
