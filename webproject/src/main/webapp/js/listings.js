@@ -49,11 +49,14 @@ async function getListings() {
 
 function getSortedEntries(entries) {
     return entries.sort((a, b) => {
-        aRoom = a[1];
-        bRoom = b[1];
-        let aRoomAveragePerPersonValue = (aRoom.ordersValue - aRoom.minPrice + aRoom.deliveryFee) / aRoom.users.length;
-        let bRoomAveragePerPersonValue = (bRoom.ordersValue - bRoom.minPrice + bRoom.deliveryFee) / bRoom.users.length;
-        return bRoomAveragePerPersonValue - aRoomAveragePerPersonValue;
+        const aRoom = a[1];
+        const bRoom = b[1];
+        const aRoomOrderValue = aRoom.ordersValue < aRoom.minPrice ? aRoom.minPrice : aRoom.ordersValue;
+        const bRoomOrderValue = bRoom.ordersValue < bRoom.minPrice ? bRoom.minPrice : bRoom.ordersValue;
+        const aRoomAveragePerPersonValue = (aRoomOrderValue + aRoom.deliveryFee) / aRoom.users.length;
+        const bRoomAveragePerPersonValue = (bRoomOrderValue + bRoom.deliveryFee) / bRoom.users.length;
+        
+        return aRoomAveragePerPersonValue - bRoomAveragePerPersonValue;
     })
 }
 
