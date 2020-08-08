@@ -1,0 +1,15 @@
+syntax = "proto2";
+
+package com.google.sps.proto;
+
+import "Order.proto";
+
+option java_outer_classname = "FetchMyOrdersProto";
+
+message FetchMyOrdersRequest {
+  required string roomId = 1;
+}
+
+message FetchMyOrdersResponse {
+  repeated com.google.sps.data.Order orders = 1;
+}

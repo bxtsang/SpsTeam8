@@ -68,23 +68,22 @@ public class OrderManager {
                     .build();
     }
 
-    public List<Order> getOrders(String roomId) throws ServletException {
-        if (!isRoomIdValid(roomId)) {
-            throw new ServletException("Invalid roomId");
-        }
-
-        DatabaseReference ref = firebaseUtil.getOrdersReference().child(roomId);
-        List<DataSnapshot> dataSnapshots = firebaseUtil.getAllSnapshotsFromReference(ref);
+    public List<Order> getMyOrders(String roomId, String userEmail) throws ServletException {
+        String userEmailRoomId = userEmail + "_" + roomId;
+        Query query = firebaseUtil.getOrdersReference().orderByChild("userEmailRoomId");
+        Optional<List<DataSnapshot>> dataSnapshots = firebaseUtil.getAllQuerySnapshots(query, userEmailRoomId);
 
         List<Order> orders = new ArrayList<>();
 
-        for (DataSnapshot dataSnapshot : dataSnapshots) {
-            String userEmail = dataSnapshot.child("userEmail").getValue(String.class);
+        if (!dataSnapshots.isPresent()) {
+            return null;
+        }
+
+        for (DataSnapshot dataSnapshot : dataSnapshots.get()) {
             String product = dataSnapshot.child("product").getValue(String.class);
             int quantity = Integer.parseInt(dataSnapshot.child("quantity").getValue(String.class));
             double unitPrice = Double.parseDouble(dataSnapshot.child("unitPrice").getValue(String.class));
             double orderPrice = Double.parseDouble(dataSnapshot.child("orderPrice").getValue(String.class));
-            String userEmailRoomId = dataSnapshot.child("userEmailRoomId").getValue(String.class);
             Order orderObject = Order.newBuilder()
                                     .setUserEmail(userEmail)
                                     .setProduct(product)

@@ -21,12 +21,12 @@ import javax.servlet.http.HttpServletResponse;
  * A servlet which retrieves all Orders made in the Room.
  */
 @Singleton
-public class OrderServlet extends HttpServlet {
+public class PostOrderServlet extends HttpServlet {
     private PostOrderService postOrderService;
     private AuthenticationHandler authenticationHandler;
 
     @Inject
-    public OrderServlet(PostOrderService postOrderService, AuthenticationHandler authenticationHandler) {
+    public PostOrderServlet(PostOrderService postOrderService, AuthenticationHandler authenticationHandler) {
         this.postOrderService = postOrderService;
         this.authenticationHandler = authenticationHandler;
     }
