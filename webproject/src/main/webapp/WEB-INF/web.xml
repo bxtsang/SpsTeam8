@@ -136,14 +136,4 @@
     <url-pattern>/myOrder</url-pattern>
   </servlet-mapping>
 
-  <!-- Order Servlet -->
-  <servlet>
-    <servlet-name>OrderServlet</servlet-name>
-    <servlet-class>com.google.sps.servlets.OrderServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>OrderServlet</servlet-name>
-    <url-pattern>/order</url-pattern>
-  </servlet-mapping>
-
 </web-app>
