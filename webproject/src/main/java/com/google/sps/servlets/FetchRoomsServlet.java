@@ -39,65 +39,9 @@ public class FetchRoomsServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
-        DatabaseReference ref = firebaseUtil.getRoomsReference();
-        List<DataSnapshot> dataSnapshots = firebaseUtil.getAllSnapshotsFromReference(ref);
-
-        Queue<Room> sortedRooms = new PriorityQueue<>(dataSnapshots.size(), (aRoom, bRoom) -> {
-            double aRoomOrderValue = Math.max(aRoom.getOrdersValue(), aRoom.getMinPrice());
-            double bRoomOrderValue = Math.max(bRoom.getOrdersValue(), bRoom.getMinPrice());
-            double aRoomAveragePerPersonValue = (aRoomOrderValue + aRoom.getDeliveryFee()) / aRoom.getUsersCount();
-            double bRoomAveragePerPersonValue = (bRoomOrderValue + bRoom.getDeliveryFee()) / bRoom.getUsersCount();
-            return (int) (aRoomAveragePerPersonValue - bRoomAveragePerPersonValue);
-        });
-
-        for (DataSnapshot dataSnapshot : dataSnapshots) {
-            String id = dataSnapshot.getKey();
-            String title = dataSnapshot.child("title").getValue(String.class);
-            String link = dataSnapshot.child("link").getValue(String.class);
-            String description = dataSnapshot.child("description").getValue(String.class);
-            int deliveryLocation = dataSnapshot.child("deliveryLocation").getValue(int.class);
-            int phoneNumber = dataSnapshot.child("phoneNumber").getValue(int.class);
-            Category category = dataSnapshot.child("category").getValue(Category.class);
-            double minPrice = dataSnapshot.child("minPrice").getValue(double.class);
-            double deliveryFee = dataSnapshot.child("deliveryFee").getValue(double.class);
-            boolean isOpen = dataSnapshot.child("isOpen").getValue(boolean.class);
-            double ordersValue = dataSnapshot.child("ordersValue").getValue(double.class);
-            long timestamp = dataSnapshot.child("timestamp").getValue(long.class);
-
-            List<String> users = new ArrayList<>();
-            for (DataSnapshot data : dataSnapshot.child("users").getChildren()) {
-                users.add(data.getValue(String.class));
-            }
-
-            Room.Builder roomBuilder = Room.newBuilder()
-                    .setId(id)
-                    .setTitle(title)
-                    .setLink(link)
-                    .setDescription(description)
-                    .setDeliveryLocation(deliveryLocation)
-                    .setPhoneNumber(phoneNumber)
-                    .setCategory(category)
-                    .setMinPrice(minPrice)
-                    .setDeliveryFee(deliveryFee)
-                    .setIsOpen(isOpen)
-                    .setOrdersValue(ordersValue)
-                    .setTimestamp(timestamp);
-
-            for (String user : users) {
-                roomBuilder.addUsers(user);
-            }
-
-            sortedRooms.offer(roomBuilder.build());
-        }
-
-        FetchRoomsResponse.Builder fetchRoomsResponseBuilder = FetchRoomsResponse.newBuilder();
-        while(!sortedRooms.isEmpty()) {
-            fetchRoomsResponseBuilder.addRooms(sortedRooms.poll());
-        }
-
+        FetchRoomsResponse fetchRoomsResponse = fetchRoomsService.execute();
         response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().println(JsonFormat.printer().print(fetchRoomsResponseBuilder.build()));
+        response.getWriter().println(JsonFormat.printer().print(fetchRoomsResponse));
         response.setStatus(200);
     }
 }
