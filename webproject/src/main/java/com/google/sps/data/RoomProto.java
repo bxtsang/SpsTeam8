@@ -19,43 +19,57 @@ public final class RoomProto {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string title = 1;</code>
+     * <code>required string id = 1;</code>
+     */
+    boolean hasId();
+    /**
+     * <code>required string id = 1;</code>
+     */
+    java.lang.String getId();
+    /**
+     * <code>required string id = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getIdBytes();
+
+    /**
+     * <code>required string title = 2;</code>
      */
     boolean hasTitle();
     /**
-     * <code>required string title = 1;</code>
+     * <code>required string title = 2;</code>
      */
     java.lang.String getTitle();
     /**
-     * <code>required string title = 1;</code>
+     * <code>required string title = 2;</code>
      */
     com.google.protobuf.ByteString
         getTitleBytes();
 
     /**
-     * <code>required string link = 2;</code>
+     * <code>required string link = 3;</code>
      */
     boolean hasLink();
     /**
-     * <code>required string link = 2;</code>
+     * <code>required string link = 3;</code>
      */
     java.lang.String getLink();
     /**
-     * <code>required string link = 2;</code>
+     * <code>required string link = 3;</code>
      */
     com.google.protobuf.ByteString
         getLinkBytes();
 
     /**
-     * <code>required string description = 3;</code>
+     * <code>required string description = 4;</code>
      */
     boolean hasDescription();
     /**
-     * <code>required string description = 3;</code>
+     * <code>required string description = 4;</code>
      */
     java.lang.String getDescription();
     /**
-     * <code>required string description = 3;</code>
+     * <code>required string description = 4;</code>
      */
     com.google.protobuf.ByteString
         getDescriptionBytes();
@@ -65,7 +79,7 @@ public final class RoomProto {
      *modify to use different representation of location if needed
      * </pre>
      *
-     * <code>required int32 deliveryLocation = 4;</code>
+     * <code>required int32 deliveryLocation = 5;</code>
      */
     boolean hasDeliveryLocation();
     /**
@@ -73,7 +87,7 @@ public final class RoomProto {
      *modify to use different representation of location if needed
      * </pre>
      *
-     * <code>required int32 deliveryLocation = 4;</code>
+     * <code>required int32 deliveryLocation = 5;</code>
      */
     int getDeliveryLocation();
 
@@ -82,7 +96,7 @@ public final class RoomProto {
      *modify to use different representation of contact details if needed
      * </pre>
      *
-     * <code>required int32 phoneNumber = 5;</code>
+     * <code>required int32 phoneNumber = 6;</code>
      */
     boolean hasPhoneNumber();
     /**
@@ -90,80 +104,80 @@ public final class RoomProto {
      *modify to use different representation of contact details if needed
      * </pre>
      *
-     * <code>required int32 phoneNumber = 5;</code>
+     * <code>required int32 phoneNumber = 6;</code>
      */
     int getPhoneNumber();
 
     /**
-     * <code>required .com.google.sps.data.Category category = 6;</code>
+     * <code>required .com.google.sps.data.Category category = 7;</code>
      */
     boolean hasCategory();
     /**
-     * <code>required .com.google.sps.data.Category category = 6;</code>
+     * <code>required .com.google.sps.data.Category category = 7;</code>
      */
     com.google.sps.data.CategoryProto.Category getCategory();
 
     /**
-     * <code>required double minPrice = 7;</code>
+     * <code>required double minPrice = 8;</code>
      */
     boolean hasMinPrice();
     /**
-     * <code>required double minPrice = 7;</code>
+     * <code>required double minPrice = 8;</code>
      */
     double getMinPrice();
 
     /**
-     * <code>required double deliveryFee = 8;</code>
+     * <code>required double deliveryFee = 9;</code>
      */
     boolean hasDeliveryFee();
     /**
-     * <code>required double deliveryFee = 8;</code>
+     * <code>required double deliveryFee = 9;</code>
      */
     double getDeliveryFee();
 
     /**
-     * <code>repeated string users = 9;</code>
+     * <code>repeated string users = 10;</code>
      */
     java.util.List<java.lang.String>
         getUsersList();
     /**
-     * <code>repeated string users = 9;</code>
+     * <code>repeated string users = 10;</code>
      */
     int getUsersCount();
     /**
-     * <code>repeated string users = 9;</code>
+     * <code>repeated string users = 10;</code>
      */
     java.lang.String getUsers(int index);
     /**
-     * <code>repeated string users = 9;</code>
+     * <code>repeated string users = 10;</code>
      */
     com.google.protobuf.ByteString
         getUsersBytes(int index);
 
     /**
-     * <code>required bool isOpen = 10;</code>
+     * <code>required bool isOpen = 11;</code>
      */
     boolean hasIsOpen();
     /**
-     * <code>required bool isOpen = 10;</code>
+     * <code>required bool isOpen = 11;</code>
      */
     boolean getIsOpen();
 
     /**
-     * <code>required double ordersValue = 11;</code>
+     * <code>required double ordersValue = 12;</code>
      */
     boolean hasOrdersValue();
     /**
-     * <code>required double ordersValue = 11;</code>
+     * <code>required double ordersValue = 12;</code>
      */
     double getOrdersValue();
 
     /**
-     * <code>required int64 timestamp = 12;</code>
+     * <code>required int64 timestamp = 13;</code>
      */
     boolean hasTimestamp();
     /**
-     * <code>required int64 timestamp = 12;</code>
+     * <code>required int64 timestamp = 13;</code>
      */
     long getTimestamp();
   }
@@ -179,6 +193,7 @@ public final class RoomProto {
       super(builder);
     }
     private Room() {
+      id_ = "";
       title_ = "";
       link_ = "";
       description_ = "";
@@ -224,73 +239,79 @@ public final class RoomProto {
             case 10: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000001;
-              title_ = bs;
+              id_ = bs;
               break;
             }
             case 18: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000002;
-              link_ = bs;
+              title_ = bs;
               break;
             }
             case 26: {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000004;
-              description_ = bs;
+              link_ = bs;
               break;
             }
-            case 32: {
+            case 34: {
+              com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000008;
-              deliveryLocation_ = input.readInt32();
+              description_ = bs;
               break;
             }
             case 40: {
               bitField0_ |= 0x00000010;
-              phoneNumber_ = input.readInt32();
+              deliveryLocation_ = input.readInt32();
               break;
             }
             case 48: {
+              bitField0_ |= 0x00000020;
+              phoneNumber_ = input.readInt32();
+              break;
+            }
+            case 56: {
               int rawValue = input.readEnum();
               com.google.sps.data.CategoryProto.Category value = com.google.sps.data.CategoryProto.Category.valueOf(rawValue);
               if (value == null) {
-                unknownFields.mergeVarintField(6, rawValue);
+                unknownFields.mergeVarintField(7, rawValue);
               } else {
-                bitField0_ |= 0x00000020;
+                bitField0_ |= 0x00000040;
                 category_ = rawValue;
               }
               break;
             }
-            case 57: {
-              bitField0_ |= 0x00000040;
+            case 65: {
+              bitField0_ |= 0x00000080;
               minPrice_ = input.readDouble();
               break;
             }
-            case 65: {
-              bitField0_ |= 0x00000080;
+            case 73: {
+              bitField0_ |= 0x00000100;
               deliveryFee_ = input.readDouble();
               break;
             }
-            case 74: {
+            case 82: {
               com.google.protobuf.ByteString bs = input.readBytes();
-              if (!((mutable_bitField0_ & 0x00000100) == 0x00000100)) {
+              if (!((mutable_bitField0_ & 0x00000200) == 0x00000200)) {
                 users_ = new com.google.protobuf.LazyStringArrayList();
-                mutable_bitField0_ |= 0x00000100;
+                mutable_bitField0_ |= 0x00000200;
               }
               users_.add(bs);
               break;
             }
-            case 80: {
-              bitField0_ |= 0x00000100;
+            case 88: {
+              bitField0_ |= 0x00000200;
               isOpen_ = input.readBool();
               break;
             }
-            case 89: {
-              bitField0_ |= 0x00000200;
+            case 97: {
+              bitField0_ |= 0x00000400;
               ordersValue_ = input.readDouble();
               break;
             }
-            case 96: {
-              bitField0_ |= 0x00000400;
+            case 104: {
+              bitField0_ |= 0x00000800;
               timestamp_ = input.readInt64();
               break;
             }
@@ -302,7 +323,7 @@ public final class RoomProto {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000100) == 0x00000100)) {
+        if (((mutable_bitField0_ & 0x00000200) == 0x00000200)) {
           users_ = users_.getUnmodifiableView();
         }
         this.unknownFields = unknownFields.build();
@@ -322,16 +343,58 @@ public final class RoomProto {
     }
 
     private int bitField0_;
-    public static final int TITLE_FIELD_NUMBER = 1;
-    private volatile java.lang.Object title_;
+    public static final int ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object id_;
     /**
-     * <code>required string title = 1;</code>
+     * <code>required string id = 1;</code>
      */
-    public boolean hasTitle() {
+    public boolean hasId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string title = 1;</code>
+     * <code>required string id = 1;</code>
+     */
+    public java.lang.String getId() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          id_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string id = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getIdBytes() {
+      java.lang.Object ref = id_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        id_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TITLE_FIELD_NUMBER = 2;
+    private volatile java.lang.Object title_;
+    /**
+     * <code>required string title = 2;</code>
+     */
+    public boolean hasTitle() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string title = 2;</code>
      */
     public java.lang.String getTitle() {
       java.lang.Object ref = title_;
@@ -348,7 +411,7 @@ public final class RoomProto {
       }
     }
     /**
-     * <code>required string title = 1;</code>
+     * <code>required string title = 2;</code>
      */
     public com.google.protobuf.ByteString
         getTitleBytes() {
@@ -364,16 +427,16 @@ public final class RoomProto {
       }
     }
 
-    public static final int LINK_FIELD_NUMBER = 2;
+    public static final int LINK_FIELD_NUMBER = 3;
     private volatile java.lang.Object link_;
     /**
-     * <code>required string link = 2;</code>
+     * <code>required string link = 3;</code>
      */
     public boolean hasLink() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required string link = 2;</code>
+     * <code>required string link = 3;</code>
      */
     public java.lang.String getLink() {
       java.lang.Object ref = link_;
@@ -390,7 +453,7 @@ public final class RoomProto {
       }
     }
     /**
-     * <code>required string link = 2;</code>
+     * <code>required string link = 3;</code>
      */
     public com.google.protobuf.ByteString
         getLinkBytes() {
@@ -406,16 +469,16 @@ public final class RoomProto {
       }
     }
 
-    public static final int DESCRIPTION_FIELD_NUMBER = 3;
+    public static final int DESCRIPTION_FIELD_NUMBER = 4;
     private volatile java.lang.Object description_;
     /**
-     * <code>required string description = 3;</code>
+     * <code>required string description = 4;</code>
      */
     public boolean hasDescription() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>required string description = 3;</code>
+     * <code>required string description = 4;</code>
      */
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
@@ -432,7 +495,7 @@ public final class RoomProto {
       }
     }
     /**
-     * <code>required string description = 3;</code>
+     * <code>required string description = 4;</code>
      */
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
@@ -448,167 +511,167 @@ public final class RoomProto {
       }
     }
 
-    public static final int DELIVERYLOCATION_FIELD_NUMBER = 4;
+    public static final int DELIVERYLOCATION_FIELD_NUMBER = 5;
     private int deliveryLocation_;
     /**
      * <pre>
      *modify to use different representation of location if needed
      * </pre>
      *
-     * <code>required int32 deliveryLocation = 4;</code>
+     * <code>required int32 deliveryLocation = 5;</code>
      */
     public boolean hasDeliveryLocation() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
      * <pre>
      *modify to use different representation of location if needed
      * </pre>
      *
-     * <code>required int32 deliveryLocation = 4;</code>
+     * <code>required int32 deliveryLocation = 5;</code>
      */
     public int getDeliveryLocation() {
       return deliveryLocation_;
     }
 
-    public static final int PHONENUMBER_FIELD_NUMBER = 5;
+    public static final int PHONENUMBER_FIELD_NUMBER = 6;
     private int phoneNumber_;
     /**
      * <pre>
      *modify to use different representation of contact details if needed
      * </pre>
      *
-     * <code>required int32 phoneNumber = 5;</code>
+     * <code>required int32 phoneNumber = 6;</code>
      */
     public boolean hasPhoneNumber() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     /**
      * <pre>
      *modify to use different representation of contact details if needed
      * </pre>
      *
-     * <code>required int32 phoneNumber = 5;</code>
+     * <code>required int32 phoneNumber = 6;</code>
      */
     public int getPhoneNumber() {
       return phoneNumber_;
     }
 
-    public static final int CATEGORY_FIELD_NUMBER = 6;
+    public static final int CATEGORY_FIELD_NUMBER = 7;
     private int category_;
     /**
-     * <code>required .com.google.sps.data.Category category = 6;</code>
+     * <code>required .com.google.sps.data.Category category = 7;</code>
      */
     public boolean hasCategory() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
+      return ((bitField0_ & 0x00000040) == 0x00000040);
     }
     /**
-     * <code>required .com.google.sps.data.Category category = 6;</code>
+     * <code>required .com.google.sps.data.Category category = 7;</code>
      */
     public com.google.sps.data.CategoryProto.Category getCategory() {
       com.google.sps.data.CategoryProto.Category result = com.google.sps.data.CategoryProto.Category.valueOf(category_);
       return result == null ? com.google.sps.data.CategoryProto.Category.CHINESE : result;
     }
 
-    public static final int MINPRICE_FIELD_NUMBER = 7;
+    public static final int MINPRICE_FIELD_NUMBER = 8;
     private double minPrice_;
     /**
-     * <code>required double minPrice = 7;</code>
+     * <code>required double minPrice = 8;</code>
      */
     public boolean hasMinPrice() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
+      return ((bitField0_ & 0x00000080) == 0x00000080);
     }
     /**
-     * <code>required double minPrice = 7;</code>
+     * <code>required double minPrice = 8;</code>
      */
     public double getMinPrice() {
       return minPrice_;
     }
 
-    public static final int DELIVERYFEE_FIELD_NUMBER = 8;
+    public static final int DELIVERYFEE_FIELD_NUMBER = 9;
     private double deliveryFee_;
     /**
-     * <code>required double deliveryFee = 8;</code>
+     * <code>required double deliveryFee = 9;</code>
      */
     public boolean hasDeliveryFee() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
+      return ((bitField0_ & 0x00000100) == 0x00000100);
     }
     /**
-     * <code>required double deliveryFee = 8;</code>
+     * <code>required double deliveryFee = 9;</code>
      */
     public double getDeliveryFee() {
       return deliveryFee_;
     }
 
-    public static final int USERS_FIELD_NUMBER = 9;
+    public static final int USERS_FIELD_NUMBER = 10;
     private com.google.protobuf.LazyStringList users_;
     /**
-     * <code>repeated string users = 9;</code>
+     * <code>repeated string users = 10;</code>
      */
     public com.google.protobuf.ProtocolStringList
         getUsersList() {
       return users_;
     }
     /**
-     * <code>repeated string users = 9;</code>
+     * <code>repeated string users = 10;</code>
      */
     public int getUsersCount() {
       return users_.size();
     }
     /**
-     * <code>repeated string users = 9;</code>
+     * <code>repeated string users = 10;</code>
      */
     public java.lang.String getUsers(int index) {
       return users_.get(index);
     }
     /**
-     * <code>repeated string users = 9;</code>
+     * <code>repeated string users = 10;</code>
      */
     public com.google.protobuf.ByteString
         getUsersBytes(int index) {
       return users_.getByteString(index);
     }
 
-    public static final int ISOPEN_FIELD_NUMBER = 10;
+    public static final int ISOPEN_FIELD_NUMBER = 11;
     private boolean isOpen_;
     /**
-     * <code>required bool isOpen = 10;</code>
+     * <code>required bool isOpen = 11;</code>
      */
     public boolean hasIsOpen() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
+      return ((bitField0_ & 0x00000200) == 0x00000200);
     }
     /**
-     * <code>required bool isOpen = 10;</code>
+     * <code>required bool isOpen = 11;</code>
      */
     public boolean getIsOpen() {
       return isOpen_;
     }
 
-    public static final int ORDERSVALUE_FIELD_NUMBER = 11;
+    public static final int ORDERSVALUE_FIELD_NUMBER = 12;
     private double ordersValue_;
     /**
-     * <code>required double ordersValue = 11;</code>
+     * <code>required double ordersValue = 12;</code>
      */
     public boolean hasOrdersValue() {
-      return ((bitField0_ & 0x00000200) == 0x00000200);
+      return ((bitField0_ & 0x00000400) == 0x00000400);
     }
     /**
-     * <code>required double ordersValue = 11;</code>
+     * <code>required double ordersValue = 12;</code>
      */
     public double getOrdersValue() {
       return ordersValue_;
     }
 
-    public static final int TIMESTAMP_FIELD_NUMBER = 12;
+    public static final int TIMESTAMP_FIELD_NUMBER = 13;
     private long timestamp_;
     /**
-     * <code>required int64 timestamp = 12;</code>
+     * <code>required int64 timestamp = 13;</code>
      */
     public boolean hasTimestamp() {
-      return ((bitField0_ & 0x00000400) == 0x00000400);
+      return ((bitField0_ & 0x00000800) == 0x00000800);
     }
     /**
-     * <code>required int64 timestamp = 12;</code>
+     * <code>required int64 timestamp = 13;</code>
      */
     public long getTimestamp() {
       return timestamp_;
@@ -620,6 +683,10 @@ public final class RoomProto {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
+      if (!hasId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       if (!hasTitle()) {
         memoizedIsInitialized = 0;
         return false;
@@ -671,40 +738,43 @@ public final class RoomProto {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, title_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, link_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, title_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, description_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, link_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeInt32(4, deliveryLocation_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, description_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeInt32(5, phoneNumber_);
+        output.writeInt32(5, deliveryLocation_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
-        output.writeEnum(6, category_);
+        output.writeInt32(6, phoneNumber_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
-        output.writeDouble(7, minPrice_);
+        output.writeEnum(7, category_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
-        output.writeDouble(8, deliveryFee_);
-      }
-      for (int i = 0; i < users_.size(); i++) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 9, users_.getRaw(i));
+        output.writeDouble(8, minPrice_);
       }
       if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        output.writeBool(10, isOpen_);
+        output.writeDouble(9, deliveryFee_);
+      }
+      for (int i = 0; i < users_.size(); i++) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 10, users_.getRaw(i));
       }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        output.writeDouble(11, ordersValue_);
+        output.writeBool(11, isOpen_);
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
-        output.writeInt64(12, timestamp_);
+        output.writeDouble(12, ordersValue_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        output.writeInt64(13, timestamp_);
       }
       unknownFields.writeTo(output);
     }
@@ -715,33 +785,36 @@ public final class RoomProto {
 
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, title_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, link_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, title_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, description_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, link_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(4, deliveryLocation_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, description_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(5, phoneNumber_);
+          .computeInt32Size(5, deliveryLocation_);
       }
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(6, category_);
+          .computeInt32Size(6, phoneNumber_);
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(7, minPrice_);
+          .computeEnumSize(7, category_);
       }
       if (((bitField0_ & 0x00000080) == 0x00000080)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(8, deliveryFee_);
+          .computeDoubleSize(8, minPrice_);
+      }
+      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeDoubleSize(9, deliveryFee_);
       }
       {
         int dataSize = 0;
@@ -751,17 +824,17 @@ public final class RoomProto {
         size += dataSize;
         size += 1 * getUsersList().size();
       }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(10, isOpen_);
-      }
       if (((bitField0_ & 0x00000200) == 0x00000200)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeDoubleSize(11, ordersValue_);
+          .computeBoolSize(11, isOpen_);
       }
       if (((bitField0_ & 0x00000400) == 0x00000400)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(12, timestamp_);
+          .computeDoubleSize(12, ordersValue_);
+      }
+      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(13, timestamp_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -780,6 +853,11 @@ public final class RoomProto {
       com.google.sps.data.RoomProto.Room other = (com.google.sps.data.RoomProto.Room) obj;
 
       boolean result = true;
+      result = result && (hasId() == other.hasId());
+      if (hasId()) {
+        result = result && getId()
+            .equals(other.getId());
+      }
       result = result && (hasTitle() == other.hasTitle());
       if (hasTitle()) {
         result = result && getTitle()
@@ -853,6 +931,10 @@ public final class RoomProto {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
+      if (hasId()) {
+        hash = (37 * hash) + ID_FIELD_NUMBER;
+        hash = (53 * hash) + getId().hashCode();
+      }
       if (hasTitle()) {
         hash = (37 * hash) + TITLE_FIELD_NUMBER;
         hash = (53 * hash) + getTitle().hashCode();
@@ -1024,30 +1106,32 @@ public final class RoomProto {
       }
       public Builder clear() {
         super.clear();
-        title_ = "";
+        id_ = "";
         bitField0_ = (bitField0_ & ~0x00000001);
-        link_ = "";
+        title_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
-        description_ = "";
+        link_ = "";
         bitField0_ = (bitField0_ & ~0x00000004);
-        deliveryLocation_ = 0;
+        description_ = "";
         bitField0_ = (bitField0_ & ~0x00000008);
-        phoneNumber_ = 0;
+        deliveryLocation_ = 0;
         bitField0_ = (bitField0_ & ~0x00000010);
-        category_ = 0;
+        phoneNumber_ = 0;
         bitField0_ = (bitField0_ & ~0x00000020);
-        minPrice_ = 0D;
+        category_ = 0;
         bitField0_ = (bitField0_ & ~0x00000040);
-        deliveryFee_ = 0D;
+        minPrice_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000080);
-        users_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        deliveryFee_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000100);
-        isOpen_ = false;
+        users_ = com.google.protobuf.LazyStringArrayList.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000200);
-        ordersValue_ = 0D;
+        isOpen_ = false;
         bitField0_ = (bitField0_ & ~0x00000400);
-        timestamp_ = 0L;
+        ordersValue_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000800);
+        timestamp_ = 0L;
+        bitField0_ = (bitField0_ & ~0x00001000);
         return this;
       }
 
@@ -1075,50 +1159,54 @@ public final class RoomProto {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.title_ = title_;
+        result.id_ = id_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.link_ = link_;
+        result.title_ = title_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.description_ = description_;
+        result.link_ = link_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.deliveryLocation_ = deliveryLocation_;
+        result.description_ = description_;
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
         }
-        result.phoneNumber_ = phoneNumber_;
+        result.deliveryLocation_ = deliveryLocation_;
         if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
           to_bitField0_ |= 0x00000020;
         }
-        result.category_ = category_;
+        result.phoneNumber_ = phoneNumber_;
         if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
           to_bitField0_ |= 0x00000040;
         }
-        result.minPrice_ = minPrice_;
+        result.category_ = category_;
         if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
           to_bitField0_ |= 0x00000080;
         }
-        result.deliveryFee_ = deliveryFee_;
-        if (((bitField0_ & 0x00000100) == 0x00000100)) {
-          users_ = users_.getUnmodifiableView();
-          bitField0_ = (bitField0_ & ~0x00000100);
-        }
-        result.users_ = users_;
-        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+        result.minPrice_ = minPrice_;
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
           to_bitField0_ |= 0x00000100;
         }
-        result.isOpen_ = isOpen_;
+        result.deliveryFee_ = deliveryFee_;
+        if (((bitField0_ & 0x00000200) == 0x00000200)) {
+          users_ = users_.getUnmodifiableView();
+          bitField0_ = (bitField0_ & ~0x00000200);
+        }
+        result.users_ = users_;
         if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
           to_bitField0_ |= 0x00000200;
         }
-        result.ordersValue_ = ordersValue_;
+        result.isOpen_ = isOpen_;
         if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
           to_bitField0_ |= 0x00000400;
+        }
+        result.ordersValue_ = ordersValue_;
+        if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
+          to_bitField0_ |= 0x00000800;
         }
         result.timestamp_ = timestamp_;
         result.bitField0_ = to_bitField0_;
@@ -1163,18 +1251,23 @@ public final class RoomProto {
 
       public Builder mergeFrom(com.google.sps.data.RoomProto.Room other) {
         if (other == com.google.sps.data.RoomProto.Room.getDefaultInstance()) return this;
-        if (other.hasTitle()) {
+        if (other.hasId()) {
           bitField0_ |= 0x00000001;
+          id_ = other.id_;
+          onChanged();
+        }
+        if (other.hasTitle()) {
+          bitField0_ |= 0x00000002;
           title_ = other.title_;
           onChanged();
         }
         if (other.hasLink()) {
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000004;
           link_ = other.link_;
           onChanged();
         }
         if (other.hasDescription()) {
-          bitField0_ |= 0x00000004;
+          bitField0_ |= 0x00000008;
           description_ = other.description_;
           onChanged();
         }
@@ -1196,7 +1289,7 @@ public final class RoomProto {
         if (!other.users_.isEmpty()) {
           if (users_.isEmpty()) {
             users_ = other.users_;
-            bitField0_ = (bitField0_ & ~0x00000100);
+            bitField0_ = (bitField0_ & ~0x00000200);
           } else {
             ensureUsersIsMutable();
             users_.addAll(other.users_);
@@ -1218,6 +1311,9 @@ public final class RoomProto {
       }
 
       public final boolean isInitialized() {
+        if (!hasId()) {
+          return false;
+        }
         if (!hasTitle()) {
           return false;
         }
@@ -1273,15 +1369,91 @@ public final class RoomProto {
       }
       private int bitField0_;
 
-      private java.lang.Object title_ = "";
+      private java.lang.Object id_ = "";
       /**
-       * <code>required string title = 1;</code>
+       * <code>required string id = 1;</code>
        */
-      public boolean hasTitle() {
+      public boolean hasId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string title = 1;</code>
+       * <code>required string id = 1;</code>
+       */
+      public java.lang.String getId() {
+        java.lang.Object ref = id_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            id_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string id = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getIdBytes() {
+        java.lang.Object ref = id_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          id_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string id = 1;</code>
+       */
+      public Builder setId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string id = 1;</code>
+       */
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string id = 1;</code>
+       */
+      public Builder setIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        id_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object title_ = "";
+      /**
+       * <code>required string title = 2;</code>
+       */
+      public boolean hasTitle() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required string title = 2;</code>
        */
       public java.lang.String getTitle() {
         java.lang.Object ref = title_;
@@ -1298,7 +1470,7 @@ public final class RoomProto {
         }
       }
       /**
-       * <code>required string title = 1;</code>
+       * <code>required string title = 2;</code>
        */
       public com.google.protobuf.ByteString
           getTitleBytes() {
@@ -1314,36 +1486,36 @@ public final class RoomProto {
         }
       }
       /**
-       * <code>required string title = 1;</code>
+       * <code>required string title = 2;</code>
        */
       public Builder setTitle(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  bitField0_ |= 0x00000002;
         title_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string title = 1;</code>
+       * <code>required string title = 2;</code>
        */
       public Builder clearTitle() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000002);
         title_ = getDefaultInstance().getTitle();
         onChanged();
         return this;
       }
       /**
-       * <code>required string title = 1;</code>
+       * <code>required string title = 2;</code>
        */
       public Builder setTitleBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  bitField0_ |= 0x00000002;
         title_ = value;
         onChanged();
         return this;
@@ -1351,13 +1523,13 @@ public final class RoomProto {
 
       private java.lang.Object link_ = "";
       /**
-       * <code>required string link = 2;</code>
+       * <code>required string link = 3;</code>
        */
       public boolean hasLink() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>required string link = 2;</code>
+       * <code>required string link = 3;</code>
        */
       public java.lang.String getLink() {
         java.lang.Object ref = link_;
@@ -1374,7 +1546,7 @@ public final class RoomProto {
         }
       }
       /**
-       * <code>required string link = 2;</code>
+       * <code>required string link = 3;</code>
        */
       public com.google.protobuf.ByteString
           getLinkBytes() {
@@ -1390,36 +1562,36 @@ public final class RoomProto {
         }
       }
       /**
-       * <code>required string link = 2;</code>
+       * <code>required string link = 3;</code>
        */
       public Builder setLink(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000004;
         link_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string link = 2;</code>
+       * <code>required string link = 3;</code>
        */
       public Builder clearLink() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         link_ = getDefaultInstance().getLink();
         onChanged();
         return this;
       }
       /**
-       * <code>required string link = 2;</code>
+       * <code>required string link = 3;</code>
        */
       public Builder setLinkBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000004;
         link_ = value;
         onChanged();
         return this;
@@ -1427,13 +1599,13 @@ public final class RoomProto {
 
       private java.lang.Object description_ = "";
       /**
-       * <code>required string description = 3;</code>
+       * <code>required string description = 4;</code>
        */
       public boolean hasDescription() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>required string description = 3;</code>
+       * <code>required string description = 4;</code>
        */
       public java.lang.String getDescription() {
         java.lang.Object ref = description_;
@@ -1450,7 +1622,7 @@ public final class RoomProto {
         }
       }
       /**
-       * <code>required string description = 3;</code>
+       * <code>required string description = 4;</code>
        */
       public com.google.protobuf.ByteString
           getDescriptionBytes() {
@@ -1466,36 +1638,36 @@ public final class RoomProto {
         }
       }
       /**
-       * <code>required string description = 3;</code>
+       * <code>required string description = 4;</code>
        */
       public Builder setDescription(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000004;
+  bitField0_ |= 0x00000008;
         description_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string description = 3;</code>
+       * <code>required string description = 4;</code>
        */
       public Builder clearDescription() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         description_ = getDefaultInstance().getDescription();
         onChanged();
         return this;
       }
       /**
-       * <code>required string description = 3;</code>
+       * <code>required string description = 4;</code>
        */
       public Builder setDescriptionBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000004;
+  bitField0_ |= 0x00000008;
         description_ = value;
         onChanged();
         return this;
@@ -1507,17 +1679,17 @@ public final class RoomProto {
        *modify to use different representation of location if needed
        * </pre>
        *
-       * <code>required int32 deliveryLocation = 4;</code>
+       * <code>required int32 deliveryLocation = 5;</code>
        */
       public boolean hasDeliveryLocation() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
        * <pre>
        *modify to use different representation of location if needed
        * </pre>
        *
-       * <code>required int32 deliveryLocation = 4;</code>
+       * <code>required int32 deliveryLocation = 5;</code>
        */
       public int getDeliveryLocation() {
         return deliveryLocation_;
@@ -1527,10 +1699,10 @@ public final class RoomProto {
        *modify to use different representation of location if needed
        * </pre>
        *
-       * <code>required int32 deliveryLocation = 4;</code>
+       * <code>required int32 deliveryLocation = 5;</code>
        */
       public Builder setDeliveryLocation(int value) {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         deliveryLocation_ = value;
         onChanged();
         return this;
@@ -1540,10 +1712,10 @@ public final class RoomProto {
        *modify to use different representation of location if needed
        * </pre>
        *
-       * <code>required int32 deliveryLocation = 4;</code>
+       * <code>required int32 deliveryLocation = 5;</code>
        */
       public Builder clearDeliveryLocation() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         deliveryLocation_ = 0;
         onChanged();
         return this;
@@ -1555,17 +1727,17 @@ public final class RoomProto {
        *modify to use different representation of contact details if needed
        * </pre>
        *
-       * <code>required int32 phoneNumber = 5;</code>
+       * <code>required int32 phoneNumber = 6;</code>
        */
       public boolean hasPhoneNumber() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
        * <pre>
        *modify to use different representation of contact details if needed
        * </pre>
        *
-       * <code>required int32 phoneNumber = 5;</code>
+       * <code>required int32 phoneNumber = 6;</code>
        */
       public int getPhoneNumber() {
         return phoneNumber_;
@@ -1575,10 +1747,10 @@ public final class RoomProto {
        *modify to use different representation of contact details if needed
        * </pre>
        *
-       * <code>required int32 phoneNumber = 5;</code>
+       * <code>required int32 phoneNumber = 6;</code>
        */
       public Builder setPhoneNumber(int value) {
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         phoneNumber_ = value;
         onChanged();
         return this;
@@ -1588,10 +1760,10 @@ public final class RoomProto {
        *modify to use different representation of contact details if needed
        * </pre>
        *
-       * <code>required int32 phoneNumber = 5;</code>
+       * <code>required int32 phoneNumber = 6;</code>
        */
       public Builder clearPhoneNumber() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         phoneNumber_ = 0;
         onChanged();
         return this;
@@ -1599,35 +1771,35 @@ public final class RoomProto {
 
       private int category_ = 0;
       /**
-       * <code>required .com.google.sps.data.Category category = 6;</code>
+       * <code>required .com.google.sps.data.Category category = 7;</code>
        */
       public boolean hasCategory() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
+        return ((bitField0_ & 0x00000040) == 0x00000040);
       }
       /**
-       * <code>required .com.google.sps.data.Category category = 6;</code>
+       * <code>required .com.google.sps.data.Category category = 7;</code>
        */
       public com.google.sps.data.CategoryProto.Category getCategory() {
         com.google.sps.data.CategoryProto.Category result = com.google.sps.data.CategoryProto.Category.valueOf(category_);
         return result == null ? com.google.sps.data.CategoryProto.Category.CHINESE : result;
       }
       /**
-       * <code>required .com.google.sps.data.Category category = 6;</code>
+       * <code>required .com.google.sps.data.Category category = 7;</code>
        */
       public Builder setCategory(com.google.sps.data.CategoryProto.Category value) {
         if (value == null) {
           throw new NullPointerException();
         }
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         category_ = value.getNumber();
         onChanged();
         return this;
       }
       /**
-       * <code>required .com.google.sps.data.Category category = 6;</code>
+       * <code>required .com.google.sps.data.Category category = 7;</code>
        */
       public Builder clearCategory() {
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000040);
         category_ = 0;
         onChanged();
         return this;
@@ -1635,31 +1807,31 @@ public final class RoomProto {
 
       private double minPrice_ ;
       /**
-       * <code>required double minPrice = 7;</code>
+       * <code>required double minPrice = 8;</code>
        */
       public boolean hasMinPrice() {
-        return ((bitField0_ & 0x00000040) == 0x00000040);
+        return ((bitField0_ & 0x00000080) == 0x00000080);
       }
       /**
-       * <code>required double minPrice = 7;</code>
+       * <code>required double minPrice = 8;</code>
        */
       public double getMinPrice() {
         return minPrice_;
       }
       /**
-       * <code>required double minPrice = 7;</code>
+       * <code>required double minPrice = 8;</code>
        */
       public Builder setMinPrice(double value) {
-        bitField0_ |= 0x00000040;
+        bitField0_ |= 0x00000080;
         minPrice_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required double minPrice = 7;</code>
+       * <code>required double minPrice = 8;</code>
        */
       public Builder clearMinPrice() {
-        bitField0_ = (bitField0_ & ~0x00000040);
+        bitField0_ = (bitField0_ & ~0x00000080);
         minPrice_ = 0D;
         onChanged();
         return this;
@@ -1667,31 +1839,31 @@ public final class RoomProto {
 
       private double deliveryFee_ ;
       /**
-       * <code>required double deliveryFee = 8;</code>
+       * <code>required double deliveryFee = 9;</code>
        */
       public boolean hasDeliveryFee() {
-        return ((bitField0_ & 0x00000080) == 0x00000080);
+        return ((bitField0_ & 0x00000100) == 0x00000100);
       }
       /**
-       * <code>required double deliveryFee = 8;</code>
+       * <code>required double deliveryFee = 9;</code>
        */
       public double getDeliveryFee() {
         return deliveryFee_;
       }
       /**
-       * <code>required double deliveryFee = 8;</code>
+       * <code>required double deliveryFee = 9;</code>
        */
       public Builder setDeliveryFee(double value) {
-        bitField0_ |= 0x00000080;
+        bitField0_ |= 0x00000100;
         deliveryFee_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required double deliveryFee = 8;</code>
+       * <code>required double deliveryFee = 9;</code>
        */
       public Builder clearDeliveryFee() {
-        bitField0_ = (bitField0_ & ~0x00000080);
+        bitField0_ = (bitField0_ & ~0x00000100);
         deliveryFee_ = 0D;
         onChanged();
         return this;
@@ -1699,39 +1871,39 @@ public final class RoomProto {
 
       private com.google.protobuf.LazyStringList users_ = com.google.protobuf.LazyStringArrayList.EMPTY;
       private void ensureUsersIsMutable() {
-        if (!((bitField0_ & 0x00000100) == 0x00000100)) {
+        if (!((bitField0_ & 0x00000200) == 0x00000200)) {
           users_ = new com.google.protobuf.LazyStringArrayList(users_);
-          bitField0_ |= 0x00000100;
+          bitField0_ |= 0x00000200;
          }
       }
       /**
-       * <code>repeated string users = 9;</code>
+       * <code>repeated string users = 10;</code>
        */
       public com.google.protobuf.ProtocolStringList
           getUsersList() {
         return users_.getUnmodifiableView();
       }
       /**
-       * <code>repeated string users = 9;</code>
+       * <code>repeated string users = 10;</code>
        */
       public int getUsersCount() {
         return users_.size();
       }
       /**
-       * <code>repeated string users = 9;</code>
+       * <code>repeated string users = 10;</code>
        */
       public java.lang.String getUsers(int index) {
         return users_.get(index);
       }
       /**
-       * <code>repeated string users = 9;</code>
+       * <code>repeated string users = 10;</code>
        */
       public com.google.protobuf.ByteString
           getUsersBytes(int index) {
         return users_.getByteString(index);
       }
       /**
-       * <code>repeated string users = 9;</code>
+       * <code>repeated string users = 10;</code>
        */
       public Builder setUsers(
           int index, java.lang.String value) {
@@ -1744,7 +1916,7 @@ public final class RoomProto {
         return this;
       }
       /**
-       * <code>repeated string users = 9;</code>
+       * <code>repeated string users = 10;</code>
        */
       public Builder addUsers(
           java.lang.String value) {
@@ -1757,7 +1929,7 @@ public final class RoomProto {
         return this;
       }
       /**
-       * <code>repeated string users = 9;</code>
+       * <code>repeated string users = 10;</code>
        */
       public Builder addAllUsers(
           java.lang.Iterable<java.lang.String> values) {
@@ -1768,16 +1940,16 @@ public final class RoomProto {
         return this;
       }
       /**
-       * <code>repeated string users = 9;</code>
+       * <code>repeated string users = 10;</code>
        */
       public Builder clearUsers() {
         users_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000200);
         onChanged();
         return this;
       }
       /**
-       * <code>repeated string users = 9;</code>
+       * <code>repeated string users = 10;</code>
        */
       public Builder addUsersBytes(
           com.google.protobuf.ByteString value) {
@@ -1792,31 +1964,31 @@ public final class RoomProto {
 
       private boolean isOpen_ ;
       /**
-       * <code>required bool isOpen = 10;</code>
+       * <code>required bool isOpen = 11;</code>
        */
       public boolean hasIsOpen() {
-        return ((bitField0_ & 0x00000200) == 0x00000200);
+        return ((bitField0_ & 0x00000400) == 0x00000400);
       }
       /**
-       * <code>required bool isOpen = 10;</code>
+       * <code>required bool isOpen = 11;</code>
        */
       public boolean getIsOpen() {
         return isOpen_;
       }
       /**
-       * <code>required bool isOpen = 10;</code>
+       * <code>required bool isOpen = 11;</code>
        */
       public Builder setIsOpen(boolean value) {
-        bitField0_ |= 0x00000200;
+        bitField0_ |= 0x00000400;
         isOpen_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required bool isOpen = 10;</code>
+       * <code>required bool isOpen = 11;</code>
        */
       public Builder clearIsOpen() {
-        bitField0_ = (bitField0_ & ~0x00000200);
+        bitField0_ = (bitField0_ & ~0x00000400);
         isOpen_ = false;
         onChanged();
         return this;
@@ -1824,31 +1996,31 @@ public final class RoomProto {
 
       private double ordersValue_ ;
       /**
-       * <code>required double ordersValue = 11;</code>
+       * <code>required double ordersValue = 12;</code>
        */
       public boolean hasOrdersValue() {
-        return ((bitField0_ & 0x00000400) == 0x00000400);
+        return ((bitField0_ & 0x00000800) == 0x00000800);
       }
       /**
-       * <code>required double ordersValue = 11;</code>
+       * <code>required double ordersValue = 12;</code>
        */
       public double getOrdersValue() {
         return ordersValue_;
       }
       /**
-       * <code>required double ordersValue = 11;</code>
+       * <code>required double ordersValue = 12;</code>
        */
       public Builder setOrdersValue(double value) {
-        bitField0_ |= 0x00000400;
+        bitField0_ |= 0x00000800;
         ordersValue_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required double ordersValue = 11;</code>
+       * <code>required double ordersValue = 12;</code>
        */
       public Builder clearOrdersValue() {
-        bitField0_ = (bitField0_ & ~0x00000400);
+        bitField0_ = (bitField0_ & ~0x00000800);
         ordersValue_ = 0D;
         onChanged();
         return this;
@@ -1856,31 +2028,31 @@ public final class RoomProto {
 
       private long timestamp_ ;
       /**
-       * <code>required int64 timestamp = 12;</code>
+       * <code>required int64 timestamp = 13;</code>
        */
       public boolean hasTimestamp() {
-        return ((bitField0_ & 0x00000800) == 0x00000800);
+        return ((bitField0_ & 0x00001000) == 0x00001000);
       }
       /**
-       * <code>required int64 timestamp = 12;</code>
+       * <code>required int64 timestamp = 13;</code>
        */
       public long getTimestamp() {
         return timestamp_;
       }
       /**
-       * <code>required int64 timestamp = 12;</code>
+       * <code>required int64 timestamp = 13;</code>
        */
       public Builder setTimestamp(long value) {
-        bitField0_ |= 0x00000800;
+        bitField0_ |= 0x00001000;
         timestamp_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int64 timestamp = 12;</code>
+       * <code>required int64 timestamp = 13;</code>
        */
       public Builder clearTimestamp() {
-        bitField0_ = (bitField0_ & ~0x00000800);
+        bitField0_ = (bitField0_ & ~0x00001000);
         timestamp_ = 0L;
         onChanged();
         return this;
@@ -1949,14 +2121,14 @@ public final class RoomProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\nRoom.proto\022\023com.google.sps.data\032\016Categ" +
-      "ory.proto\"\206\002\n\004Room\022\r\n\005title\030\001 \002(\t\022\014\n\004lin" +
-      "k\030\002 \002(\t\022\023\n\013description\030\003 \002(\t\022\030\n\020delivery" +
-      "Location\030\004 \002(\005\022\023\n\013phoneNumber\030\005 \002(\005\022/\n\010c" +
-      "ategory\030\006 \002(\0162\035.com.google.sps.data.Cate" +
-      "gory\022\020\n\010minPrice\030\007 \002(\001\022\023\n\013deliveryFee\030\010 " +
-      "\002(\001\022\r\n\005users\030\t \003(\t\022\016\n\006isOpen\030\n \002(\010\022\023\n\013or" +
-      "dersValue\030\013 \002(\001\022\021\n\ttimestamp\030\014 \002(\003B\013B\tRo" +
-      "omProto"
+      "ory.proto\"\222\002\n\004Room\022\n\n\002id\030\001 \002(\t\022\r\n\005title\030" +
+      "\002 \002(\t\022\014\n\004link\030\003 \002(\t\022\023\n\013description\030\004 \002(\t" +
+      "\022\030\n\020deliveryLocation\030\005 \002(\005\022\023\n\013phoneNumbe" +
+      "r\030\006 \002(\005\022/\n\010category\030\007 \002(\0162\035.com.google.s" +
+      "ps.data.Category\022\020\n\010minPrice\030\010 \002(\001\022\023\n\013de" +
+      "liveryFee\030\t \002(\001\022\r\n\005users\030\n \003(\t\022\016\n\006isOpen" +
+      "\030\013 \002(\010\022\023\n\013ordersValue\030\014 \002(\001\022\021\n\ttimestamp" +
+      "\030\r \002(\003B\013B\tRoomProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1976,7 +2148,7 @@ public final class RoomProto {
     internal_static_com_google_sps_data_Room_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_google_sps_data_Room_descriptor,
-        new java.lang.String[] { "Title", "Link", "Description", "DeliveryLocation", "PhoneNumber", "Category", "MinPrice", "DeliveryFee", "Users", "IsOpen", "OrdersValue", "Timestamp", });
+        new java.lang.String[] { "Id", "Title", "Link", "Description", "DeliveryLocation", "PhoneNumber", "Category", "MinPrice", "DeliveryFee", "Users", "IsOpen", "OrdersValue", "Timestamp", });
     com.google.sps.data.CategoryProto.getDescriptor();
   }
 

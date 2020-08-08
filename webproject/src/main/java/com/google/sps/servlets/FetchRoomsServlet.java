@@ -42,6 +42,7 @@ public class FetchRoomsServlet extends HttpServlet {
         FetchRoomsResponse.Builder fetchRoomsResponseBuilder = FetchRoomsResponse.newBuilder();
 
         for (DataSnapshot dataSnapshot : dataSnapshots) {
+            String id = dataSnapshot.getKey();
             String title = dataSnapshot.child("title").getValue(String.class);
             String link = dataSnapshot.child("link").getValue(String.class);
             String description = dataSnapshot.child("description").getValue(String.class);
@@ -59,7 +60,8 @@ public class FetchRoomsServlet extends HttpServlet {
                 users.add(data.getValue(String.class));
             }
 
-            Room.Builder roomBuiler = Room.newBuilder()
+            Room.Builder roomBuilder = Room.newBuilder()
+                    .setId(id)
                     .setTitle(title)
                     .setLink(link)
                     .setDescription(description)
@@ -73,10 +75,10 @@ public class FetchRoomsServlet extends HttpServlet {
                     .setTimestamp(timestamp);
 
             for (String user : users) {
-                roomBuiler.addUsers(user);
+                roomBuilder.addUsers(user);
             }
 
-            fetchRoomsResponseBuilder.addRooms(roomBuiler.build());
+            fetchRoomsResponseBuilder.addRooms(roomBuilder.build());
         }
 
         response.setContentType("application/json;charset=UTF-8");

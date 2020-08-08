@@ -2,35 +2,34 @@ async function getListings() {
     let cardsContainer = document.getElementById("listings-card-container");
     let childHtmlString = "";
     var response = await fetch("/fetchRooms");
-    var data = await testing.json();
+    var data = await response.json();
     var entries = data.rooms;
     var sortedEntries = getSortedEntries(entries);
     for (var i = 0; i < sortedEntries.length; i++) {
         let room = sortedEntries[i];
-        var roomData = room[1];
         childHtmlString += `<div class="shadow-sm p-3 mb-5 bg-white rounded listing-card">
       <div class="row form-group">
         <div class="col-md-6 mb-3 mb-md-0">
-          <span class="card-heading title">${roomData.title}</span>
+          <span class="card-heading title">${room.title}</span>
           <br />
           <span class="card-field">Postal Code: </span>
           <span class="card-value postal-code-value">
-            ${roomData.deliveryLocation}
+            ${room.deliveryLocation}
           </span>
           <br />
           <span class="card-description">
-            ${roomData.description}
+            ${room.description}
           </span>
         </div>
         <div class="col-md-6 text-right">
           <span class="card-field">Category: </span>
-          <span class="card-value category-value">${roomData.category}</span>
+          <span class="card-value category-value">${room.category}</span>
           <br />
           <span class="card-field">Delivery fee: </span>
-          <span class="card-value">$${roomData.deliveryFee}</span>
+          <span class="card-value">$${room.deliveryFee}</span>
           <br />
           <br />`;
-        let response2 = await fetch("/userRoomStatus?roomId=" + room[0]);
+        let response2 = await fetch("/userRoomStatus?roomId=" + room.id);
         let joinAction = await response2.text();
         if (joinAction == "Join") {
             childHtmlString += `<button id="action" class="btn btn-join" onclick="joinRoom('${room[0]}')">Join</button>

@@ -7,16 +7,17 @@ import "Category.proto";
 option java_outer_classname = "RoomProto";
 
 message Room {
-  required string title = 1;
-  required string link = 2;
-  required string description = 3;
-  required int32 deliveryLocation = 4; //modify to use different representation of location if needed
-  required int32 phoneNumber = 5; //modify to use different representation of contact details if needed
-  required com.google.sps.data.Category category = 6;
-  required double minPrice = 7;
-  required double deliveryFee = 8;
-  repeated string users = 9;
-  required bool isOpen = 10;
-  required double ordersValue = 11;
-  required int64 timestamp = 12;
+  required string id = 1;
+  required string title = 2;
+  required string link = 3;
+  required string description = 4;
+  required int32 deliveryLocation = 5; //modify to use different representation of location if needed
+  required int32 phoneNumber = 6; //modify to use different representation of contact details if needed
+  required com.google.sps.data.Category category = 7;
+  required double minPrice = 8;
+  required double deliveryFee = 9;
+  repeated string users = 10;
+  required bool isOpen = 11;
+  required double ordersValue = 12;
+  required int64 timestamp = 13;
 }
