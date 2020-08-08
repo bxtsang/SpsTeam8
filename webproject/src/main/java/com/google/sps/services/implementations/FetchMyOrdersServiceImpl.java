@@ -10,9 +10,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.data.OrderProto.Order;
 import com.google.sps.dataManagers.OrderManager;
-import com.google.sps.proto.FetchMyOrdersProto.FetchMyOrdersResponse;
-import com.google.sps.proto.FetchMyOrdersProto.FetchMyOrdersRequest;
-import com.google.sps.services.interfaces.FetchMyOrdersService;
+import com.google.sps.proto.FetchOrdersProto.FetchOrdersResponse;
+import com.google.sps.proto.FetchOrdersProto.FetchOrdersRequest;
+import com.google.sps.services.interfaces.FetchOrdersService;
 
 @Singleton
 public class FetchMyOrdersServiceImpl implements FetchMyOrdersService {
@@ -27,17 +27,17 @@ public class FetchMyOrdersServiceImpl implements FetchMyOrdersService {
     }
 
     @Override
-    public FetchMyOrdersResponse execute(FetchMyOrdersRequest fetchMyOrdersRequest) throws ServletException {
+    public FetchOrdersResponse execute(FetchOrdersRequest fetchOrdersRequest) throws ServletException {
         String userEmail = authenticationHandler.getCurrentUser().getEmail();
-        String roomId = fetchMyOrdersRequest.getRoomId();
+        String roomId = fetchOrdersRequest.getRoomId();
 
         List<Order> orders = orderManager.getMyOrders(roomId, userEmail);
-        FetchMyOrdersResponse.Builder fetchMyOrdersResponseBuilder = FetchMyOrdersResponse.newBuilder();
+        FetchOrdersResponse.Builder fetchOrdersResponseBuilder = FetchOrdersResponse.newBuilder();
 
         for (Order order : orders) {
-            fetchMyOrdersResponseBuilder.addOrders(order);
+            fetchOrdersResponseBuilder.addOrders(order);
         }
 
-        return fetchMyOrdersResponseBuilder.build();
+        return fetchOrdersResponseBuilder.build();
     }
 }

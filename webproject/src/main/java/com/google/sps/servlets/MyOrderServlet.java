@@ -4,8 +4,8 @@ import com.google.protobuf.util.JsonFormat;
 import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.data.OrderProto.Order;
 import com.google.sps.dataManagers.OrderManager;
-import com.google.sps.proto.FetchMyOrdersProto.FetchMyOrdersResponse;
-import com.google.sps.proto.FetchMyOrdersProto.FetchMyOrdersRequest;
+import com.google.sps.proto.FetchOrdersProto.FetchOrdersResponse;
+import com.google.sps.proto.FetchOrdersProto.FetchOrdersRequest;
 import com.google.sps.services.interfaces.FetchMyOrdersService;
 
 import java.io.IOException;
@@ -47,11 +47,11 @@ public class MyOrderServlet extends HttpServlet {
         
         String roomId = request.getParameter("roomId");
 
-        FetchMyOrdersRequest fetchMyOrdersRequest = FetchMyOrdersRequest.newBuilder().setRoomId(roomId).build();
-        FetchMyOrdersResponse fetchMyOrdersResponse = fetchMyOrdersService.execute(fetchMyOrdersRequest);
+        FetchOrdersRequest fetchOrdersRequest = FetchOrdersRequest.newBuilder().setRoomId(roomId).build();
+        FetchOrdersResponse fetchOrdersResponse = fetchOrdersService.execute(fetchOrdersRequest);
 
         response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().println(JsonFormat.printer().print(fetchMyOrdersResponse));
+        response.getWriter().println(JsonFormat.printer().print(fetchOrdersResponse));
         response.setStatus(200);
     }
 }

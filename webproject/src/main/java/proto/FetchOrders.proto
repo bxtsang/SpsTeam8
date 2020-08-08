@@ -4,12 +4,12 @@ package com.google.sps.proto;
 
 import "Order.proto";
 
-option java_outer_classname = "FetchMyOrdersProto";
+option java_outer_classname = "FetchOrdersProto";
 
-message FetchMyOrdersRequest {
+message FetchOrdersRequest {
   required string roomId = 1;
 }
 
-message FetchMyOrdersResponse {
+message FetchOrdersResponse {
   repeated com.google.sps.data.Order orders = 1;
 }
