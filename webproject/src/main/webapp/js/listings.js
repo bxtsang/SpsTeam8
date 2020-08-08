@@ -3,8 +3,7 @@ async function getListings() {
     let childHtmlString = "";
     var response = await fetch("/fetchRooms");
     var data = await response.json();
-    var entries = data.rooms;
-    var sortedEntries = getSortedEntries(entries);
+    var sortedEntries = data.rooms;
     for (var i = 0; i < sortedEntries.length; i++) {
         let room = sortedEntries[i];
         childHtmlString += `<div class="shadow-sm p-3 mb-5 bg-white rounded listing-card">
@@ -46,15 +45,15 @@ async function getListings() {
     cardsContainer.innerHTML = childHtmlString;
 }
 
-function getSortedEntries(entries) {
-    return entries.sort((aRoom, bRoom) => {
-        const aRoomOrderValue = Math.max(aRoom.ordersValue, aRoom.minPrice);
-        const bRoomOrderValue = Math.max(bRoom.ordersValue, bRoom.minPrice);
-        const aRoomAveragePerPersonValue = (aRoomOrderValue + aRoom.deliveryFee) / aRoom.users.length;
-        const bRoomAveragePerPersonValue = (bRoomOrderValue + bRoom.deliveryFee) / bRoom.users.length;
-        return aRoomAveragePerPersonValue - bRoomAveragePerPersonValue;
-    })
-}
+//function getSortedEntries(entries) {
+//    return entries.sort((aRoom, bRoom) => {
+//        const aRoomOrderValue = Math.max(aRoom.ordersValue, aRoom.minPrice);
+//        const bRoomOrderValue = Math.max(bRoom.ordersValue, bRoom.minPrice);
+//        const aRoomAveragePerPersonValue = (aRoomOrderValue + aRoom.deliveryFee) / aRoom.users.length;
+//        const bRoomAveragePerPersonValue = (bRoomOrderValue + bRoom.deliveryFee) / bRoom.users.length;
+//        return aRoomAveragePerPersonValue - bRoomAveragePerPersonValue;
+//    })
+//}
 
 async function joinRoom(roomId) {
     var formData = new FormData();

@@ -2,7 +2,10 @@ package com.google.sps.servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -39,7 +42,14 @@ public class FetchRoomsServlet extends HttpServlet {
 
         DatabaseReference ref = firebaseUtil.getRoomsReference();
         List<DataSnapshot> dataSnapshots = firebaseUtil.getAllSnapshotsFromReference(ref);
-        FetchRoomsResponse.Builder fetchRoomsResponseBuilder = FetchRoomsResponse.newBuilder();
+
+        Queue<Room> sortedRooms = new PriorityQueue<>(dataSnapshots.size(), (aRoom, bRoom) -> {
+            double aRoomOrderValue = Math.max(aRoom.getOrdersValue(), aRoom.getMinPrice());
+            double bRoomOrderValue = Math.max(bRoom.getOrdersValue(), bRoom.getMinPrice());
+            double aRoomAveragePerPersonValue = (aRoomOrderValue + aRoom.getDeliveryFee()) / aRoom.getUsersCount();
+            double bRoomAveragePerPersonValue = (bRoomOrderValue + bRoom.getDeliveryFee()) / bRoom.getUsersCount();
+            return (int) (aRoomAveragePerPersonValue - bRoomAveragePerPersonValue);
+        });
 
         for (DataSnapshot dataSnapshot : dataSnapshots) {
             String id = dataSnapshot.getKey();
@@ -78,7 +88,12 @@ public class FetchRoomsServlet extends HttpServlet {
                 roomBuilder.addUsers(user);
             }
 
-            fetchRoomsResponseBuilder.addRooms(roomBuilder.build());
+            sortedRooms.offer(roomBuilder.build());
+        }
+
+        FetchRoomsResponse.Builder fetchRoomsResponseBuilder = FetchRoomsResponse.newBuilder();
+        while(!sortedRooms.isEmpty()) {
+            fetchRoomsResponseBuilder.addRooms(sortedRooms.poll());
         }
 
         response.setContentType("application/json;charset=UTF-8");
