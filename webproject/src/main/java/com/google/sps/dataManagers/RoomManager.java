@@ -33,7 +33,7 @@ public class RoomManager {
             double bRoomOrderValue = Math.max(bRoom.getOrdersValue(), bRoom.getMinPrice());
             double aRoomAveragePerPersonValue = (aRoomOrderValue + aRoom.getDeliveryFee()) / aRoom.getUsersCount();
             double bRoomAveragePerPersonValue = (bRoomOrderValue + bRoom.getDeliveryFee()) / bRoom.getUsersCount();
-            return (int) (aRoomAveragePerPersonValue - bRoomAveragePerPersonValue);
+            return  Double.compare(aRoomAveragePerPersonValue, bRoomAveragePerPersonValue);
         });
 
         for (DataSnapshot dataSnapshot : dataSnapshots) {
