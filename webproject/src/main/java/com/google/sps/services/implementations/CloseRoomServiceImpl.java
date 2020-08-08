@@ -20,7 +20,7 @@ public class CloseRoomServiceImpl implements CloseRoomService {
     @Override
     public CloseRoomResponse execute(CloseRoomRequest closeRoomRequest) throws ServletException {
         String roomId = closeRoomRequest.getRoomId();
-        Room room = roomManager.closeRoom(roomId);
+        roomManager.closeRoom(roomId);
         return CloseRoomResponse.newBuilder()
                 .setRoomId(roomId)
                 .build();

@@ -37,7 +37,7 @@ public class CloseRoomServlet extends HttpServlet {
         String roomId = request.getParameter("roomId");
 
         CloseRoomRequest closeRoomRequest = CloseRoomRequest.newBuilder().setRoomId(roomId).build();
-        CloseRoomResponse closeRoomResponse = closeRoomService.execute(closeRoomRequest);
+        closeRoomService.execute(closeRoomRequest);
         
         response.sendRedirect("/");
     }
