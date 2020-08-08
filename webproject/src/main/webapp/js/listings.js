@@ -55,6 +55,7 @@ function getSortedEntries(entries) {
         return aRoomAveragePerPersonValue - bRoomAveragePerPersonValue;
     })
 }
+
 async function joinRoom(roomId) {
     var formData = new FormData();
     formData.append("roomId", roomId);
