@@ -4,8 +4,9 @@ async function getListings() {
     var response = await fetch("https://summer20-sps-47.firebaseio.com/rooms.json");
     var data = await response.json();
     var entries = Object.entries(data);
-    for (var i = 0; i < entries.length; i++) {
-        let room = entries[i];
+    var sortedEntries = getSortedEntries(entries);
+    for (var i = 0; i < sortedEntries.length; i++) {
+        let room = sortedEntries[i];
         var roomData = room[1];
         childHtmlString += `<div class="shadow-sm p-3 mb-5 bg-white rounded listing-card">
       <div class="row form-group">
@@ -44,6 +45,18 @@ async function getListings() {
         }
     }
     cardsContainer.innerHTML = childHtmlString;
+}
+
+function getSortedEntries(entries) {
+    return entries.sort((a, b) => {
+        console.log("a: ", a);
+        console.log("b: ", b);
+        let aSmth = (a.ordersValue - a.minPrice + a.deliveryFee) / len(a.users);
+        let bSmth = (b.ordersValue - b.minPrice + b.deliveryFee) / len(b.users);
+        console.log("aSmth: ", aSmth);
+        console.log("bSmth: ", bSmth);
+        return aSmth - bSmth;
+    })
 }
 async function joinRoom(roomId) {
     var formData = new FormData();
