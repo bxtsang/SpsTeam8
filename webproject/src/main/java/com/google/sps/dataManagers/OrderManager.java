@@ -92,7 +92,7 @@ public class OrderManager {
         String roomId = dataSnapshot.child("roomId").getValue(String.class);
         String userEmailRoomId = dataSnapshot.child("userEmailRoomId").getValue(String.class);
 
-         Order orderObject = Order.newBuilder()
+        Order orderObject = Order.newBuilder()
                                     .setUserEmail(userEmail)
                                     .setProduct(product)
                                     .setQuantity(quantity)
