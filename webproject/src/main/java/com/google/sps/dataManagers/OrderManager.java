@@ -1,10 +1,11 @@
 package com.google.sps.dataManagers;
 
-import java.util.Optional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -77,22 +78,21 @@ public class OrderManager {
             return null;
         }
 
-        List<Order> orders = loadFromDataSnapshot(roomId, userEmail, userEmailRoomId, dataSnapshots.get());
+        List<Order> orders = dataSnapshots.get().stream().map(this::toOrder).collect(Collectors.toList());
 
         return orders;    
     }
 
-    private List<Order> loadFromDataSnapshot(String roomId, String userEmail, String userEmailRoomId, 
-                                            List<DataSnapshot> dataSnapshots) {
-        List<Order> orders = new ArrayList<>();
-        
-        for (DataSnapshot dataSnapshot : dataSnapshots) {
-            String product = dataSnapshot.child("product").getValue(String.class);
-            int quantity = Integer.parseInt(dataSnapshot.child("quantity").getValue(String.class));
-            double unitPrice = Double.parseDouble(dataSnapshot.child("unitPrice").getValue(String.class));
-            double orderPrice = Double.parseDouble(dataSnapshot.child("orderPrice").getValue(String.class));
-            
-            Order orderObject = Order.newBuilder()
+    private Order toOrder(DataSnapshot dataSnapshot) {
+        String userEmail = dataSnapshot.child("userEmail").getValue(String.class);
+        String product = dataSnapshot.child("product").getValue(String.class);
+        int quantity = Integer.parseInt(dataSnapshot.child("quantity").getValue(String.class));
+        double unitPrice = Double.parseDouble(dataSnapshot.child("unitPrice").getValue(String.class));
+        double orderPrice = Double.parseDouble(dataSnapshot.child("orderPrice").getValue(String.class));
+        String roomId = dataSnapshot.child("roomId").getValue(String.class);
+        String userEmailRoomId = dataSnapshot.child("userEmailRoomId").getValue(String.class);
+
+         Order orderObject = Order.newBuilder()
                                     .setUserEmail(userEmail)
                                     .setProduct(product)
                                     .setQuantity(quantity)
@@ -101,10 +101,8 @@ public class OrderManager {
                                     .setRoomId(roomId)
                                     .setUserEmailRoomId(userEmailRoomId)
                                     .build();
-            orders.add(orderObject);
-        }
 
-        return orders;
+        return orderObject;
     }
 
     private boolean isRoomIdValid(String roomId) throws ServletException {
