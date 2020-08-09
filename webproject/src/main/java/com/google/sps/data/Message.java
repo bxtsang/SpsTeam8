@@ -1,8 +1,6 @@
 package com.google.sps.data;
 
-import java.text.SimpleDateFormat;
-import java.text.DateFormat;
-import java.util.Date;
+import com.google.sps.util.TimestampUtil;
 
 public class Message {
     private String user;
@@ -11,7 +9,7 @@ public class Message {
     private String type;
 
     public Message(String user, String imageUrl, String type) {
-        long currTime = System.currentTimeMillis();
+        long currTime = TimestampUtil.getTimestamp();
         this.user = user;
         this.timestamp = currTime;
         this.message = imageUrl;
