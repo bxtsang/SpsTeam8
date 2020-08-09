@@ -30,6 +30,7 @@ public class GuiceConfig extends GuiceServletContextListener {
                 bind(UserRoomStatusService.class).to(UserRoomStatusServiceImpl.class);
                 bind(FetchMessagesService.class).to(FetchMessagesServiceImpl.class);
                 bind(SendTextMessageService.class).to(SendTextMessageServiceImpl.class);
+                bind(CloseRoomService.class).to(CloseRoomServiceImpl.class);
 
                 serve("/landing").with(LandingServlet.class);
                 serve("/joinRoom").with(JoinRoomServlet.class);
