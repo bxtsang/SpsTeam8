@@ -20,7 +20,7 @@ public class RoomsListingComparator implements Comparator<Room> {
         double aEstimatedNoOfPeopleNeeded = (aRoom.getMinPrice() - aRoom.getOrdersValue()) / aRoomAveragePerPersonValue;
 
         double bRoomAveragePerPersonValue =
-                (bRoom.getOrdersValue() + bRoom.getOrdersValue()) / bRoom.getUsersCount();
+                (bRoom.getOrdersValue() + bRoom.getDeliveryFee()) / bRoom.getUsersCount();
         double bEstimatedNoOfPeopleNeeded = (bRoom.getMinPrice() - bRoom.getOrdersValue()) / bRoomAveragePerPersonValue;
 
         return  Double.compare(aEstimatedNoOfPeopleNeeded, bEstimatedNoOfPeopleNeeded);
