@@ -77,12 +77,13 @@ public class OrderManager {
             return null;
         }
 
-        List<Order> orders = loadFromDataSnapshot(dataSnapshots.get());
+        List<Order> orders = loadFromDataSnapshot(roomId, userEmail, userEmailRoomId, dataSnapshots.get());
 
         return orders;    
     }
 
-    private List<Order> loadFromDataSnapshot(List<DataSnapshot> dataSnapshots) {
+    private List<Order> loadFromDataSnapshot(String roomId, String userEmail, String userEmailRoomId, 
+                                            List<DataSnapshot> dataSnapshots) {
         List<Order> orders = new ArrayList<>();
         
         for (DataSnapshot dataSnapshot : dataSnapshots) {
