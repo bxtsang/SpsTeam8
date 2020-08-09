@@ -19,7 +19,7 @@ $(document).ready(function() {
             html += "<a href=\"" + newMessage.message + "\"><img src=\"" + newMessage.message + "\" /></a> <br />";
         }
 
-        let date = new Date(newMessage.time);
+        let date = new Date(newMessage.timestamp);
         let minutes = minutes_with_leading_zeroes(date);
         let hours = hours_with_leading_zeroes(date);
 

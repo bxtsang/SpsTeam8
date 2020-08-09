@@ -6,14 +6,14 @@ import java.util.Date;
 
 public class Message {
     private String user;
-    private long time;
+    private long timestamp;
     private String message;
     private String type;
 
     public Message(String user, String imageUrl, String type) {
         long currTime = System.currentTimeMillis();
         this.user = user;
-        this.time = currTime;
+        this.timestamp = currTime;
         this.message = imageUrl;
         this.type = type;
     }
@@ -22,8 +22,8 @@ public class Message {
         return user;
     }
 
-    public long getTime() {
-        return time;
+    public long getTimestamp() {
+        return timestamp;
     }
 
     public String getMessage() {
