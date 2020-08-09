@@ -31,7 +31,7 @@ $(document).ready(function() {
     });
 });
 
-function sendMessage() {
+async function sendMessage() {
     let usernamePromise = null;
     
     if (username == null) {
@@ -44,19 +44,12 @@ function sendMessage() {
         let messageBox = document.getElementById("message");
         var message = messageBox.value;
         messageBox.value = "";
-        var date = new Date();
-        var time = date.getTime();
 
-        firebase.database().ref('messages/' + roomID).push().set({
-            type: "text",
-            user: username,
-            message: message,
-            time: time
-        }, function(error) {
-            if (error) {
-                console.log("Write failed");
-            }
-        });
+        await $.ajax({
+            type: 'POST',
+            url: "/text-message",
+            data: {'textmessage': message},
+        });;
     });
     return false;
 }
