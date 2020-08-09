@@ -59,8 +59,8 @@ public class AuthenticationHandlerTest {
         AuthenticationHandler authenticationHandler = new AuthenticationHandler();
 
         // Act
-        String expectedUser = userService.getCurrentUser();
-        String actualUser = authenticationHandler.getCurrentUser();
+        User expectedUser = userService.getCurrentUser();
+        User actualUser = authenticationHandler.getCurrentUser();
 
         // Assert
         assertEquals(expectedUser, actualUser);
