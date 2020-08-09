@@ -53,7 +53,7 @@ public class AuthenticationHandlerTest {
 
         // Arrange
         LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalUserServiceTestConfig())
-            .setEnvIsLoggedIn(true).setEnvEmail("test@gmail.com").setEnvAuthDomain("test");
+                .setEnvIsLoggedIn(true).setEnvEmail("test@gmail.com").setEnvAuthDomain("test");
         helper.setUp();
         UserService userService = UserServiceFactory.getUserService();
         AuthenticationHandler authenticationHandler = new AuthenticationHandler();
