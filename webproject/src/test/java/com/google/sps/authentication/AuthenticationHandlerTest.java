@@ -20,7 +20,7 @@ public class AuthenticationHandlerTest {
 
         // Arrange
         LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalUserServiceTestConfig())
-            .setEnvIsLoggedIn(true);
+                .setEnvIsLoggedIn(true);
         helper.setUp();
         AuthenticationHandler authenticationHandler = new AuthenticationHandler();
 
@@ -44,7 +44,7 @@ public class AuthenticationHandlerTest {
         boolean isUserLoggedIn = authenticationHandler.isUserLoggedIn();
 
         // Assert
-        assertTrue(isUserLoggedIn);
+        assertFalse(isUserLoggedIn);
         helper.tearDown();
     }
 
@@ -53,14 +53,14 @@ public class AuthenticationHandlerTest {
 
         // Arrange
         LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalUserServiceTestConfig())
-            .setEnvIsLoggedIn(true).setEnvEmail("test@gmail.com").setEnvAuthDomain("test");
+                .setEnvIsLoggedIn(true).setEnvEmail("test@gmail.com").setEnvAuthDomain("test");
         helper.setUp();
         UserService userService = UserServiceFactory.getUserService();
         AuthenticationHandler authenticationHandler = new AuthenticationHandler();
 
         // Act
-        String expectedUser = userService.getCurrentUser();
-        String actualUser = authenticationHandler.getCurrentUser();
+        User expectedUser = userService.getCurrentUser();
+        User actualUser = authenticationHandler.getCurrentUser();
 
         // Assert
         assertEquals(expectedUser, actualUser);
