@@ -33,7 +33,7 @@ public class GuiceConfig extends GuiceServletContextListener {
                 serve("/joinRoom").with(JoinRoomServlet.class);
                 serve("/userRoomStatus").with(UserRoomStatusServlet.class);
                 serve("/closeRoom").with(CloseRoomServlet.class);
-                serve("username").with(UsernameServlet.class);
+                serve("/username").with(UsernameServlet.class);
             }
         });
     }
