@@ -10,16 +10,16 @@ $(document).ready(function() {
     name = "user " + Math.floor(Math.random() * Math.floor(5));
     roomID = window.location.search.substring(1);
     firebase.database().ref('messages/' + roomID).on('child_added', function(snapshot) {
-        var snap = snapshot.val();
+        var newMessage = snapshot.val();
         var html = "<li class='message' id='message-" + snapshot.key + "'>";
-        html += "<span class='chat-user'>" + snap.user + "</span> <br />";
-        if (snap.type == "text") {
-            html += "<span class='chat-message'>" + snap.message + "</span> <br />";
+        html += "<span class='chat-user'>" + newMessage.user + "</span> <br />";
+        if (newMessage.type == "text") {
+            html += "<span class='chat-message'>" + newMessage.message + "</span> <br />";
         } else {
-            html += "<a href=\"" + snap.message + "\"><img src=\"" + snap.message + "\" /></a> <br />";
+            html += "<a href=\"" + newMessage.message + "\"><img src=\"" + newMessage.message + "\" /></a> <br />";
         }
 
-        let date = new Date(snap.time);
+        let date = new Date(newMessage.time);
         let minutes = minutes_with_leading_zeroes(date);
         let hours = hours_with_leading_zeroes(date);
 
