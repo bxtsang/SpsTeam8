@@ -22,8 +22,10 @@ $(document).ready(function() {
         let date = new Date(newMessage.timestamp);
         let minutes = minutes_with_leading_zeroes(date);
         let hours = hours_with_leading_zeroes(date);
+        let day = date.getDate();
+        let month = getMonth(date);
 
-        html += `<span class='chat-time'>${hours}:${minutes}</span>`;
+        html += `<span class='chat-time'>${day} ${month} ${hours}:${minutes}</span>`;
         html += "</li>";
         let messagesContainer = document.getElementById("messages");
         messagesContainer.innerHTML += html;
@@ -79,6 +81,11 @@ function minutes_with_leading_zeroes(date) {
 
 function hours_with_leading_zeroes(date) {
     return (date.getHours() < 10 ? '0' : '') + date.getHours();
+}
+
+function getMonth(date) {
+    let months = ["January", "Feburary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return months[date.getMonth()];
 }
 
 function showUploadingSpinner() {    	
