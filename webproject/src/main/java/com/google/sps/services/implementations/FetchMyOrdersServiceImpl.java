@@ -12,7 +12,7 @@ import com.google.sps.data.OrderProto.Order;
 import com.google.sps.dataManagers.OrderManager;
 import com.google.sps.proto.FetchOrdersProto.FetchOrdersResponse;
 import com.google.sps.proto.FetchOrdersProto.FetchOrdersRequest;
-import com.google.sps.services.interfaces.FetchOrdersService;
+import com.google.sps.services.interfaces.FetchMyOrdersService;
 
 @Singleton
 public class FetchMyOrdersServiceImpl implements FetchMyOrdersService {

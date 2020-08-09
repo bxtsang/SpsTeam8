@@ -48,7 +48,7 @@ public class MyOrderServlet extends HttpServlet {
         String roomId = request.getParameter("roomId");
 
         FetchOrdersRequest fetchOrdersRequest = FetchOrdersRequest.newBuilder().setRoomId(roomId).build();
-        FetchOrdersResponse fetchOrdersResponse = fetchOrdersService.execute(fetchOrdersRequest);
+        FetchOrdersResponse fetchOrdersResponse = fetchMyOrdersService.execute(fetchOrdersRequest);
 
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().println(JsonFormat.printer().print(fetchOrdersResponse));
