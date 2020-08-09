@@ -20,7 +20,7 @@ public class AuthenticationHandlerTest {
 
         // Arrange
         LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalUserServiceTestConfig())
-            .setEnvIsLoggedIn(true);
+                .setEnvIsLoggedIn(true);
         helper.setUp();
         AuthenticationHandler authenticationHandler = new AuthenticationHandler();
 
@@ -44,7 +44,7 @@ public class AuthenticationHandlerTest {
         boolean isUserLoggedIn = authenticationHandler.isUserLoggedIn();
 
         // Assert
-        assertTrue(isUserLoggedIn);
+        assertFalse(isUserLoggedIn);
         helper.tearDown();
     }
 
