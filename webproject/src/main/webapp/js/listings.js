@@ -127,6 +127,12 @@ async function getMyRooms() {
           <span class="card-field">Delivery fee: </span>
           <span class="card-value">$${roomData.deliveryFee}</span>
           <br />
+          <span class="card-field">Current orders value: </span>
+          <span class="card-value">$${roomData.ordersValue}</span>
+          <br />
+          <span class="card-field">Minimum order fee: </span>
+          <span class="card-value">$${roomData.minPrice}</span>
+          <br />
         </div>
       </div>
     </div>`;

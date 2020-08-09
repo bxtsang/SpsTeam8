@@ -40,6 +40,7 @@ public class Room {
         this.users = new ArrayList<>();
         this.isOpen = true;
         this.id = builder.id;
+        this.creator = builder.creator;
     }
     
     public String getTitle() {return title;}
