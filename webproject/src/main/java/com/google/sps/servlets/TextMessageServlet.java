@@ -66,6 +66,5 @@ public class TextMessageServlet extends HttpServlet {
             .child(roomID)
             .push()
             .setValueAsync(new Message(username, message, "text"));
-        response.sendRedirect(referrer);
     }
 }
