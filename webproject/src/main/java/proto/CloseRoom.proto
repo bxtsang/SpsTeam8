@@ -1,0 +1,13 @@
+syntax = "proto2";
+
+package com.google.sps.proto;
+
+option java_outer_classname = "CloseRoomProto";
+
+message CloseRoomRequest {
+  required string roomId = 1;
+}
+
+message CloseRoomResponse {
+  required string roomId = 1;
+}
