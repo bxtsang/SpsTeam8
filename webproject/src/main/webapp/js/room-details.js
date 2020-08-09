@@ -14,9 +14,15 @@ async function getRoomDetails(roomID) {
     <br />
     <br />
     
-    <span class="room-details-header">Delivery fee: </span>
+    <span class="room-details-header">Delivery Fee: </span>
     <br />
     <span class="room-details-value">$${roomDetails.deliveryFee}</span>
+    <br/>
+    <br />
+
+    <span class="room-details-header">Minimum Order Fee: </span>
+    <br />
+    <span class="room-details-value">$${roomDetails.minPrice}</span>
     <br/>
     <br />
     </div>
