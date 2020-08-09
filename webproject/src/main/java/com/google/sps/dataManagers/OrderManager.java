@@ -73,17 +73,24 @@ public class OrderManager {
         Query query = firebaseUtil.getOrdersReference().orderByChild("userEmailRoomId");
         Optional<List<DataSnapshot>> dataSnapshots = firebaseUtil.getAllQuerySnapshots(query, userEmailRoomId);
 
-        List<Order> orders = new ArrayList<>();
-
         if (!dataSnapshots.isPresent()) {
             return null;
         }
 
-        for (DataSnapshot dataSnapshot : dataSnapshots.get()) {
+        List<Order> orders = loadFromDataSnapshot(dataSnapshots.get());
+
+        return orders;    
+    }
+
+    private List<Order> loadFromDataSnapshot(List<DataSnapshot> dataSnapshots) {
+        List<Order> orders = new ArrayList<>();
+        
+        for (DataSnapshot dataSnapshot : dataSnapshots) {
             String product = dataSnapshot.child("product").getValue(String.class);
             int quantity = Integer.parseInt(dataSnapshot.child("quantity").getValue(String.class));
             double unitPrice = Double.parseDouble(dataSnapshot.child("unitPrice").getValue(String.class));
             double orderPrice = Double.parseDouble(dataSnapshot.child("orderPrice").getValue(String.class));
+            
             Order orderObject = Order.newBuilder()
                                     .setUserEmail(userEmail)
                                     .setProduct(product)
@@ -96,7 +103,7 @@ public class OrderManager {
             orders.add(orderObject);
         }
 
-        return orders;    
+        return orders;
     }
 
     private boolean isRoomIdValid(String roomId) throws ServletException {
