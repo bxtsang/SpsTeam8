@@ -1,9 +1,9 @@
 package com.google.sps.dataManagers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -33,20 +33,10 @@ public class MessagesManager {
 
         DatabaseReference ref = firebaseUtil.getMessagesReference().child(roomId);
         List<DataSnapshot> dataSnapshots = firebaseUtil.getAllSnapshotsFromReference(ref);
-
-        List<Message> messages = new ArrayList<>();
-        for (DataSnapshot dataSnapshot : dataSnapshots) {
-            String user = dataSnapshot.child("user").getValue(String.class);
-            String time = dataSnapshot.child("time").getValue(String.class);
-            String message = dataSnapshot.child("message").getValue(String.class);
-            String type = dataSnapshot.child("type").getValue(String.class);
-            Message messageObject =
-                    Message.newBuilder().setMessage(message).setTime(time).setUser(user).setType(type).build();
-            messages.add(messageObject);
-        }
-
+        List<Message> messages = dataSnapshots.stream().map(this::toMessage).collect(Collectors.toList());
         return messages;
     }
+
 
     public Message addMessage(String user, String message, String roomId) throws ServletException {
         String timestamp = String.valueOf(TimestampUtil.getTimestamp());
@@ -61,5 +51,15 @@ public class MessagesManager {
         DatabaseReference databaseReference = firebaseUtil.getMessagesReference().child(roomId);
         firebaseUtil.addToDatabase(databaseReference, messageMapping);
         return Message.newBuilder().setMessage(message).setUser(user).setType(type).setTime(timestamp).build();
+    }
+
+    private Message toMessage(DataSnapshot dataSnapshot) {
+        String user = dataSnapshot.child("user").getValue(String.class);
+        String time = dataSnapshot.child("time").getValue(String.class);
+        String message = dataSnapshot.child("message").getValue(String.class);
+        String type = dataSnapshot.child("type").getValue(String.class);
+        Message messageObject =
+                Message.newBuilder().setMessage(message).setTime(time).setUser(user).setType(type).build();
+        return messageObject;
     }
 }
