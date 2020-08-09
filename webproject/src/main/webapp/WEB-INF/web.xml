@@ -96,16 +96,6 @@
     <url-pattern>/username</url-pattern>
   </servlet-mapping>
 
-  <!-- Close Room Servlet -->
-  <servlet>
-    <servlet-name>CloseRoomServlet</servlet-name>
-    <servlet-class>com.google.sps.servlets.CloseRoomServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>CloseRoomServlet</servlet-name>
-    <url-pattern>/closeRoom</url-pattern>
-  </servlet-mapping>
-
   <!-- Entry Servlet -->
   <servlet>
     <servlet-name>EntryServlet</servlet-name>
