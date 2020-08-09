@@ -5,6 +5,8 @@ import com.google.gson.Gson;
 import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.data.Category;
 import com.google.sps.data.Room;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +23,7 @@ public class RoomServlet extends HttpServlet {
     private static Gson gson = new Gson();
 
     @Override
-    public void doPost (HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost (HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         User user = new AuthenticationHandler().getCurrentUser();
         String userEmail = user.getEmail();
 
@@ -36,8 +38,6 @@ public class RoomServlet extends HttpServlet {
                 .setDeliveryFee(Double.parseDouble(request.getParameter("deliveryFee")))
                 .setCreator(userEmail)
                 .build();
-
-        newRoom.addUser(userEmail);
 
         newRoom.save();
         response.setStatus(200);

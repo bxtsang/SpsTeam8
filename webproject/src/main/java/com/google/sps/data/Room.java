@@ -3,7 +3,10 @@ package com.google.sps.data;
 import com.google.appengine.api.datastore.Entity;
 import com.google.gson.Gson;
 import com.google.sps.firebase.Firebase;
+import com.google.sps.proto.JoinRoomProto;
+import com.google.sps.services.interfaces.JoinRoomService;
 
+import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +28,7 @@ public class Room {
     private double ordersValue;
 
     private static Gson gson = new Gson();
+    private static JoinRoomService joinRoomService;
 
     private Room (Builder builder) {
         this.title = builder.title;
@@ -61,17 +65,14 @@ public class Room {
         this.ordersValue += orderPrice;
     }
 
-    public void addUser(String userEmail, String roomId) {
-        UserRoom userRoom = new UserRoom(userEmail, roomId);
-        userRoom.save();
-    }
-
-    public void save() throws IOException {
+    public void save() throws IOException, ServletException {
         String roomJson = gson.toJson(this);
         String firebaseResponse = Firebase.sendRequest("https://summer20-sps-47.firebaseio.com/rooms.json", "POST", roomJson);
         Map<String, String> firebaseData = gson.fromJson(firebaseResponse, Map.class);
 
-        this.addUser(this.creator, firebaseData.get("name"));
+        String roomId = firebaseData.get("name");
+        JoinRoomProto.JoinRoomRequest joinRoomRequest = JoinRoomProto.JoinRoomRequest.newBuilder().setRoomId(roomId).build();
+        joinRoomService.execute(joinRoomRequest);
     }
 
     public void save(String roomId) throws IOException {
