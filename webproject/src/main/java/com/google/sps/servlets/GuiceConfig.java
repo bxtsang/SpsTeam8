@@ -8,7 +8,10 @@ import com.google.inject.servlet.ServletModule;
 import com.google.sps.services.implementations.FetchRoomsServiceImpl;
 import com.google.sps.services.implementations.UserRoomStatusServiceImpl;
 import com.google.sps.services.implementations.JoinRoomServiceImpl;
+import com.google.sps.services.implementations.CloseRoomServiceImpl;
+
 import com.google.sps.services.interfaces.FetchRoomsService;
+import com.google.sps.services.interfaces.CloseRoomService;
 import com.google.sps.services.interfaces.UserRoomStatusService;
 import com.google.sps.services.interfaces.JoinRoomService;
 
@@ -21,6 +24,7 @@ public class GuiceConfig extends GuiceServletContextListener {
             protected void configureServlets() {
                 super.configureServlets();
 
+                bind(CloseRoomService.class).to(CloseRoomServiceImpl.class);
                 bind(JoinRoomService.class).to(JoinRoomServiceImpl.class);
                 bind(UserRoomStatusService.class).to(UserRoomStatusServiceImpl.class);
                 bind(FetchRoomsService.class).to(FetchRoomsServiceImpl.class);
@@ -29,6 +33,7 @@ public class GuiceConfig extends GuiceServletContextListener {
                 serve("/joinRoom").with(JoinRoomServlet.class);
                 serve("/userRoomStatus").with(UserRoomStatusServlet.class);
                 serve("/fetchRooms").with(FetchRoomsServlet.class);
+                serve("/closeRoom").with(CloseRoomServlet.class);
             }
         });
     }

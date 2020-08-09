@@ -3,6 +3,7 @@ package com.google.sps.servlets;
 import com.google.sps.authentication.AuthenticationHandler;
 import com.google.appengine.api.users.User;
 import com.google.sps.data.Message;
+import com.google.sps.util.TimestampUtil;
 import java.io.FileInputStream;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -73,7 +74,7 @@ public class FormHandlerServlet extends HttpServlet {
             .getReference("messages")
             .child(roomID)
             .push()
-            .setValueAsync(new Message(username, imageUrl, "image"));
+            .setValueAsync(new Message(username, imageUrl, "image", TimestampUtil.getFormattedTime()));
         response.sendRedirect(referrer);
     }
 

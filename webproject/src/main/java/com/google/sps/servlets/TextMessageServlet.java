@@ -3,6 +3,7 @@ package com.google.sps.servlets;
 import com.google.sps.authentication.AuthenticationHandler;
 import com.google.appengine.api.users.User;
 import com.google.sps.data.Message;
+import com.google.sps.util.TimestampUtil;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -15,12 +16,14 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -65,7 +68,7 @@ public class TextMessageServlet extends HttpServlet {
             .getReference("messages")
             .child(roomID)
             .push()
-            .setValueAsync(new Message(username, message, "text"));
+            .setValueAsync(new Message(username, message, "text", TimestampUtil.getFormattedTime()));
         response.sendRedirect(referrer);
     }
 }
