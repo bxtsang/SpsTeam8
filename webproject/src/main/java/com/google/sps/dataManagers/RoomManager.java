@@ -70,7 +70,6 @@ public class RoomManager {
         }
 
         return toRoom(roomSnapshot.get());
-        
     }
 
     private Room toRoom(DataSnapshot dataSnapshot) {
