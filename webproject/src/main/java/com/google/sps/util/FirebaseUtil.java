@@ -3,6 +3,7 @@ package com.google.sps.util;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -48,6 +49,11 @@ public class FirebaseUtil {
     public DatabaseReference getRoomsReference() {
         return FirebaseDatabase.getInstance()
                 .getReference("rooms");
+    }
+
+    public DatabaseReference getMessagesReference() {
+        return FirebaseDatabase.getInstance()
+                .getReference("messages");
     }
 
     public Optional<DataSnapshot> getQuerySnapshot(Query query, String input) throws ServletException {
@@ -97,6 +103,27 @@ public class FirebaseUtil {
             return queue.poll(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             throw new ServletException("The database did not return a response for the specified reference");
+        }
+    }
+
+    public void addToDatabase(DatabaseReference ref, Map<?, ?> mappings) throws ServletException {
+        final BlockingQueue<Optional<ServletException>> queue = new LinkedBlockingDeque(1);
+        ref.push()
+            .setValue(mappings, (databaseError, databaseReference) -> {
+                if (databaseError != null) {
+                    queue.add(Optional.of(new ServletException("There was an error adding a new object to the database.")));
+                } else {
+                    queue.add(Optional.empty());
+                }
+            });
+
+        try {
+            Optional<ServletException> servletException = queue.poll(30, TimeUnit.SECONDS);
+            if (servletException.isPresent()) {
+                throw  servletException.get();
+            }
+        } catch (InterruptedException | ServletException e) {
+            throw new ServletException("No response was returned by the database.");
         }
     }
 }

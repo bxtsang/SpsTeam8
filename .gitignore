@@ -2,6 +2,10 @@ target/
 config.js
 key.json
 .idea/
+.classpath
+.factorypath
+.project
+.settings/
 webproject.iml
 googleMapsKey.json
 .factorypath
