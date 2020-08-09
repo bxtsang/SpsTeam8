@@ -39,6 +39,40 @@ public class RoomManager {
         return sortedRooms;
     }
 
+    public Room closeRoom(String roomId) throws ServletException {
+        if (!isRoomIdValid(roomId)) {
+            throw new ServletException("Invalid roomId");
+        }
+
+        final BlockingQueue<Optional<ServletException>> queue = new LinkedBlockingDeque(1);
+        firebaseUtil.getRoomsReference().child(roomId).child("isOpen")
+                .setValue(Boolean.FALSE, (error, reference) -> {
+                    if (error != null) {
+                        queue.add(Optional.of(new ServletException("There was an error closing the room.")));
+                    } else {
+                        queue.add(Optional.empty());
+                    }
+                });
+        
+        try {
+            Optional<ServletException> servletException = queue.poll(30, TimeUnit.SECONDS);
+            if (servletException.isPresent()) {
+                throw servletException.get();
+            }
+        } catch (InterruptedException e) {
+            throw new ServletException("The close room process did not return a response from the database.");
+        }
+
+        Query query = firebaseUtil.getRoomsReference().orderByChild(roomId);
+        Optional<DataSnapshot> roomSnapshot = firebaseUtil.getQuerySnapshot(query, roomId);
+        if (!roomSnapshot.isPresent()) {
+            return null;
+        }
+
+        return toRoom(roomSnapshot.get());
+        
+    }
+
     private Room toRoom(DataSnapshot dataSnapshot) {
         String id = dataSnapshot.getKey();
         String title = dataSnapshot.child("title").getValue(String.class);
@@ -77,33 +111,6 @@ public class RoomManager {
         }
 
         return roomBuilder.build();
-    }
-
-    public Room closeRoom(String roomId) throws ServletException {
-        if (!isRoomIdValid(roomId)) {
-            throw new ServletException("Invalid roomId");
-        }
-
-        final BlockingQueue<Optional<ServletException>> queue = new LinkedBlockingDeque(1);
-        firebaseUtil.getRoomsReference().child(roomId).child("isOpen")
-                .setValue(Boolean.FALSE, (error, reference) -> {
-                    if (error != null) {
-                        queue.add(Optional.of(new ServletException("There was an error closing the room.")));
-                    } else {
-                        queue.add(Optional.empty());
-                    }
-                });
-        
-        try {
-            Optional<ServletException> servletException = queue.poll(30, TimeUnit.SECONDS);
-            if (servletException.isPresent()) {
-                throw servletException.get();
-            }
-        } catch (InterruptedException e) {
-            throw new ServletException("The close room process did not return a response from the database.");
-        }
-
-        return Room.newBuilder().setId(roomId).build();
     }
 
     private boolean isRoomIdValid(String roomId) throws ServletException {
