@@ -15,7 +15,7 @@ import com.google.sps.data.RoomProto.Room;
  * the room is closer to hitting the minPrice / is very active, thus the order by the users maybe be placed soon.
  * Therefore, it will be listed before rooms with a larger "full" value.
  */
-public class RoomListingComparator implements Comparator<Room> {
+public class RoomsListingComparator implements Comparator<Room> {
     public int compare(Room aRoom, Room bRoom) {
         double aRoomAveragePerPersonValue =
                 (aRoom.getMinPrice() - aRoom.getOrdersValue() + aRoom.getDeliveryFee()) / aRoom.getUsersCount();

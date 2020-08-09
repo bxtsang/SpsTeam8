@@ -12,7 +12,7 @@ import javax.servlet.ServletException;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
-import com.google.sps.Comparators.RoomListingComparator;
+import com.google.sps.Comparators.RoomsListingComparator;
 import com.google.sps.data.CategoryProto.Category;
 import com.google.sps.data.RoomProto.Room;
 import com.google.sps.util.FirebaseUtil;
@@ -30,7 +30,7 @@ public class RoomManager {
         DatabaseReference ref = firebaseUtil.getRoomsReference();
         List<DataSnapshot> dataSnapshots = firebaseUtil.getAllSnapshotsFromReference(ref);
         Queue<Room> sortedRooms = dataSnapshots.stream().map(this::toRoom).collect(Collectors.toCollection(() ->
-                                new PriorityQueue<>(dataSnapshots.size(), new RoomListingComparator())));
+                                new PriorityQueue<>(dataSnapshots.size(), new RoomsListingComparator())));
         return sortedRooms;
     }
 
