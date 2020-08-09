@@ -28,8 +28,14 @@ async function getListings() {
           <span class="card-field">Delivery fee: </span>
           <span class="card-value">$${roomData.deliveryFee}</span>
           <br />
+          <span class="card-field">Current orders value: </span>
+          <span class="card-value">$${roomData.ordersValue}</span>
+          <br />
+          <span class="card-field">Minimum order fee: </span>
+          <span class="card-value">$${roomData.minPrice}</span>
+          <br />
           <br />`;
-        let response2 = await fetch("/join?roomId=" + room[0]);
+        let response2 = await fetch("/userRoomStatus?roomId=" + room[0]);
         let joinAction = await response2.text();
         if (joinAction == "Join") {
             childHtmlString += `<button id="action" class="btn btn-join" onclick="joinRoom('${room[0]}')">Join</button>
@@ -50,7 +56,7 @@ async function joinRoom(roomId) {
     formData.append("roomId", roomId);
     $.ajax({
         type: 'POST',
-        url: "/join",
+        url: "/joinRoom",
         data: { 'roomId': roomId },
         success: function(msg) {
             window.alert("Joined room!");
@@ -125,6 +131,12 @@ async function getMyRooms() {
           <br />
           <span class="card-field">Delivery fee: </span>
           <span class="card-value">$${roomData.deliveryFee}</span>
+          <br />
+          <span class="card-field">Current orders value: </span>
+          <span class="card-value">$${roomData.ordersValue}</span>
+          <br />
+          <span class="card-field">Minimum order fee: </span>
+          <span class="card-value">$${roomData.minPrice}</span>
           <br />
         </div>
       </div>
