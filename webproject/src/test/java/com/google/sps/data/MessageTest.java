@@ -31,7 +31,7 @@ public class MessageTest {
 
     @Test
     public void getTime_returnsTime() {
-        assertEquals(FORMATTED_TIME, message.getTime());
+        assertEquals(FORMATTED_TIME, message.getTimestamp());
     }
 
     @Test
