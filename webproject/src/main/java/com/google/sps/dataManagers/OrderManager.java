@@ -97,7 +97,6 @@ public class OrderManager {
     }
 
     private Order toOrder(DataSnapshot dataSnapshot) {
-        //System.out.println(dataSnapshot);
         String userEmail = dataSnapshot.child("userEmail").getValue(String.class);
         String product = dataSnapshot.child("product").getValue(String.class);
         int quantity = Integer.parseInt(dataSnapshot.child("quantity").getValue(String.class));
