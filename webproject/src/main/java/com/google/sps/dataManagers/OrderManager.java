@@ -78,9 +78,7 @@ public class OrderManager {
             return null;
         }
 
-        List<Order> orders = dataSnapshots.get().stream().map(this::toOrder).collect(Collectors.toList());
-
-        return orders;    
+        return dataSnapshots.get().stream().map(this::toOrder).collect(Collectors.toList());
     }
 
     private Order toOrder(DataSnapshot dataSnapshot) {
