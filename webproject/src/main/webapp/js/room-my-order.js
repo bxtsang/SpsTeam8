@@ -9,7 +9,7 @@ window.onload = function() {
 async function getMyOrder() {
     let orderResponse = await fetch(`/myOrder?roomId=${roomID}`);
     let myOrders = await orderResponse.json();
-    let myOrderItems = Object.values(myOrders);
+    let myOrderItems = Object.values(myOrders.orders);
 
     let roomResponse = await fetch(`https://summer20-sps-47.firebaseio.com/rooms/${roomID}.json`)
     let myRoomDetails = await roomResponse.json();

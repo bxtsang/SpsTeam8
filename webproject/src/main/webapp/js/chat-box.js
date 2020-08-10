@@ -1,57 +1,62 @@
 var roomID = window.location.search.substr(1);
 var username = null;
-
 window.onload = function() {
     fetchBlobstoreUrl();
+    fetchMessages();
 }
 
-$(document).ready(function() {
-    database = firebase.database();
-    name = "user " + Math.floor(Math.random() * Math.floor(5));
-    roomID = window.location.search.substring(1);
-    firebase.database().ref('messages/' + roomID).on('child_added', function(snapshot) {
-        var newMessage = snapshot.val();
-        var html = "<li class='message' id='message-" + snapshot.key + "'>";
-        html += "<span class='chat-user'>" + newMessage.user + "</span> <br />";
-        if (newMessage.type == "text") {
-            html += "<span class='chat-message'>" + newMessage.message + "</span> <br />";
-        } else {
-            html += "<a href=\"" + newMessage.message + "\"><img src=\"" + newMessage.message + "\" /></a> <br />";
-        }
-
-        let date = new Date(newMessage.timestamp);
-        let minutes = minutes_with_leading_zeroes(date);
-        let hours = hours_with_leading_zeroes(date);
-        let day = date.getDate();
-        let month = getMonth(date);
-
-        html += `<span class='chat-time'>${day} ${month} ${hours}:${minutes}</span>`;
-        html += "</li>";
+async function fetchMessages() {
+    const roomId = window.location.search.substring(1);
+    fetch("/fetchMessages?roomId=" + roomId).then(response => response.json()).then(response => {
         let messagesContainer = document.getElementById("messages");
-        messagesContainer.innerHTML += html;
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        messagesContainer.innerHTML = "";
+        for (let key in response.messages) {
+            const snap = response.messages[key];
+            let html = "<li class='message' id='message-" + key + "'>";
+            html += "<span class='chat-user'>" + snap.user + "</span> <br />";
+            if (snap.type == "text") {
+                html += "<span class='chat-message'>" + snap.message + "</span> <br />";
+            } else {
+                html += "<a href=\"" + snap.message + "\"><img src=\"" + snap.message + "\" /></a> <br />";
+            }
+
+            let date = new Date(newMessage.timestamp);
+            let minutes = minutes_with_leading_zeroes(date);
+            let hours = hours_with_leading_zeroes(date);
+            let day = date.getDate();
+            let month = getMonth(date);
+
+            html += `<span class='chat-time'>${day} ${month} ${hours}:${minutes}</span>`;
+            html += "</li>";
+            messagesContainer.innerHTML += html;
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
     });
-});
+}
 
-async function sendMessage() {
+function sendMessage() {
+    const roomId = window.location.search.substring(1);
     let usernamePromise = null;
-    
     if (username == null) {
-	    usernamePromise = getUsername();
+        usernamePromise = getUsername();
     } else {
-	    usernamePromise = Promise.resolve(username);
+        usernamePromise = Promise.resolve(username);
     }
-
     usernamePromise.then(username => {
         let messageBox = document.getElementById("message");
         var message = messageBox.value;
         messageBox.value = "";
-
-        await $.ajax({
+        $.ajax({
             type: 'POST',
-            url: "/text-message",
-            data: {'textmessage': message},
-        });;
+            url: "/sendTextMessage",
+            data: { "user": username, "message": message, "roomId": roomId},
+            success: function(msg) {
+                fetchMessages();
+            },
+            error: function(msg) {
+                window.alert("Something went wrong!");
+            }
+        });
     });
     return false;
 }

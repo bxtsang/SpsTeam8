@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 import javax.servlet.ServletException;
 
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.sps.data.UserRoomProto.UserRoom;
 import com.google.sps.util.FirebaseUtil;
@@ -33,17 +34,8 @@ public class UserRoomManager {
         userRoomMapping.put("roomId", roomId);
         userRoomMapping.put("userEmailRoom", userEmailRoom);
 
-        firebaseUtil.getUserRoomReference().push()
-                .setValue(userRoomMapping, (databaseError, databaseReference) -> {
-                    if (databaseError != null) {
-                        try {
-                            throw new ServletException("Invalid roomId");
-                        } catch (ServletException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                
+        DatabaseReference databaseReference = firebaseUtil.getUserRoomReference();
+        firebaseUtil.addToDatabase(databaseReference, userRoomMapping);
         return UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom(userEmailRoom).build();
     }
 
@@ -63,7 +55,7 @@ public class UserRoomManager {
         return UserRoom.newBuilder().setUserEmail(userEmail).setRoomId(roomId).setUserEmailRoom(userEmailRoom).build();
     }
 
-    private boolean isRoomIdValid(String roomId) throws ServletException {
+    public boolean isRoomIdValid(String roomId) throws ServletException {
         Query query = firebaseUtil.getRoomsReference().orderByKey();
         Optional<DataSnapshot> room = firebaseUtil.getQuerySnapshot(query, roomId);
         return room.isPresent();

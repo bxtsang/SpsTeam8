@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.data.Category;
 import com.google.sps.data.Room;
+import com.google.sps.util.TimestampUtil;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +36,7 @@ public class RoomServlet extends HttpServlet {
                 .setMinPrice(Double.parseDouble(request.getParameter("minPrice")))
                 .setDeliveryFee(Double.parseDouble(request.getParameter("deliveryFee")))
                 .setCreator(userEmail)
+                .setTimestamp(TimestampUtil.getTimestamp())
                 .build();
 
         newRoom.addUser(userEmail);
