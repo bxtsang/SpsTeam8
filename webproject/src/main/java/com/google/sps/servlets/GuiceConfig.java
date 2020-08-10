@@ -14,6 +14,7 @@ import com.google.sps.services.implementations.CloseRoomServiceImpl;
 import com.google.sps.services.implementations.SendTextMessageServiceImpl;
 import com.google.sps.services.implementations.FetchMessagesServiceImpl;
 
+import com.google.sps.services.interfaces.CloseRoomService;
 import com.google.sps.services.interfaces.UserRoomStatusService;
 import com.google.sps.services.interfaces.JoinRoomService;
 import com.google.sps.services.interfaces.FetchMyOrdersService;
