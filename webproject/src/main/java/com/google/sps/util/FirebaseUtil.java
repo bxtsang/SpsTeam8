@@ -51,6 +51,11 @@ public class FirebaseUtil {
                 .getReference("rooms");
     }
 
+    public DatabaseReference getOrdersReference() {
+        return FirebaseDatabase.getInstance()
+                .getReference("orders");
+    }
+
     public DatabaseReference getMessagesReference() {
         return FirebaseDatabase.getInstance()
                 .getReference("messages");
@@ -63,6 +68,35 @@ public class FirebaseUtil {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     queue.add(Optional.of(dataSnapshot));
+                } else {
+                    queue.add(Optional.empty());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                throw databaseError.toException();
+            }
+        });
+
+        try {
+            return queue.poll(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            throw new ServletException("The database did not return a response for the specified query");
+        }
+    }
+
+    public Optional<List<DataSnapshot>> getAllQuerySnapshots(Query query, String input) throws ServletException {
+        final BlockingQueue<Optional<List<DataSnapshot>>> queue = new LinkedBlockingDeque(1);
+        query.equalTo(input).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    List<DataSnapshot> list = new ArrayList<>();
+                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                        list.add(postSnapshot);
+                    }
+                    queue.add(Optional.of(list));
                 } else {
                     queue.add(Optional.empty());
                 }

@@ -4,9 +4,9 @@ import com.google.protobuf.util.JsonFormat;
 import com.google.sps.authentication.AuthenticationHandler;
 import com.google.sps.data.OrderProto.Order;
 import com.google.sps.dataManagers.OrderManager;
-import com.google.sps.proto.FetchOrdersProto.FetchOrdersResponse;
-import com.google.sps.proto.FetchOrdersProto.FetchOrdersRequest;
-import com.google.sps.services.interfaces.FetchMyOrdersService;
+import com.google.sps.proto.PostOrderProto.PostOrderResponse;
+import com.google.sps.proto.PostOrderProto.PostOrderRequest;
+import com.google.sps.services.interfaces.PostOrderService;
 
 import java.io.IOException;
 
@@ -21,14 +21,13 @@ import javax.servlet.http.HttpServletResponse;
  * A servlet which retrieves all Orders made in the Room.
  */
 @Singleton
-public class MyOrderServlet extends HttpServlet {
-    private FetchMyOrdersService fetchMyOrdersService;
+public class PostOrderServlet extends HttpServlet {
+    private PostOrderService postOrderService;
     private AuthenticationHandler authenticationHandler;
 
     @Inject
-    public MyOrderServlet(FetchMyOrdersService fetchMyOrdersService, 
-                            AuthenticationHandler authenticationHandler) {
-        this.fetchMyOrdersService = fetchMyOrdersService;
+    public PostOrderServlet(PostOrderService postOrderService, AuthenticationHandler authenticationHandler) {
+        this.postOrderService = postOrderService;
         this.authenticationHandler = authenticationHandler;
     }
 
@@ -39,19 +38,27 @@ public class MyOrderServlet extends HttpServlet {
      * @throws IOException If an input or output error is detected when the servlet handles the GET request.
      */
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         if (!authenticationHandler.isUserLoggedIn()) {
             response.setStatus(400);
             return;
         }
         
         String roomId = request.getParameter("roomId");
+        String product = request.getParameter("product");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        double unitPrice = Double.parseDouble(request.getParameter("unitPrice"));
 
-        FetchOrdersRequest fetchOrdersRequest = FetchOrdersRequest.newBuilder().setRoomId(roomId).build();
-        FetchOrdersResponse fetchOrdersResponse = fetchMyOrdersService.execute(fetchOrdersRequest);
+        PostOrderRequest postOrderRequest = PostOrderRequest.newBuilder()
+                                                            .setRoomId(roomId)
+                                                            .setProduct(product)
+                                                            .setQuantity(quantity)
+                                                            .setUnitPrice(unitPrice)
+                                                            .build();
+        PostOrderResponse postOrderResponse = postOrderService.execute(postOrderRequest);
 
         response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().println(JsonFormat.printer().print(fetchOrdersResponse));
+        response.getWriter().println(JsonFormat.printer().print(postOrderResponse));
         response.setStatus(200);
     }
 }
