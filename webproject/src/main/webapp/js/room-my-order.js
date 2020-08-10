@@ -51,7 +51,6 @@ async function getMyOrder() {
         </button>
         </td>
         </tr>`;
-        console.log(orderItem.orderId);
         }
     }
     myDeliveryFee = (
