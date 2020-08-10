@@ -6,6 +6,11 @@ async function getListings() {
     var sortedEntries = data.rooms;
     for (var i = 0; i < sortedEntries.length; i++) {
         let room = sortedEntries[i];
+
+        let userRoomResponse = await fetch(`https://summer20-sps-47.firebaseio.com/UserRoom.json?orderBy=%22roomId%22&equalTo=%22${room.id}%22`);
+        let userRoomData = await userRoomResponse.json();
+        let numUsers = Object.keys(userRoomData).length;
+
         childHtmlString += `<div class="shadow-sm p-3 mb-5 bg-white rounded listing-card">
         <div class="row form-group">
         <div class="col-md-6 mb-3 mb-md-0">
@@ -14,6 +19,11 @@ async function getListings() {
         <span class="card-field">Postal Code: </span>
         <span class="card-value postal-code-value">
         ${room.deliveryLocation}
+        </span>
+        <br />
+        <span class="card-field">Number of Users: </span>
+        <span class="card-value num-users-value">
+        ${numUsers}
         </span>
         <br />
         <span class="card-description">
