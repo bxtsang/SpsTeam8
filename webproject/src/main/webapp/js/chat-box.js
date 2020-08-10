@@ -19,7 +19,14 @@ async function fetchMessages() {
             } else {
                 html += "<a href=\"" + snap.message + "\"><img src=\"" + snap.message + "\" /></a> <br />";
             }
-            html += "<span class='chat-time'>" + snap.time + "</span>";
+
+            let date = new Date(newMessage.timestamp);
+            let minutes = minutes_with_leading_zeroes(date);
+            let hours = hours_with_leading_zeroes(date);
+            let day = date.getDate();
+            let month = getMonth(date);
+
+            html += `<span class='chat-time'>${day} ${month} ${hours}:${minutes}</span>`;
             html += "</li>";
             messagesContainer.innerHTML += html;
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -79,7 +86,12 @@ function hours_with_leading_zeroes(date) {
     return (date.getHours() < 10 ? '0' : '') + date.getHours();
 }
 
-function showUploadingSpinner() {
+function getMonth(date) {
+    let months = ["January", "Feburary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    return months[date.getMonth()];
+}
+
+function showUploadingSpinner() {    	
     //Disabling a text input field with regular JavaScript.
     document.getElementById("file-input").disabled = true;
     document.getElementsByClassName('upload-button')[0].innerHTML = '<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>';
