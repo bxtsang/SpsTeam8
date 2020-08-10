@@ -27,12 +27,11 @@ async function getListings() {
         <span class="card-field">Delivery fee: </span>
         <span class="card-value">$${room.deliveryFee}</span>
         <br />
-        <br />
         <span class="card-field">Current orders value: </span>
-        <span class="card-value">$${roomData.ordersValue}</span>
+        <span class="card-value">$${room.ordersValue}</span>
         <br />
         <span class="card-field">Minimum order fee: </span>
-        <span class="card-value">$${roomData.minPrice}</span>
+        <span class="card-value">$${room.minPrice}</span>
         <br />`;
         let response2 = await fetch("/userRoomStatus?roomId=" + room.id);
         let joinAction = await response2.text();
