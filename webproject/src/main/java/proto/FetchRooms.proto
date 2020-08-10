@@ -1,0 +1,14 @@
+syntax = "proto2";
+
+package com.google.sps.proto;
+
+import "Room.proto";
+
+option java_outer_classname = "FetchRoomsProto";
+
+message FetchRoomsRequest {
+}
+
+message FetchRoomsResponse {
+  repeated com.google.sps.data.Room rooms = 1;
+}
