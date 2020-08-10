@@ -9,6 +9,7 @@ public class Message {
     private String type;
 
     public Message(String user, String message, String type, String timestamp) {
+        long currTime = TimestampUtil.getTimestamp();
         this.user = user;
         this.timestamp = timestamp;
         this.message = message;
