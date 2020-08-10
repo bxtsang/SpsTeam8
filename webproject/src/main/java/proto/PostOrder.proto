@@ -1,0 +1,18 @@
+syntax = "proto2";
+
+package com.google.sps.proto;
+
+import "Order.proto";
+
+option java_outer_classname = "PostOrderProto";
+
+message PostOrderRequest {
+  required string roomId = 1;
+  required string product = 2;
+  required int32 quantity = 3;
+  required double unitPrice = 4;
+}
+
+message PostOrderResponse {
+  required com.google.sps.data.Order order = 1;
+}
