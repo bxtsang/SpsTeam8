@@ -1,14 +1,17 @@
 package com.google.sps.data;
 
+import com.google.sps.util.TimestampUtil;
+
 public class Message {
     private String user;
-    private String time;
+    private String timestamp;
     private String message;
     private String type;
 
-    public Message(String user, String message, String type, String time) {
+    public Message(String user, String message, String type, String timestamp) {
+        long currTime = TimestampUtil.getTimestamp();
         this.user = user;
-        this.time = time;
+        this.timestamp = timestamp;
         this.message = message;
         this.type = type;
     }
@@ -17,8 +20,8 @@ public class Message {
         return user;
     }
 
-    public String getTime() {
-        return time;
+    public String getTimestamp() {
+        return timestamp;
     }
 
     public String getMessage() {
