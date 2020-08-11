@@ -20,7 +20,7 @@
   <!-- Listings Servlet -->
   <servlet>
     <servlet-name>ListingsServlet</servlet-name>
-    <servlet-class>com.google.sps.servlets.ListingsServlet</servlet-class>
+    <servlet-class>com.google.sps.servlets.redirect.ListingsServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>ListingsServlet</servlet-name>
@@ -96,26 +96,6 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
-  <!-- MyOrder Servlet -->
-  <servlet>
-    <servlet-name>MyOrderServlet</servlet-name>
-    <servlet-class>com.google.sps.servlets.MyOrderServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>MyOrderServlet</servlet-name>
-    <url-pattern>/myOrder</url-pattern>
-  </servlet-mapping>
-
-  <!-- Order Servlet -->
-  <servlet>
-    <servlet-name>OrderServlet</servlet-name>
-    <servlet-class>com.google.sps.servlets.OrderServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>OrderServlet</servlet-name>
-    <url-pattern>/order</url-pattern>
-  </servlet-mapping>  
-  
   <!-- RoomChat Servlet -->
   <servlet>
     <servlet-name>RoomChatServlet</servlet-name>
@@ -164,5 +144,16 @@
   <servlet-mapping>
     <servlet-name>CreateRoomServlet</servlet-name>
     <url-pattern>/createRoom</url-pattern>
+  </servlet-mapping>  
+  
+  <!-- My Rooms Servlet -->
+  <servlet>
+    <servlet-name>MyRoomsServlet</servlet-name>
+    <servlet-class>com.google.sps.servlets.redirect.MyRoomsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MyRoomsServlet</servlet-name>
+    <url-pattern>/myRooms</url-pattern>
   </servlet-mapping>
+
 </web-app>

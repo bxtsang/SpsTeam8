@@ -19,7 +19,7 @@ public abstract class RedirectServlet extends HttpServlet {
         authenticationHandler = new AuthenticationHandler();
     }
 
-    public abstract String doGetAuthenticated() throws IOException;
+    public abstract void doGetAuthenticated(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
     /**
      * Called by the server to manage access to webpage.
@@ -31,8 +31,7 @@ public abstract class RedirectServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (authenticationHandler.isUserLoggedIn()) {
-            response.setContentType("text/html");
-            response.getWriter().println(doGetAuthenticated());
+            doGetAuthenticated(request, response);
         } else {
             response.sendRedirect("/");
         }

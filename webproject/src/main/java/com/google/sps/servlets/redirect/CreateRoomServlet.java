@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
  * A servlet which parses the html file for create-room.
  */
 public class CreateRoomServlet extends RedirectServlet {
-    public String doGetAuthenticated() throws IOException {
-        return HtmlParser.parseHtmlFromFile("create-room.html");
+    public void doGetAuthenticated(HttpServletRequest request, 
+                                    HttpServletResponse response) throws IOException {        
+        response.setContentType("text/html");
+        response.getWriter().println(HtmlParser.parseHtmlFromFile("create-room.html"));
     };
 }
