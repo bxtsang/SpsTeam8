@@ -11,13 +11,13 @@ async function fetchMessages() {
         let messagesContainer = document.getElementById("messages");
         messagesContainer.innerHTML = "";
         for (let key in response.messages) {
-            const snap = response.messages[key];
+            const newMessage = response.messages[key];
             let html = "<li class='message' id='message-" + key + "'>";
-            html += "<span class='chat-user'>" + snap.user + "</span> <br />";
-            if (snap.type == "text") {
-                html += "<span class='chat-message'>" + snap.message + "</span> <br />";
+            html += "<span class='chat-user'>" + newMessage.user + "</span> <br />";
+            if (newMessage.type == "text") {
+                html += "<span class='chat-message'>" + newMessage.message + "</span> <br />";
             } else {
-                html += "<a href=\"" + snap.message + "\"><img src=\"" + snap.message + "\" /></a> <br />";
+                html += "<a href=\"" + newMessage.message + "\"><img src=\"" + newMessage.message + "\" /></a> <br />";
             }
 
             let date = new Date(newMessage.timestamp);

@@ -13,6 +13,10 @@ async function getMyOrder() {
     let roomResponse = await fetch(`https://summer20-sps-47.firebaseio.com/rooms/${roomID}.json`)
     let myRoomDetails = await roomResponse.json();
 
+    let userRoomResponse = await fetch(`https://summer20-sps-47.firebaseio.com/UserRoom.json?orderBy=%22roomId%22&equalTo=%22${roomID}%22`);
+    let users = await userRoomResponse.json();
+    let numUsers = Object.keys(users).length;
+
     let myOrderString = `
         <table class="table">
         <thead class="thead-light">
@@ -54,7 +58,7 @@ async function getMyOrder() {
         }
     }
     myDeliveryFee = (
-        myRoomDetails.deliveryFee / myRoomDetails.users.length
+        myRoomDetails.deliveryFee / numUsers
     ).toFixed(2);
 
     myOrderString += getNewProductForm();
@@ -63,7 +67,7 @@ async function getMyOrder() {
     myOrderString += `
     <div class="col-12 text-center">
     <hr />  
-    <span class = "my-order-delivery-fee-header">Delivery fee: </span>
+    <span class = "my-order-delivery-fee-header">My delivery fee: </span>
     <span class = "my-order-delivery-fee-value">$${myDeliveryFee}</span>
     <br />
     <hr />
