@@ -9,7 +9,6 @@ import java.net.URL;
 
 public class Firebase {
     public static String sendRequest(String urlString, String method, String requestBody) throws IOException {
-        System.out.println("I'M IN");
         URL url = new URL(urlString);
         HttpURLConnection con = (HttpURLConnection)url.openConnection();
         con.setRequestMethod(method);
@@ -34,7 +33,6 @@ public class Firebase {
 
             jsonResponse = firebaseResponse.toString();
         }
-        System.out.println(jsonResponse);
         return jsonResponse;
     }
 
