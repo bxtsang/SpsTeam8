@@ -1,0 +1,16 @@
+syntax = "proto2";
+
+package com.google.sps.proto;
+
+import "Message.proto";
+
+option java_outer_classname = "SendTextMessageProto";
+
+message SendTextMessageRequest {
+  required string roomId = 1;
+  required string message = 2;
+}
+
+message SendTextMessageResponse {
+  required com.google.sps.data.Message messages = 1;
+}

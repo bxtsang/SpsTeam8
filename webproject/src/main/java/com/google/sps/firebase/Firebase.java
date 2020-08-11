@@ -33,7 +33,6 @@ public class Firebase {
 
             jsonResponse = firebaseResponse.toString();
         }
-
         return jsonResponse;
     }
 

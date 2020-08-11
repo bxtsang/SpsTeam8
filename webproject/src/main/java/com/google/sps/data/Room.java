@@ -23,6 +23,7 @@ public class Room {
     private List<String> users;
     private String creator;
     private double ordersValue;
+    private long timestamp;
     private boolean isOpen;
     private String id;
 
@@ -37,6 +38,7 @@ public class Room {
         this.category = builder.category;
         this.minPrice = builder.minPrice;
         this.deliveryFee = builder.deliveryFee;
+        this.timestamp = builder.timestamp;
         this.users = new ArrayList<>();
         this.isOpen = true;
         this.id = builder.id;
@@ -58,6 +60,8 @@ public class Room {
     public double getMinPrice() {return minPrice;}
 
     public double getDeliveryFee() {return deliveryFee;}
+
+    public long getTimestamp() {return timestamp;}
 
     public List<String> getUsers() {return users;}
 
@@ -105,6 +109,7 @@ public class Room {
         private Category category;
         private double minPrice;
         private double deliveryFee;
+        private long timestamp;
         private String creator;
         private String id;
 
@@ -145,6 +150,11 @@ public class Room {
 
         public Builder setDeliveryFee(double deliveryFee) {
             this.deliveryFee = deliveryFee;
+            return this;
+        }
+
+        public Builder setTimestamp(long timestamp) {
+            this.timestamp = timestamp;
             return this;
         }
 

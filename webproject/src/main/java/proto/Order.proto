@@ -1,0 +1,16 @@
+syntax = "proto2";
+
+package com.google.sps.data;
+
+option java_outer_classname = "OrderProto";
+
+message Order {
+  required string userEmail = 1;
+  required string product = 2;
+  required int32 quantity = 3;
+  required double unitPrice = 4;
+  required double orderPrice = 5;
+  required string roomId = 6;
+  required string userEmailRoomId = 7;
+  required string orderId = 8;
+}
