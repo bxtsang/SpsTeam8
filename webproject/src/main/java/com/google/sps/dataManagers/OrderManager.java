@@ -81,12 +81,15 @@ public class OrderManager {
         return dataSnapshots.get().stream().map(this::toOrder).collect(Collectors.toList());
     }
 
-    public void deleteOrder(String orderId) throws ServletException {
+    public Order deleteOrder(String orderId) throws ServletException {
         if (!isValidOrder(orderId)) {
             throw new ServletException("Invalid orderId");
         }
 
+        Order order = getOrder(orderId);
         firebaseUtil.deleteFromDatabase(firebaseUtil.getOrdersReference(), orderId);
+
+        return order;
     }
 
     private Order toOrder(DataSnapshot dataSnapshot) {

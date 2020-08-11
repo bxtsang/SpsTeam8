@@ -2,6 +2,8 @@ syntax = "proto2";
 
 package com.google.sps.proto;
 
+import "Order.proto";
+
 option java_outer_classname = "DeleteOrderProto";
 
 message DeleteOrderRequest {
@@ -9,4 +11,5 @@ message DeleteOrderRequest {
 }
 
 message DeleteOrderResponse {
+  required com.google.sps.data.Order order = 1;
 }
