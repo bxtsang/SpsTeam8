@@ -1,7 +1,14 @@
 package com.google.sps.servlets;
 
-import com.google.sps.authentication.AuthenticationHandler;
+import com.google.sps.proto.UsernameProto.UsernameResponse;
+import com.google.sps.proto.UsernameProto.UsernameRequest;
+import com.google.sps.services.interfaces.UsernameService;
+
 import java.io.IOException;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,14 +16,17 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * A servlet which handles username requests.
  */
+@Singleton
 public class UsernameServlet extends HttpServlet {
-    private final AuthenticationHandler authenticationHandler;
+    private UsernameService usernameService;
 
     /**
-     * Constructs an instance of the UsernameServlet class.
+     * Constructs an instance of the UsernameServlet class with the specified UsernameService.
+     * @param usernameService The specified UsernameService.
      */
-    public UsernameServlet() {
-        authenticationHandler = new AuthenticationHandler();
+    @Inject
+    public UsernameServlet(UsernameService usernameService) {
+        this.usernameService = usernameService;
     }
 
     /**
@@ -26,7 +36,10 @@ public class UsernameServlet extends HttpServlet {
      * @throws IOException If an input or output error is detected when the servlet handles the server's request.
      */
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.getWriter().print(authenticationHandler.getCurrentUser().getNickname());
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        UsernameRequest usernameRequest = UsernameRequest.newBuilder().build();
+        UsernameResponse usernameResponse = usernameService.execute(usernameRequest);
+
+        response.getWriter().print(usernameResponse.getUsername());
     }
 }

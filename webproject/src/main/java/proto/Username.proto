@@ -1,0 +1,11 @@
+syntax = "proto2";
+
+package com.google.sps.proto;
+
+option java_outer_classname = "UsernameProto";
+
+message UsernameRequest {}
+
+message UsernameResponse {
+  required string username = 1;
+}
