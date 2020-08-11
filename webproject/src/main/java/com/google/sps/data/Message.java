@@ -1,20 +1,18 @@
 package com.google.sps.data;
 
-import java.text.SimpleDateFormat;
-import java.text.DateFormat;
-import java.util.Date;
+import com.google.sps.util.TimestampUtil;
 
 public class Message {
     private String user;
-    private String time;
+    private String timestamp;
     private String message;
     private String type;
 
-    public Message(String user, String imageUrl, String type) {
-        String currTime = new SimpleDateFormat("HH:mm").format(new Date());
+    public Message(String user, String message, String type, String timestamp) {
+        long currTime = TimestampUtil.getTimestamp();
         this.user = user;
-        this.time = currTime;
-        this.message = imageUrl;
+        this.timestamp = timestamp;
+        this.message = message;
         this.type = type;
     }
 
@@ -22,8 +20,8 @@ public class Message {
         return user;
     }
 
-    public String getTime() {
-        return time;
+    public String getTimestamp() {
+        return timestamp;
     }
 
     public String getMessage() {

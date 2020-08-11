@@ -1,0 +1,13 @@
+syntax = "proto2";
+
+package com.google.sps.data;
+
+option java_outer_classname = "CategoryProto";
+
+enum Category {
+  CHINESE = 0;
+  THAI = 1;
+  INDIAN = 2;
+  WESTERN = 3;
+  HALAL = 4;
+};

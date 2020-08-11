@@ -9,15 +9,14 @@ window.onload = function() {
 async function getMyOrder() {
     let orderResponse = await fetch(`/myOrder?roomId=${roomID}`);
     let myOrders = await orderResponse.json();
-    let myOrderItems = Object.values(myOrders);
 
     let roomResponse = await fetch(`https://summer20-sps-47.firebaseio.com/rooms/${roomID}.json`)
     let myRoomDetails = await roomResponse.json();
-    
-    let myOrderContainer = document.getElementById("my-order-container");
-    if (myOrderItems.length <= 0) {
-        myOrderContainer.innerHTML = "Add an item now!";
-    }
+
+    let userRoomResponse = await fetch(`https://summer20-sps-47.firebaseio.com/UserRoom.json?orderBy=%22roomId%22&equalTo=%22${roomID}%22`);
+    let users = await userRoomResponse.json();
+    let numUsers = Object.keys(users).length;
+
     let myOrderString = `
         <table class="table">
         <thead class="thead-light">
@@ -31,28 +30,35 @@ async function getMyOrder() {
         </tr>
         </thead>
         <tbody>`;
+
     let total = 0;
-    var i = 0;
-    for (var [key, value] of Object.entries(myOrders)) {
-        productTotal = value.quantity * value.unitPrice;
-        total += productTotal;
-        myOrderString += `
-    <tr>
-    <th scope="row">${i + 1}</th>
-    <td>${value.product}</td>
-    <td>${value.quantity}</td>
-    <td>${value.unitPrice}</td>
-    <td>${productTotal}</td>
-    <td>
-    <button onclick="deleteOrder('${key}')" class="btn my-order-delete-btn">
-    <i class="fa fa-times" aria-hidden="true"></i>
-    </button>
-    </td>
-    </tr>`;
-    i++;
+
+    let myOrderContainer = document.getElementById("my-order-container");
+    if (myOrders.orders == null) {
+        myOrderContainer.innerHTML = "Add an item now!";
+    } else {
+        let myOrderItems = Object.values(myOrders.orders);
+        for (var i = 0; i < myOrderItems.length; i++) {
+            let orderItem = myOrderItems[i];
+            productTotal = orderItem.quantity * orderItem.unitPrice;
+            total += productTotal;
+            myOrderString += `
+        <tr>
+        <th scope="row">${i + 1}</th>
+        <td>${orderItem.product}</td>
+        <td>${orderItem.quantity}</td>
+        <td>${orderItem.unitPrice}</td>
+        <td>${productTotal}</td>
+        <td>
+        <button onclick="deleteOrder('${orderItem.orderId}')" class="btn my-order-delete-btn">
+        <i class="fa fa-times" aria-hidden="true"></i>
+        </button>
+        </td>
+        </tr>`;
+        }
     }
     myDeliveryFee = (
-        myRoomDetails.deliveryFee / myRoomDetails.users.length
+        myRoomDetails.deliveryFee / numUsers
     ).toFixed(2);
 
     myOrderString += getNewProductForm();
@@ -61,7 +67,7 @@ async function getMyOrder() {
     myOrderString += `
     <div class="col-12 text-center">
     <hr />  
-    <span class = "my-order-delivery-fee-header">Delivery fee: </span>
+    <span class = "my-order-delivery-fee-header">My delivery fee: </span>
     <span class = "my-order-delivery-fee-value">$${myDeliveryFee}</span>
     <br />
     <hr />

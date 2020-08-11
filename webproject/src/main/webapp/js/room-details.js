@@ -1,6 +1,11 @@
 async function getRoomDetails(roomID) {
-    var response = await fetch(`https://summer20-sps-47.firebaseio.com/rooms/${roomID}.json`);
-    var roomDetails = await response.json();
+    var roomResponse = await fetch(`https://summer20-sps-47.firebaseio.com/rooms/${roomID}.json`);
+    var roomDetails = await roomResponse.json();
+
+    var userRoomResponse = await fetch(`https://summer20-sps-47.firebaseio.com/UserRoom.json?orderBy=%22roomId%22&equalTo=%22${roomID}%22`);
+    var userRoomData = await userRoomResponse.json();
+    let numUsers = Object.keys(userRoomData).length;
+
     let roomDetailsContainer = document.getElementById("room-details-container");
     let roomDetailsString = `
     <div>
@@ -14,9 +19,21 @@ async function getRoomDetails(roomID) {
     <br />
     <br />
     
-    <span class="room-details-header">Delivery fee: </span>
+    <span class="room-details-header">Number of users in room:</span>
+    <br />
+    <span class="room-details-value">${numUsers}</span>
+    <br />
+    <br />
+    
+    <span class="room-details-header">Delivery Fee: </span>
     <br />
     <span class="room-details-value">$${roomDetails.deliveryFee}</span>
+    <br/>
+    <br />
+
+    <span class="room-details-header">Minimum Order Fee: </span>
+    <br />
+    <span class="room-details-value">$${roomDetails.minPrice}</span>
     <br/>
     <br />
     </div>

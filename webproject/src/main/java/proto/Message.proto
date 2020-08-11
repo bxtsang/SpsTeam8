@@ -1,0 +1,12 @@
+syntax = "proto2";
+
+package com.google.sps.data;
+
+option java_outer_classname = "MessageProto";
+
+message Message {
+  required string user = 1;
+  required string time = 2;
+  required string message = 3;
+  required string type = 4;
+}
