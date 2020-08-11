@@ -12,4 +12,5 @@ message Order {
   required double orderPrice = 5;
   required string roomId = 6;
   required string userEmailRoomId = 7;
+  required string orderId = 8;
 }

@@ -100,6 +100,20 @@ public final class OrderProto {
      */
     com.google.protobuf.ByteString
         getUserEmailRoomIdBytes();
+
+    /**
+     * <code>required string orderId = 8;</code>
+     */
+    boolean hasOrderId();
+    /**
+     * <code>required string orderId = 8;</code>
+     */
+    java.lang.String getOrderId();
+    /**
+     * <code>required string orderId = 8;</code>
+     */
+    com.google.protobuf.ByteString
+        getOrderIdBytes();
   }
   /**
    * Protobuf type {@code com.google.sps.data.Order}
@@ -121,6 +135,7 @@ public final class OrderProto {
       orderPrice_ = 0D;
       roomId_ = "";
       userEmailRoomId_ = "";
+      orderId_ = "";
     }
 
     @java.lang.Override
@@ -184,6 +199,12 @@ public final class OrderProto {
               com.google.protobuf.ByteString bs = input.readBytes();
               bitField0_ |= 0x00000040;
               userEmailRoomId_ = bs;
+              break;
+            }
+            case 66: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000080;
+              orderId_ = bs;
               break;
             }
             default: {
@@ -432,6 +453,48 @@ public final class OrderProto {
       }
     }
 
+    public static final int ORDERID_FIELD_NUMBER = 8;
+    private volatile java.lang.Object orderId_;
+    /**
+     * <code>required string orderId = 8;</code>
+     */
+    public boolean hasOrderId() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    /**
+     * <code>required string orderId = 8;</code>
+     */
+    public java.lang.String getOrderId() {
+      java.lang.Object ref = orderId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          orderId_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>required string orderId = 8;</code>
+     */
+    public com.google.protobuf.ByteString
+        getOrderIdBytes() {
+      java.lang.Object ref = orderId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        orderId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -467,6 +530,10 @@ public final class OrderProto {
         memoizedIsInitialized = 0;
         return false;
       }
+      if (!hasOrderId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -494,6 +561,9 @@ public final class OrderProto {
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 7, userEmailRoomId_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, orderId_);
       }
       unknownFields.writeTo(output);
     }
@@ -527,6 +597,9 @@ public final class OrderProto {
       }
       if (((bitField0_ & 0x00000040) == 0x00000040)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, userEmailRoomId_);
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, orderId_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -583,6 +656,11 @@ public final class OrderProto {
         result = result && getUserEmailRoomId()
             .equals(other.getUserEmailRoomId());
       }
+      result = result && (hasOrderId() == other.hasOrderId());
+      if (hasOrderId()) {
+        result = result && getOrderId()
+            .equals(other.getOrderId());
+      }
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -623,6 +701,10 @@ public final class OrderProto {
       if (hasUserEmailRoomId()) {
         hash = (37 * hash) + USEREMAILROOMID_FIELD_NUMBER;
         hash = (53 * hash) + getUserEmailRoomId().hashCode();
+      }
+      if (hasOrderId()) {
+        hash = (37 * hash) + ORDERID_FIELD_NUMBER;
+        hash = (53 * hash) + getOrderId().hashCode();
       }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
@@ -771,6 +853,8 @@ public final class OrderProto {
         bitField0_ = (bitField0_ & ~0x00000020);
         userEmailRoomId_ = "";
         bitField0_ = (bitField0_ & ~0x00000040);
+        orderId_ = "";
+        bitField0_ = (bitField0_ & ~0x00000080);
         return this;
       }
 
@@ -827,6 +911,10 @@ public final class OrderProto {
           to_bitField0_ |= 0x00000040;
         }
         result.userEmailRoomId_ = userEmailRoomId_;
+        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.orderId_ = orderId_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -905,6 +993,11 @@ public final class OrderProto {
           userEmailRoomId_ = other.userEmailRoomId_;
           onChanged();
         }
+        if (other.hasOrderId()) {
+          bitField0_ |= 0x00000080;
+          orderId_ = other.orderId_;
+          onChanged();
+        }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
         return this;
@@ -931,6 +1024,9 @@ public final class OrderProto {
           return false;
         }
         if (!hasUserEmailRoomId()) {
+          return false;
+        }
+        if (!hasOrderId()) {
           return false;
         }
         return true;
@@ -1355,6 +1451,82 @@ public final class OrderProto {
         onChanged();
         return this;
       }
+
+      private java.lang.Object orderId_ = "";
+      /**
+       * <code>required string orderId = 8;</code>
+       */
+      public boolean hasOrderId() {
+        return ((bitField0_ & 0x00000080) == 0x00000080);
+      }
+      /**
+       * <code>required string orderId = 8;</code>
+       */
+      public java.lang.String getOrderId() {
+        java.lang.Object ref = orderId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            orderId_ = s;
+          }
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>required string orderId = 8;</code>
+       */
+      public com.google.protobuf.ByteString
+          getOrderIdBytes() {
+        java.lang.Object ref = orderId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          orderId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>required string orderId = 8;</code>
+       */
+      public Builder setOrderId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000080;
+        orderId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string orderId = 8;</code>
+       */
+      public Builder clearOrderId() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        orderId_ = getDefaultInstance().getOrderId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required string orderId = 8;</code>
+       */
+      public Builder setOrderIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000080;
+        orderId_ = value;
+        onChanged();
+        return this;
+      }
       @java.lang.Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1423,11 +1595,11 @@ public final class OrderProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\037src/main/java/proto/Order.proto\022\023com.g" +
-      "oogle.sps.data\"\215\001\n\005Order\022\021\n\tuserEmail\030\001 " +
+      "oogle.sps.data\"\236\001\n\005Order\022\021\n\tuserEmail\030\001 " +
       "\002(\t\022\017\n\007product\030\002 \002(\t\022\020\n\010quantity\030\003 \002(\005\022\021" +
       "\n\tunitPrice\030\004 \002(\001\022\022\n\norderPrice\030\005 \002(\001\022\016\n" +
-      "\006roomId\030\006 \002(\t\022\027\n\017userEmailRoomId\030\007 \002(\tB\014" +
-      "B\nOrderProto"
+      "\006roomId\030\006 \002(\t\022\027\n\017userEmailRoomId\030\007 \002(\t\022\017" +
+      "\n\007orderId\030\010 \002(\tB\014B\nOrderProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1446,7 +1618,7 @@ public final class OrderProto {
     internal_static_com_google_sps_data_Order_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_google_sps_data_Order_descriptor,
-        new java.lang.String[] { "UserEmail", "Product", "Quantity", "UnitPrice", "OrderPrice", "RoomId", "UserEmailRoomId", });
+        new java.lang.String[] { "UserEmail", "Product", "Quantity", "UnitPrice", "OrderPrice", "RoomId", "UserEmailRoomId", "OrderId", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

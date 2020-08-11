@@ -38,6 +38,9 @@ public class OrderManager {
         String quantityString = String.valueOf(quantity);
         String unitPriceString = String.valueOf(unitPrice);
         String orderPriceString = String.valueOf(orderPrice);
+
+        DatabaseReference orderRef = firebaseUtil.getOrdersReference().push();
+
         Map<String, String> orderMapping = new HashMap<>();
         orderMapping.put("userEmail", userEmail);
         orderMapping.put("product", product);        
@@ -46,9 +49,9 @@ public class OrderManager {
         orderMapping.put("orderPrice", orderPriceString);
         orderMapping.put("roomId", roomId);
         orderMapping.put("userEmailRoomId", userEmailRoomId);
-
-        firebaseUtil.getOrdersReference().push()
-                .setValue(orderMapping, (databaseError, databaseReference) -> {
+        orderMapping.put("orderId", orderRef.getKey());
+        
+        orderRef.setValue(orderMapping, (databaseError, databaseReference) -> {
                     if (databaseError != null) {
                         try {
                             throw new ServletException("Invalid roomId");
@@ -66,6 +69,7 @@ public class OrderManager {
                     .setOrderPrice(orderPrice)
                     .setRoomId(roomId)
                     .setUserEmailRoomId(userEmailRoomId)
+                    .setOrderId(orderRef.getKey())
                     .build();
     }
 
@@ -74,11 +78,18 @@ public class OrderManager {
         Query query = firebaseUtil.getOrdersReference().orderByChild("userEmailRoomId");
         Optional<List<DataSnapshot>> dataSnapshots = firebaseUtil.getAllQuerySnapshots(query, userEmailRoomId);
 
-        if (!dataSnapshots.isPresent()) {
-            return null;
+        return dataSnapshots.get().stream().map(this::toOrder).collect(Collectors.toList());
+    }
+
+    public Order deleteOrder(String orderId) throws ServletException {
+        if (!isValidOrder(orderId)) {
+            throw new ServletException("Invalid orderId");
         }
 
-        return dataSnapshots.get().stream().map(this::toOrder).collect(Collectors.toList());
+        Order order = getOrder(orderId);
+        firebaseUtil.deleteFromDatabase(firebaseUtil.getOrdersReference(), orderId);
+
+        return order;
     }
 
     private Order toOrder(DataSnapshot dataSnapshot) {
@@ -89,6 +100,7 @@ public class OrderManager {
         double orderPrice = Double.parseDouble(dataSnapshot.child("orderPrice").getValue(String.class));
         String roomId = dataSnapshot.child("roomId").getValue(String.class);
         String userEmailRoomId = dataSnapshot.child("userEmailRoomId").getValue(String.class);
+        String orderId = dataSnapshot.getKey();
 
         Order orderObject = Order.newBuilder()
                                     .setUserEmail(userEmail)
@@ -98,6 +110,7 @@ public class OrderManager {
                                     .setOrderPrice(orderPrice)
                                     .setRoomId(roomId)
                                     .setUserEmailRoomId(userEmailRoomId)
+                                    .setOrderId(orderId)
                                     .build();
 
         return orderObject;
@@ -107,5 +120,21 @@ public class OrderManager {
         Query query = firebaseUtil.getRoomsReference().orderByKey();
         Optional<DataSnapshot> room = firebaseUtil.getQuerySnapshot(query, roomId);
         return room.isPresent();
+    }
+
+    private boolean isValidOrder(String orderId) throws ServletException {
+        Query query = firebaseUtil.getOrdersReference().orderByKey();
+        Optional<DataSnapshot> order = firebaseUtil.getQuerySnapshot(query, orderId);
+        return order.isPresent();
+    }
+
+    public Order getOrder(String orderId) throws ServletException {
+        DatabaseReference databaseRef = firebaseUtil.getOrdersReference().child(orderId);
+        Optional<DataSnapshot> order = firebaseUtil.getReferenceSnapshot(databaseRef);
+        if (order.isPresent()) {
+            return toOrder(order.get());
+        } else {
+            return null;
+        }
     }
 }

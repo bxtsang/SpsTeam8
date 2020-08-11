@@ -61,6 +61,31 @@ public class FirebaseUtil {
                 .getReference("messages");
     }
 
+    public Optional<DataSnapshot> getReferenceSnapshot(DatabaseReference ref) throws ServletException {
+        final BlockingQueue<Optional<DataSnapshot>> queue = new LinkedBlockingDeque(1);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    queue.add(Optional.of(dataSnapshot));
+                } else {
+                    queue.add(Optional.empty());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                throw databaseError.toException();
+            }
+        });
+
+        try {
+            return queue.poll(30, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            throw new ServletException("The database did not return a response for the specified reference");
+        }
+    }
+
     public Optional<DataSnapshot> getQuerySnapshot(Query query, String input) throws ServletException {
         final BlockingQueue<Optional<DataSnapshot>> queue = new LinkedBlockingDeque(1);
         query.equalTo(input).addValueEventListener(new ValueEventListener() {
@@ -137,6 +162,26 @@ public class FirebaseUtil {
             return queue.poll(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             throw new ServletException("The database did not return a response for the specified reference");
+        }
+    }
+
+    public void deleteFromDatabase(DatabaseReference ref, String key) throws ServletException {
+        final BlockingQueue<Optional<ServletException>> queue = new LinkedBlockingDeque(1);
+        ref.child(key).removeValue((databaseError, databaseReference) -> {
+            if (databaseError != null) {
+                queue.add(Optional.of(new ServletException("There was an error deleting an object from the database.")));
+            } else {
+                queue.add(Optional.empty());
+            }
+        });
+
+        try {
+            Optional<ServletException> servletException = queue.poll(30, TimeUnit.SECONDS);
+            if (servletException.isPresent()) {
+                throw servletException.get();
+            }
+        } catch (InterruptedException | ServletException e) {
+            throw new ServletException("No response was returned by the database.");
         }
     }
 

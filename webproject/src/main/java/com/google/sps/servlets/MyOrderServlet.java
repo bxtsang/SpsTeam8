@@ -7,7 +7,11 @@ import com.google.sps.dataManagers.OrderManager;
 import com.google.sps.proto.FetchOrdersProto.FetchOrdersResponse;
 import com.google.sps.proto.FetchOrdersProto.FetchOrdersRequest;
 import com.google.sps.services.interfaces.FetchMyOrdersService;
+import com.google.sps.proto.DeleteOrderProto.DeleteOrderResponse;
+import com.google.sps.proto.DeleteOrderProto.DeleteOrderRequest;
+import com.google.sps.services.interfaces.DeleteOrderService;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 
 import javax.inject.Inject;
@@ -23,12 +27,15 @@ import javax.servlet.http.HttpServletResponse;
 @Singleton
 public class MyOrderServlet extends HttpServlet {
     private FetchMyOrdersService fetchMyOrdersService;
+    private DeleteOrderService deleteOrderService;
     private AuthenticationHandler authenticationHandler;
 
     @Inject
     public MyOrderServlet(FetchMyOrdersService fetchMyOrdersService, 
+                            DeleteOrderService deleteOrderService,
                             AuthenticationHandler authenticationHandler) {
         this.fetchMyOrdersService = fetchMyOrdersService;
+        this.deleteOrderService = deleteOrderService;
         this.authenticationHandler = authenticationHandler;
     }
 
@@ -52,6 +59,24 @@ public class MyOrderServlet extends HttpServlet {
 
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().println(JsonFormat.printer().print(fetchOrdersResponse));
+        response.setStatus(200);
+    }     
+    
+    @Override
+    public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        if (!authenticationHandler.isUserLoggedIn()) {
+            response.setStatus(400);
+            return;
+        }
+        BufferedReader reader = request.getReader();
+        String orderId = reader.readLine();
+        orderId = orderId.split("=")[1];
+
+        DeleteOrderRequest deleteOrderRequest = DeleteOrderRequest.newBuilder().setOrderId(orderId).build();
+        DeleteOrderResponse deleteOrderResponse = deleteOrderService.execute(deleteOrderRequest);
+
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().println(JsonFormat.printer().print(deleteOrderResponse));
         response.setStatus(200);
     }
 }
