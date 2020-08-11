@@ -34,10 +34,8 @@ public class FetchMyOrdersServiceImpl implements FetchMyOrdersService {
         List<Order> orders = orderManager.getMyOrders(roomId, userEmail);
         FetchOrdersResponse.Builder fetchOrdersResponseBuilder = FetchOrdersResponse.newBuilder();
 
-        if (orders != null) {
-            for (Order order : orders) {
-                fetchOrdersResponseBuilder.addOrders(order);
-            }
+        for (Order order : orders) {
+            fetchOrdersResponseBuilder.addOrders(order);
         }
 
         return fetchOrdersResponseBuilder.build();
