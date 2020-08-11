@@ -20,7 +20,7 @@ async function fetchMessages() {
                 html += "<a href=\"" + newMessage.message + "\"><img src=\"" + newMessage.message + "\" /></a> <br />";
             }
 
-            let date = new Date(newMessage.timestamp);
+            let date = new Date(parseInt(newMessage.time));
             let minutes = minutes_with_leading_zeroes(date);
             let hours = hours_with_leading_zeroes(date);
             let day = date.getDate();

@@ -111,20 +111,18 @@ public class FirebaseUtil {
         }
     }
 
-    public Optional<List<DataSnapshot>> getAllQuerySnapshots(Query query, String input) throws ServletException {
-        final BlockingQueue<Optional<List<DataSnapshot>>> queue = new LinkedBlockingDeque(1);
+    public List<DataSnapshot> getAllQuerySnapshots(Query query, String input) throws ServletException {
+        final BlockingQueue<List<DataSnapshot>> queue = new LinkedBlockingDeque(1);
+        List<DataSnapshot> list = new ArrayList<>();
         query.equalTo(input).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    List<DataSnapshot> list = new ArrayList<>();
                     for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                         list.add(postSnapshot);
                     }
-                    queue.add(Optional.of(list));
-                } else {
-                    queue.add(Optional.empty());
                 }
+                queue.add(list);
             }
 
             @Override
