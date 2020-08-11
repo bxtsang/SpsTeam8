@@ -78,6 +78,10 @@ public class OrderManager {
         Query query = firebaseUtil.getOrdersReference().orderByChild("userEmailRoomId");
         Optional<List<DataSnapshot>> dataSnapshots = firebaseUtil.getAllQuerySnapshots(query, userEmailRoomId);
 
+        if (!dataSnapshots.isPresent()) {
+            return new ArrayList<Order>();
+        }
+
         return dataSnapshots.get().stream().map(this::toOrder).collect(Collectors.toList());
     }
 
