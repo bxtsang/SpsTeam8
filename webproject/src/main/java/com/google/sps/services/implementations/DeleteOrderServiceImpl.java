@@ -19,7 +19,7 @@ public class DeleteOrderServiceImpl implements DeleteOrderService {
 
     @Override
     public DeleteOrderResponse execute(DeleteOrderRequest deleteOrderRequest) throws ServletException {
-        Order order = orderManager.deleteOrder(deleteOrderRequest.getOrderId());
-        return DeleteOrderResponse.newBuilder().setOrder(order).build();
+        orderManager.deleteOrder(deleteOrderRequest.getOrderId());
+        return DeleteOrderResponse.newBuilder().build();
     }
 }
