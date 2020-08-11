@@ -76,13 +76,9 @@ public class OrderManager {
     public List<Order> getMyOrders(String roomId, String userEmail) throws ServletException {
         String userEmailRoomId = userEmail + "_" + roomId;
         Query query = firebaseUtil.getOrdersReference().orderByChild("userEmailRoomId");
-        Optional<List<DataSnapshot>> dataSnapshots = firebaseUtil.getAllQuerySnapshots(query, userEmailRoomId);
+        List<DataSnapshot> dataSnapshots = firebaseUtil.getAllQuerySnapshots(query, userEmailRoomId);
 
-        if (!dataSnapshots.isPresent()) {
-            return new ArrayList<Order>();
-        }
-
-        return dataSnapshots.get().stream().map(this::toOrder).collect(Collectors.toList());
+        return dataSnapshots.stream().map(this::toOrder).collect(Collectors.toList());
     }
 
     public Order deleteOrder(String orderId) throws ServletException {
