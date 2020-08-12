@@ -4,14 +4,14 @@ import com.google.sps.util.TimestampUtil;
 
 public class Message {
     private String user;
-    private String timestamp;
+    private String time;
     private String message;
     private String type;
 
     public Message(String user, String message, String type, String timestamp) {
         long currTime = TimestampUtil.getTimestamp();
         this.user = user;
-        this.timestamp = timestamp;
+        this.time = timestamp;
         this.message = message;
         this.type = type;
     }
@@ -20,8 +20,8 @@ public class Message {
         return user;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public String getTime() {
+        return time;
     }
 
     public String getMessage() {
