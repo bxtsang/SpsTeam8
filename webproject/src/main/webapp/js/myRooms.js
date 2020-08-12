@@ -9,7 +9,7 @@ async function getListings() {
         var roomData = room[1];
         let isRoomJoinedResponse = await fetch("/userRoomStatus?roomId=" + room[0]);
         let res = await isRoomJoinedResponse.text();
-        console.log(res);
+
         if (roomData.isOpen && res === "Chat") {
             childHtmlString += `<div class="shadow-sm p-3 mb-5 bg-white rounded listing-card">
                     <div class="row form-group">
