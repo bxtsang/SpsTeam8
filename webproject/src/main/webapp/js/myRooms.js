@@ -43,5 +43,5 @@ async function getListings() {
 }
 
 function toChat(roomId) {
-    window.location.href = `/roomChat.html?${roomId}`;
+    window.location.href = `/roomChat?${roomId}`;
 }
