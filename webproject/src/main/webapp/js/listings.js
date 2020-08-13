@@ -6,6 +6,9 @@ async function getListings() {
     var sortedEntries = data.rooms;
     for (var i = 0; i < sortedEntries.length; i++) {
         let room = sortedEntries[i];
+        if (!room.isOpen) {
+            continue;
+        }
 
         let userRoomResponse = await fetch(`https://summer20-sps-47.firebaseio.com/UserRoom.json?orderBy=%22roomId%22&equalTo=%22${room.id}%22`);
         let userRoomData = await userRoomResponse.json();
