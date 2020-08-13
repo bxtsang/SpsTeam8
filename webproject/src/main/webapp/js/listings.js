@@ -11,6 +11,16 @@ async function getListings() {
         let userRoomData = await userRoomResponse.json();
         let numUsers = Object.keys(userRoomData).length;
 
+        let orderResponse = await fetch(`https://summer20-sps-47.firebaseio.com/orders.json?orderBy=%22roomId%22&equalTo=%22${room.id}%22`)
+        let orderData = await orderResponse.json();
+        let orderItems = Object.values(orderData);
+
+        var ordersValue = 0;
+        for (let i = 0; i < orderItems.length; i++) {
+            productTotal = orderItems[i].quantity * orderItems[i].unitPrice;
+            ordersValue += productTotal;
+        }
+
         childHtmlString += `<div class="shadow-sm p-3 mb-5 bg-white rounded listing-card">
         <div class="row form-group">
         <div class="col-md-6 mb-3 mb-md-0">
@@ -38,7 +48,7 @@ async function getListings() {
         <span class="card-value">$${room.deliveryFee}</span>
         <br />
         <span class="card-field">Current orders value: </span>
-        <span class="card-value">$${room.ordersValue}</span>
+        <span class="card-value">$${ordersValue}</span>
         <br />
         <span class="card-field">Minimum order fee: </span>
         <span class="card-value">$${room.minPrice}</span>
