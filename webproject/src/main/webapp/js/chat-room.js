@@ -7,6 +7,6 @@ window.onload = function() {
 }
 
 function getHeaderLinks() {
-    document.getElementById('my-order-link').href = '/roomMyOrder.html?' + roomID;
-    document.getElementById('all-orders-link').href = '/roomAllOrders.html?' + roomID;
+    document.getElementById('my-order-link').href = '/roomMyOrder?' + roomID;
+    document.getElementById('all-orders-link').href = '/roomAllOrders?' + roomID;
 }

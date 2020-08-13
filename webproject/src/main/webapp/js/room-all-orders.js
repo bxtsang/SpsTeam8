@@ -74,6 +74,6 @@ async function getAllOrders() {
 }
 
 function getHeaderLinks() {
-    document.getElementById('chat-link').href = '/roomChat.html?' + roomID;
-    document.getElementById('my-order-link').href = '/roomMyOrder.html?' + roomID;
+    document.getElementById('chat-link').href = '/roomChat?' + roomID;
+    document.getElementById('my-order-link').href = '/roomMyOrder?' + roomID;
 }
